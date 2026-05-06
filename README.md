@@ -10,9 +10,9 @@ Também será possível adicionar e remover sensores responsáveis por monitorar
 
 Principais funções do sistema:
 
--Login e logout de usuários
--Cadastro e gerenciamento de usuários e administradores
--Adição e remoção de sensores
--Bloqueio da remoção de sensores com dados armazenados
--Geração de relatórios em tempo real ou por período específico
+-Login e logout de usuários<br>
+-Cadastro e gerenciamento de usuários e administradores<br>
+-Adição e remoção de sensores<br>
+-Bloqueio da remoção de sensores com dados armazenados<br>
+-Geração de relatórios em tempo real ou por período específico<br>
 -Exibição do status dos sensores (operacional, com erro ou em manutenção) em tempo real
