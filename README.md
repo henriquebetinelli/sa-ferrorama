@@ -1,3 +1,5 @@
+# ClickRails SA
+
 Nomes dos Integrantes: Henrique Betinelli, Ana Clara Darolt, Louie Ripper & Fernanda Eleodoro
 
 O projeto consiste em desenvolver um aplicativo que simula o sistema interno de uma empresa ferroviária. Esse sistema será responsável por registrar, monitorar e gerar relatórios sobre a situação dos trens e seus sensores de forma automática.
