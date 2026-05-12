@@ -1,0 +1,107 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #E3E3E3;
+    margin: 0;
+}
+
+.logo-navbar {
+    width: 90px;
+}
+
+nav {
+    padding: 0 32px;
+    background-color: #081824;
+    color: #ffffff;
+}
+
+.section-contexto {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+
+.contexto-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contexto-text {
+    position: absolute;
+    bottom: 70px;
+    left: 70px;
+    color: #ffffff;
+    width: 700px;
+}
+
+.contexto-text h1 {
+    font-size: 22pt;
+    margin-bottom: 8px;
+}
+
+.contexto-text p {
+    font-size: 14pt;
+    margin: 0;
+}
+
+.section-explore { 
+    padding: 36px 24px 48px; 
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 20px 0;
+    color: #111;
+}
+
+.feature-card {
+    width: 30%;
+    height: 280px;
+    margin: 0 6px;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+}
+
+
+.feature-card .card-img-top {
+    height: 140px;
+    object-fit: cover;
+}
+
+.feature-card .card-body { 
+    padding: 16px 18px 20px; 
+}
+
+.feature-card .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #0f1923;
+}
+
+.feature-card .card-text {
+    font-size: .82rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}
+
+footer {
+    background-color: #081824;
+    height: 56px;
+}
+
+.botao-cinza, .botao-cinza:hover {
+    background-color: #E3E3E3;
+}
+
+.botao-azul-escuro, .botao-azul-escuro:hover {
+    font-size: larger;
+    color: #ffffff;
+    background-color: #081824
+}
