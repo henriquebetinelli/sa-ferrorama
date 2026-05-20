@@ -195,8 +195,6 @@ footer {
     width: 500px;
 }
  
-/* ── Cadastrar Sensor ── */
- 
 .cadastro-card {
     background-color: #ffffff;
     border-radius: 18px;
@@ -279,3 +277,82 @@ footer {
     margin-bottom: 12px;
 }
  
+
+.layout-home {
+    display: flex;
+    height: 100%;
+}
+ 
+.sidebar-home {
+    width: 300px;
+    min-width: 220px;
+    background-color: #ffffff;
+    padding: 24px 0;
+    border-right: 1px solid #e0e0e0;
+    height: 800px;
+}
+ 
+.nav-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+ 
+.link-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0 8px;
+    transition: background-color 0.15s;
+}
+ 
+.link-sidebar i {
+    color: #555;
+}
+ 
+.link-sidebar:hover {
+    background-color: #f0f0f0;
+    color: #081824;
+}
+ 
+.link-sidebar.ativo {
+    background-color: #E3E3E3;
+    color: #081824;
+    font-weight: 600;
+}
+ 
+.conteudo-home {
+    flex: 1;
+    padding: 40px 50px;
+    background-color: #E3E3E3;
+}
+ 
+.cabecalho-home {
+    margin-bottom: 24px;
+}
+ 
+.card-secao-home {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-height: 200px;
+}
+
+.titulo-secao {
+    color: #0f1923;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0f1923;
+    display: inline-block;
+}
+
+.mensagem-vazia {
+    color: #888;
+    text-align: center;
+    margin-top: 48px;
+}
