@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/style/style.css">
+    <title>Cadastrar Sensor</title>
+</head>
+ 
+<body class="d-flex flex-column min-vh-100">
+ 
+    <header>
+        <nav class="nav d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="../assets/img/logo/logo_clara.png" alt="Logo Click Rails" class="logo-navbar">
+                <p class="mb-0 ms-2 text-white"><strong>Click Rails</strong></p>
+            </div>
+            <button class="btn botao-cinza">Voltar</button>
+        </nav>
+    </header>
+ 
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="cadastro-card">
+            <h2 class="cadastro-titulo">Cadastrar Sensor</h2>
+            <hr class="cadastro-divider">
+ 
+            <div class="cadastro-formulario">
+                <div id="alerta-erro" class="alerta-erro d-none">Falha ao Cadastrar Sensor</div>
+                <div class="mb-3">
+                    <label for="nome" class="cadastro-label">Nome</label>
+                    <input type="text" id="nome" class="cadastro-input" placeholder="Value" />
+                </div>
+ 
+                <div class="d-flex gap-3 mb-3">
+                    <div class="flex-fill">
+                        <label for="identificacao" class="cadastro-label">Identificação</label>
+                        <input type="text" id="identificacao" class="cadastro-input" placeholder="Value" />
+                    </div>
+                    <div class="flex-fill">
+                        <label for="tipo" class="cadastro-label">Tipo</label>
+                        <select id="tipo" class="cadastro-select">
+                    
+                        </select>
+                    </div>
+                </div>
+ 
+                <div class="mb-4">
+                    <label for="localizacao" class="cadastro-label">Localização</label>
+                    <input type="text" id="localizacao" class="cadastro-input" placeholder="Value" />
+                </div>
+ 
+                
+ 
+                <button class="btn botao-azul-escuro w-100" >Cadastrar</button>
+ 
+            </div>
+        </div>
+    </main>
+ 
+    <footer></footer>
+</body>
+</html>
