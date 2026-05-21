@@ -98,14 +98,16 @@ footer {
 .botao-cinza, .botao-cinza:hover {
     background-color: #E3E3E3;
 }
+
+.botao-branco, .botao-branco:hover {
+    background-color: #ffffff;
+}
  
 .botao-azul-escuro, .botao-azul-escuro:hover {
     font-size: larger;
     color: #ffffff;
     background-color: #081824;
 }
- 
-/* ── Login ── */
  
 .login-wrapper {
     display: flex;
@@ -332,7 +334,11 @@ footer {
 }
  
 .cabecalho-home {
-    margin-bottom: 24px;
+    margin-bottom: 50px;
+}
+
+.cabecalho-home h1 {
+    font-weight: bold;
 }
  
 .card-secao-home {
@@ -344,6 +350,7 @@ footer {
 }
 
 .titulo-secao {
+    font-weight: bold;
     color: #0f1923;
     margin-bottom: 4px;
     padding-bottom: 8px;
@@ -355,4 +362,38 @@ footer {
     color: #888;
     text-align: center;
     margin-top: 48px;
+}
+
+.sensores-barra {
+    align-items: center;
+}
+ 
+.sensores-input {
+    border-radius: 8px;
+    padding: 9px 14px;
+    color: #555;
+    background-color: #ffffff;
+    outline: none;
+    border: none;
+}
+ 
+.sensor-item {
+    background-color: #E3E3E3;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+ 
+.sensor-nome {
+    font-size: 14pt;
+    font-weight: bold;
+}
+ 
+.sensor-tipo {
+    color: #666;
+}
+ 
+.sensor-data {
+    color: #444;
+    white-space: nowrap;
 }

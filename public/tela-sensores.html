@@ -8,7 +8,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/style/style.css">
-    <title>Início - Click Rails</title>
+    <title>Sensores - Click Rails</title>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
     <main class="layout-home">
         <section class="sidebar-home">
             <div class="nav-sidebar">
-                <a href="tela-home.html" class="link-sidebar ativo">
+                <a href="tela-home.html" class="link-sidebar">
                     <i class="bi bi-house-door"></i>
                     <span>Início</span>
                 </a>
@@ -37,7 +37,7 @@
                     <i class="bi bi-person"></i>
                     <span>Colaboradores</span>
                 </a>
-                <a href="tela-sensores.html" class="link-sidebar">
+                <a href="tela-sensores.html" class="link-sidebar ativo">
                     <i class="bi bi-bar-chart-line"></i>
                     <span>Sensores</span>
                 </a>
@@ -50,26 +50,24 @@
 
         <section class="conteudo-home">
             <div class="cabecalho-home">
-                <h1>Bem Vindo <span id="nomeUsuario">{{Nome}}</span>!</h1>
-                <p>Gerencie e acompanhe tudo sobre o Ferrorama.</p>
+                <h1>Central de Sensores</h1>
+                <p>Gerencie todos os sensores cadastrados no sistema.</p>
             </div>
-
-            <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <div class="card-secao-home">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card-secao-home">
-
-                    </div>
+ 
+            <div class="mb-4">
+                <label class="mb-2">Pesquisar sensor</label>
+                <div class="sensores-barra d-flex gap-2">
+                    <input type="text" id="inputPesquisa" class="sensores-input flex-grow-1" placeholder="ex. Acelerômetro">
+                    <button class="btn botao-branco" onclick="window.location.href='tela-cadastro-sensor.html'">Adicionar sensor</button>
                 </div>
             </div>
-
+ 
             <div class="card-secao-home">
-                <h3 class="titulo-secao">Sensores</h3>
-                <p class="mensagem-vazia">Nenhum sensor cadastrado no momento!</p>
+                <h3 class="titulo-secao mb-4">Sensores</h3>
+                <div id="listaSensores">
+
+                </div>
+                <p id="mensagemVazia" class="mensagem-vazia">Nenhum sensor cadastrado no momento!</p>
             </div>
         </section>
     </main>
