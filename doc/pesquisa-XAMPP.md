@@ -1,9 +1,8 @@
 # XAMPP
 
-**O XAMPP é um pacote de softwares gratuito e de código aberto utilizado para criar um ambiente de desenvolvimento web local no computador.** Ele permite que desenvolvedores e estudantes executem sites e sistemas sem precisar contratar uma hospedagem online. 
+O XAMPP é um pacote gratuito e de código aberto usado para criar um ambiente de desenvolvimento web local no computador. Ele permite desenvolver e testar sites e sistemas sem precisar de uma hospedagem na internet.
 
-O nome XAMPP representa seus principais componentes: <br> 
-**Apache, MySQL/MariaDB, PHP e Perl.**
+O nome XAMPP está relacionado aos seus principais componentes: Apache, MySQL/MariaDB, PHP e Perl.
 
 ---
 
