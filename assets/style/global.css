@@ -25,7 +25,15 @@ input {
     color: #555;
     background-color: #ffffff;
     outline: none;
-    border: none;
+    border: solid #081824 1px;
+}
+
+hr {
+    display: block;
+    border: 0;
+    border-top: 1px solid #081824;
+    background: none;
+    opacity: 1;
 }
 
 .botao-cinza, .botao-cinza:hover {
@@ -114,7 +122,7 @@ input {
  
 .card-secao {
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 18px;
     padding: 24px 28px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     min-height: 200px;
