@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 CREATE DATABASE sa_ferrorama;
+=======
+CREATE DATABASE sa_ferrorama
+>>>>>>> 479e46981d2d358ab8c45e571b0b4682e8132536
 USE sa_ferrorama;
 
 CREATE TABLE usuario (
@@ -12,7 +16,11 @@ CREATE TABLE usuario (
   senha VARCHAR(150) NOT NULL,
   cargo VARCHAR(50) NOT NULL,
   cep VARCHAR(8),
+<<<<<<< HEAD
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+=======
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+>>>>>>> 479e46981d2d358ab8c45e571b0b4682e8132536
 );
 
 CREATE TABLE trem (
@@ -20,7 +28,11 @@ CREATE TABLE trem (
   nome VARCHAR(100) NOT NULL,
   modelo VARCHAR(100) NOT NULL,
   status VARCHAR(30) NOT NULL DEFAULT 'ativo',
+<<<<<<< HEAD
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+=======
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+>>>>>>> 479e46981d2d358ab8c45e571b0b4682e8132536
 );
 
 CREATE TABLE sensor (
@@ -29,7 +41,11 @@ CREATE TABLE sensor (
   localizacao VARCHAR(150),
   tipo_dado VARCHAR(50) NOT NULL,
   descricao TEXT,
+<<<<<<< HEAD
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+=======
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+>>>>>>> 479e46981d2d358ab8c45e571b0b4682e8132536
 );
 
 CREATE TABLE sessao (
@@ -66,6 +82,10 @@ CREATE TABLE leitura_sensor (
     ON UPDATE CASCADE
 );
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 479e46981d2d358ab8c45e571b0b4682e8132536
 CREATE TABLE falha (
   id_falha INT AUTO_INCREMENT PRIMARY KEY,
   tipo_falha VARCHAR(100) NOT NULL,
