@@ -2,7 +2,7 @@
 
 Sistema web voltado ao gerenciamento e monitoramento de informações ferroviárias, como usuários e sensores.
 
-<img width="2880" alt="Imagem de fundo do ClickRails" src="assets/img/reutilizaveis/trem_background.png">
+<img width="2880" alt="Imagem de fundo do ClickRails" src="assets/img/reutilizaveis/banner_README.png">
 
 --- 
 
