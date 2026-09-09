@@ -1,55 +1,88 @@
-# ClickRails SA
+# ClickRails
 
-Sistema desenvolvido para simular o funcionamento interno de uma empresa ferroviária, permitindo o acompanhamento dos trens e dos sensores responsáveis pelo seu monitoramento.
+Sistema web voltado ao gerenciamento e monitoramento de informações ferroviárias, como usuários e sensores.
 
-## Objetivo
+<img width="2880" alt="Imagem de fundo do ClickRails" src="assets/img/reutilizaveis/trem_background.png">
 
-O objetivo do ClickRails SA é centralizar informações relacionadas aos trens e seus sensores, facilitando o acompanhamento de seu funcionamento e permitindo que usuários autorizados realizem o gerenciamento dessas informações.
+--- 
 
-O sistema também busca facilitar a identificação de problemas e a geração de relatórios sobre o funcionamento dos sensores.
+## Objetivo do projeto
 
-## Funcionalidades
-- Login e logout de usuários;
-- Cadastro e gerenciamento de usuários;
-- Gerenciamento de administradores;
-- Cadastro e remoção de sensores;
-- Controle para impedir a remoção de sensores que possuem dados armazenados;
-- Visualização do status dos sensores;
-- Identificação de sensores operacionais, com erro ou em manutenção;
-- Geração de relatórios;
-- Consulta de informações por período.
+Criar uma plataforma para facilitar o gerenciamento de informações ferroviárias, permitindo o controle de usuários e sensores.
 
-As tecnologias podem ser atualizadas conforme o desenvolvimento do projeto.
+---
 
-## Equipe
-- Henrique Betinelli
-- Ana Clara Darolt
-- Louie Ripper
+## Contexto
 
-## Organização do desenvolvimento
+O ClickRails busca centralizar informações de uma operação ferroviária, facilitando o acompanhamento dos sensores e a identificação de possíveis problemas.
 
-O desenvolvimento do projeto é organizado utilizando a metodologia Kanban, permitindo acompanhar as tarefas e o progresso da equipe durante cada etapa.
+---
 
-As atividades são organizadas de acordo com seu estado de desenvolvimento, como:
+## Funcionalidades principais:
 
-- A fazer — tarefas ainda não iniciadas;
-- Em andamento — tarefas atualmente sendo desenvolvidas;
-- Em revisão/testes — funcionalidades que estão sendo verificadas;
-- Concluído — tarefas finalizadas.
+- **Autenticação de usuários**<br>
+  Login e controle de acesso ao sistema.
+- **Gerenciamento de usuários**<br>
+  Cadastro e gerenciamento dos usuários.
+- **Gerenciamento de administradores**<br>
+  Controle de usuários com permissões administrativas.
+- **Cadastro de sensores** <br>
+  Cadastro dos sensores utilizados no monitoramento.
+- **Visualização de sensores**<br>
+  Consulta das informações e estados dos sensores.
+- **Monitoramento de status**<br>
+  Identificação de sensores operacionais, com erro ou em manutenção.
+- **Relatórios**<br>
+  Consulta e geração de informações relacionadas aos sensores.
 
-O quadro Kanban é atualizado conforme o projeto avança, facilitando a divisão das atividades e o acompanhamento das entregas.
-Link para acompanhamento do Kanban: https://github.com/users/henriquebetinelli/projects/1
+---
+  
+## Tecnologias utilizadas
+- HTML
+- CSS
+- JavaScript
+- PHP
+- MySQL
+- XAMPP
+
+---
+
+## Estrutura do repositório
+ClickRails/ <br>
+├── assets/ㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Imagens e recursos visuais<br>
+├── doc/ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Documentação do projeto<br>
+│   ├── desing/<br>
+│   ├── pesquisa-XAMPP.md <br>
+│   ├── pesquisa-crud.md <br>
+│   ├── pesquisa-scrum.md <br>
+│   ├── regra-de-negocio.md <br>
+│   └── requisitos-de-sistema.md <br>
+├── public/ㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Interfaces do sistema <br>
+│   ├── tela-cadastro-sensor.html <br>
+│   ├── tela-home.html <br>
+│   ├── tela-login.html <br>
+│   └── tela-sensores.html <br>
+├── index.htmlㅤㅤㅤㅤㅤㅤㅤㅤ# Página inicial <br>
+└── README.mdㅤㅤㅤㅤㅤㅤㅤ# Documentação do projeto <br>
+
+---
 
 ## Como executar o projeto
 1. Clonar o repositório
 git clone https://github.com/henriquebetinelli/sa-ferrorama.git
-2. Entrar na pasta do projeto
-cd sa-ferrorama
+2. Acessar a pasta 'sa-ferrorama'
 3. Executar
 
+Utilize o XAMPP para iniciar o Apache e o MySQL. Depois, coloque o projeto na pasta htdocs e acesse pelo navegador:
 
-## Status do projeto
+http://localhost/(pasta-do-htdocs)/sa-ferrorama
 
-Em desenvolvimento.
+---
 
-Novas funcionalidades, melhorias visuais e ajustes no sistema serão adicionados conforme o andamento das atividades no Kanban.
+## Equipe de desenvolvimento
+
+Projeto desenvolvido por:
+
+- Henrique Betinelli
+- Ana Clara Darolt
+- Louie Ripper
