@@ -1,3 +1,13 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background-image: url("../../img/reutilizaveis/background_login.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .login-wrapper {
     display: flex;
     align-items: center;
