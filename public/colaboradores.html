@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -109,7 +108,9 @@
                         </div>
 
                         <div class="colaborador-acoes">
-                            <a href="#">Editar</a>
+                            <a href="#" onclick="abrirEdicao('João Pedro', '123.456.789-00', '10/05/2000', 'Masculino', '(47) 99999-9999', 'joao@email.com', 'Administrador', '89200-000')">
+                            Editar
+                            </a>
                             <a href="#">Excluir</a>
                         </div>
                     </div>
@@ -129,7 +130,9 @@
                         </div>
 
                         <div class="colaborador-acoes">
-                            <a href="#">Editar</a>
+                            <a href="#" onclick="abrirEdicao('Maria Silva', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')">
+                                Editar
+                            </a>
                             <a href="#">Excluir</a>
                         </div>
                     </div>
@@ -170,7 +173,7 @@
     </footer>
 
 
-    <!-- modal -->
+    <!-- modal cadastro -->
 
     <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel"
         aria-hidden="true">
@@ -269,6 +272,119 @@
 
     </div>
 
+<!-- modal edição -->
+
+<div class="modal fade" id="modalEditar" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h1 class="modal-title fs-5">
+                    Editar Colaborador
+                </h1>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="formularioEditar">
+
+                    <div class="mb-3">
+                        <label for="editarNome" class="form-label">
+                            Nome
+                        </label>
+
+                        <input type="text" class="form-control" id="editarNome">
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarCpf" class="form-label">
+                                CPF
+                            </label>
+
+                            <input type="text" class="form-control" id="editarCpf">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarData" class="form-label">
+                                Data de Nascimento
+                            </label>
+
+                            <input type="text" class="form-control" id="editarData">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarGenero" class="form-label">
+                                Gênero
+                            </label>
+
+                            <input type="text" class="form-control" id="editarGenero">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarTelefone" class="form-label">
+                                Telefone
+                            </label>
+
+                            <input type="text" class="form-control" id="editarTelefone">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarEmail" class="form-label">
+                                Email
+                            </label>
+
+                            <input type="email" class="form-control" id="editarEmail">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="editarCargo" class="form-label">
+                                Cargo
+                            </label>
+
+                            <input type="text" class="form-control" id="editarCargo">
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editarCep" class="form-label">
+                            CEP
+                        </label>
+
+                        <input type="text" class="form-control" id="editarCep">
+                    </div>
+
+                    <button type="submit" class="btn botao-cadastrar w-100">
+                        Salvar alterações
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
 
@@ -355,9 +471,36 @@
 
         });
 
+    function abrirEdicao(nome, cpf, data, genero, telefone, email, cargo, cep) {
+
+        document.getElementById("editarNome").value = nome;
+        document.getElementById("editarCpf").value = cpf;
+        document.getElementById("editarData").value = data;
+        document.getElementById("editarGenero").value = genero;
+        document.getElementById("editarTelefone").value = telefone;
+        document.getElementById("editarEmail").value = email;
+        document.getElementById("editarCargo").value = cargo;
+        document.getElementById("editarCep").value = cep;
+
+        const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
+
+        modal.show();
+    }
+
+    document.getElementById("formularioEditar").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        alert("Informações alteradas!");
+
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalEditar"));
+
+        modal.hide();
+
+    });
+
     </script>
 
 </body>
 
 </html>
-```

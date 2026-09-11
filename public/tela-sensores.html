@@ -58,7 +58,7 @@
                 <label class="mb-2">Pesquisar sensor</label>
                 <div class="sensores-barra d-flex gap-2">
                     <input type="text" id="inputPesquisa" class="sensores-input flex-grow-1" placeholder="ex. Acelerômetro">
-                    <button class="btn botao-branco" onclick="window.location.href='tela-cadastro-sensor.html'">Adicionar sensor</button>
+                    <button type="button" class="btn botao-branco" id="botaoCadastrarSensor"> Adicionar sensor </button>
                 </div>
             </div>
  
@@ -71,10 +71,129 @@
             </div>
         </section>
     </main>
+
+    <!-- MODAL DE CADASTRO -->
+<div class="modal fade" id="modalCadastroSensor" tabindex="-1"
+    aria-labelledby="modalCadastroSensorLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h1 class="modal-title fs-5" id="modalCadastroSensorLabel">
+                    Cadastrar Sensor
+                </h1>
+
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Fechar"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mensagem-cadastro mb-3">
+                    Preencha os dados para cadastrar
+                </div>
+
+                <form id="formularioCadastroSensor">
+
+                    <div class="mb-3">
+                        <label for="nomeSensor" class="form-label">
+                            Nome do sensor
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            id="nomeSensor"
+                            name="nome_sensor"
+                            placeholder="ex. Acelerômetro"
+                            required>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="tipoSensor" class="form-label">
+                                Tipo
+                            </label>
+
+                            <input type="text"
+                                class="form-control"
+                                id="tipoSensor"
+                                name="tipo_sensor"
+                                placeholder="ex. Movimento"
+                                required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="numeroSerie" class="form-label">
+                                Número de série
+                            </label>
+
+                            <input type="text"
+                                class="form-control"
+                                id="numeroSerie"
+                                name="numero_serie"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descricaoSensor" class="form-label">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="descricaoSensor"
+                            name="descricao"
+                            rows="3"
+                            placeholder="Descrição do sensor"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn botao-cadastrar w-100">
+                        Cadastrar
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
     <footer>
 
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-F5o7SY9FGOqfEjJBPrSyAVDrKwMuYd+fF1uj6MEWYlVELNK8kGNt6T3ikVSzCrs" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"crossorigin="anonymous"></script>
+
+    <script>
+        const botaoCadastrarSensor = document.getElementById("botaoCadastrarSensor");
+        const modalCadastroSensor = document.getElementById("modalCadastroSensor");
+
+        const modalSensor = new bootstrap.Modal(modalCadastroSensor);
+
+        botaoCadastrarSensor.addEventListener("click", function () {
+            modalSensor.show();
+        });
+
+        document.getElementById("formularioCadastroSensor").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            alert("Sensor cadastrado!");
+
+            modalSensor.hide();
+
+            this.reset();
+        });
+    </script>
+
 </body>
 
 </html>
