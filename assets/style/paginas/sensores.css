@@ -1,24 +1,95 @@
 .sensores-barra {
-    align-items: center;
+    width: 100%;
 }
 
-.sensor-item {
-    background-color: #E3E3E3;
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
+.sensores-input {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
 }
- 
+
+.sensor {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    min-height: 48px;
+    padding: 7px 20px 7px 8px;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.sensor-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    background-color: #081824;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.sensor-dados {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 .sensor-nome {
-    font-size: 14pt;
-    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 4px;
 }
- 
+
+.sensor-serie {
+    font-size: 9px;
+}
+
 .sensor-tipo {
-    color: #666;
+    width: 30%;
+    font-size: 10px;
 }
- 
-.sensor-data {
-    color: #444;
-    white-space: nowrap;
+
+.sensor-acoes {
+    display: flex;
+    gap: 15px;
+}
+
+.sensor-acoes a {
+    color: #081824;
+    font-size: 9px;
+    text-decoration: underline;
+}
+
+.mensagem-cadastro {
+    background-color: #8b949b;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    border-radius: 4px;
+    padding: 7px;
+}
+
+.botao-cadastrar {
+    background-color: #081824;
+    color: white;
+}
+
+.botao-cadastrar:hover {
+    background-color: #23313b;
+    color: white;
+}
+
+@media (max-width: 700px) {
+    .sensor-tipo {
+        display: none;
+    }
+    .sensor {
+        padding-right: 12px;
+    }
+    .sensor-acoes {
+        gap: 8px;
+    }
 }
