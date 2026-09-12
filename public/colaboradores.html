@@ -111,7 +111,7 @@
                             <a href="#" onclick="abrirEdicao('João Pedro', '123.456.789-00', '10/05/2000', 'Masculino', '(47) 99999-9999', 'joao@email.com', 'Administrador', '89200-000')">
                             Editar
                             </a>
-                            <a href="#">Excluir</a>
+                            <a href="#" onclick="abrirExclusao('João Pedro')">Excluir</a>
                         </div>
                     </div>
 
@@ -133,7 +133,7 @@
                             <a href="#" onclick="abrirEdicao('Maria Silva', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')">
                                 Editar
                             </a>
-                            <a href="#">Excluir</a>
+                            <a href="#" onclick="abrirExclusao('Maria Silva')">Excluir</a>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
 
                         <div class="colaborador-acoes">
                             <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
+                            <a href="#" onclick="abrirExclusao('Carlos Oliveira')">Excluir</a>
                         </div>
                     </div>
 
@@ -384,6 +384,50 @@
 
 </div>
 
+<!-- modal exclusão -->
+<div class="modal fade" id="modalExcluir" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h1 class="modal-title fs-5">
+                    Excluir Colaborador
+                </h1>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Tem certeza que deseja excluir o colaborador
+                    <strong id="nomeExcluir"></strong>?
+                </p>
+
+                <div class="d-flex gap-2">
+
+                    <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="button" class="btn botao-cadastrar w-50" id="botaoExcluir">
+                        Excluir
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -495,6 +539,19 @@
 
         const modal = bootstrap.Modal.getInstance(document.getElementById("modalEditar"));
 
+        modal.hide();
+
+    });
+
+    function abrirExclusao(nome) {
+        document.getElementById("nomeExcluir").textContent = nome;
+        const modal = new bootstrap.Modal(document.getElementById("modalExcluir"));
+        modal.show();
+    }
+
+    document.getElementById("botaoExcluir").addEventListener("click", function() {
+        alert("Colaborador excluído.");
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalExcluir"));
         modal.hide();
 
     });
