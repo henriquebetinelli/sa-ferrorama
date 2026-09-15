@@ -45,7 +45,6 @@ hr {
 }
  
 .botao-azul-escuro, .botao-azul-escuro:hover {
-    font-size: larger;
     color: #ffffff;
     background-color: #081824;
 }
@@ -141,4 +140,37 @@ hr {
     color: #888;
     text-align: center;
     margin-top: 48px;
+}
+.cabecario-tabela th {
+    background-color: #e5e5e5 !important;
+    padding: 10px;
+}
+
+.cabecario-tabela th:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.cabecario-tabela th:last-child {
+    border-radius: 0 10px 0 0;
+}
+
+.acoes-tabela {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-acao-tabela {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn-acao-tabela:focus,
+.btn-acao-tabela:active {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }

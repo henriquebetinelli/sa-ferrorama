@@ -4,21 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-        crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="../assets/style/global.css">
     <link rel="stylesheet" href="../assets/style/paginas/colaboradores.css">
-
     <title>Colaboradores - Click Rails</title>
 </head>
 
 <body>
-
     <header>
         <nav class="nav d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -82,7 +75,7 @@
                     <input type="text" id="inputPesquisa" class="colaboradores-input flex-grow-1"
                         placeholder="ex. João Pedro">
 
-                    <button type="button" class="btn botao-branco" id="botaoCadastrar">
+                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
                         Adicionar colaborador
                     </button>
                 </div>
@@ -93,72 +86,43 @@
 
                 <div id="listaColaboradores">
 
-                    <div class="colaborador">
-                        <div class="colaborador-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
+                <table class="table">
+                    <thead class="cabecario-tabela">
+                        <tr>
+                            <th>ID</th>
+                            <th>Colaborador</th>
+                            <th>Cargo</th>
+                            <th>Contato</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>João Pedro</td>
+                            <td>Administrador</td>
+                            <td>joaopedro@gmail.com</td>
+                            <td class="acoes-tabela">
+                                <button 
+                                    onclick="abrirEdicao('João Pedro', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')" 
+                                    class="btn-acao-tabela"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
 
-                        <div class="colaborador-dados">
-                            <strong class="colaborador-nome">João Pedro</strong>
-                            <span class="colaborador-email">joao@email.com</span>
-                        </div>
-
-                        <div class="colaborador-cargo">
-                            Administrador
-                        </div>
-
-                        <div class="colaborador-acoes">
-                            <a href="#" onclick="abrirEdicao('João Pedro', '123.456.789-00', '10/05/2000', 'Masculino', '(47) 99999-9999', 'joao@email.com', 'Administrador', '89200-000')">
-                            Editar
-                            </a>
-                            <a href="#" onclick="abrirExclusao('João Pedro')">Excluir</a>
-                        </div>
-                    </div>
-
-                    <div class="colaborador">
-                        <div class="colaborador-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-
-                        <div class="colaborador-dados">
-                            <strong class="colaborador-nome">Maria Silva</strong>
-                            <span class="colaborador-email">maria@email.com</span>
-                        </div>
-
-                        <div class="colaborador-cargo">
-                            Técnico
-                        </div>
-
-                        <div class="colaborador-acoes">
-                            <a href="#" onclick="abrirEdicao('Maria Silva', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')">
-                                Editar
-                            </a>
-                            <a href="#" onclick="abrirExclusao('Maria Silva')">Excluir</a>
-                        </div>
-                    </div>
-
-                    <div class="colaborador">
-                        <div class="colaborador-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-
-                        <div class="colaborador-dados">
-                            <strong class="colaborador-nome">Carlos Oliveira</strong>
-                            <span class="colaborador-email">carlos@email.com</span>
-                        </div>
-
-                        <div class="colaborador-cargo">
-                            Manutenção
-                        </div>
-
-                        <div class="colaborador-acoes">
-                            <a href="#">Editar</a>
-                            <a href="#" onclick="abrirExclusao('Carlos Oliveira')">Excluir</a>
-                        </div>
-                    </div>
-
-                </div>
-
+                                <button 
+                                    onclick="abrirExclusao('João Pedro')" 
+                                    class="btn-acao-tabela"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="Excluir">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
                 <p id="mensagemVazia" class="mensagem-vazia" style="display: none;">
                     Nenhum colaborador cadastrado no momento!
                 </p>
@@ -431,6 +395,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(tooltipTriggerEl => {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
         const inputPesquisa = document.getElementById("inputPesquisa");
         const mensagemVazia = document.getElementById("mensagemVazia");
