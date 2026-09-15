@@ -136,7 +136,7 @@
     <footer>
     </footer>
 
-    <?php require_once __DIR__ . '/../../components/modals/modalUsuario.php'; ?>
+    <?php require_once __DIR__ . '/../components/modals/modalUsuario.php'; ?>
     
 <!-- modal exclusão -->
 <div class="modal fade" id="modalExcluir" tabindex="-1">
@@ -183,8 +183,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../script/main.js"></script>
-<script src="../../script/colaborador.js"></script>
+<script src="../script/main.js"></script>
+<script src="../script/colaborador.js"></script>
 
 </body>
 
