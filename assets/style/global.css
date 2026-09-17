@@ -83,6 +83,15 @@ hr {
     color: white;
 }
 
+.botao-navbar {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    box-shadow: none;
+    text-decoration: none;
+}
+
 .conteudo-modal {
     padding: 0 80px 80px;
 }
@@ -225,4 +234,16 @@ hr {
     .conteudo-modal {
         padding: 0 20px 20px;
     }
+
+    .conteudo-modal .modal-header {
+        padding: 16px 20px 0;
+    }
+}
+
+.modal.modal-top {
+    align-items: flex-start;
+}
+
+.modal.modal-top .modal-dialog {
+    margin: 1.5rem auto 0;
 }

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/style/global.css">
     <title>Início - Click Rails</title>
@@ -13,13 +12,7 @@
 
 <body>
     <header>
-        <nav class="nav d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <img src="../assets/img/logo/logo_clara.png" alt="Logo Click Rails" class="logo-navbar">
-                <p><strong>Click Rails</strong></p>
-            </div>
-            <button class="btn botao-cinza" onclick="window.location.href='public/tela-login.html'">Sair</button>
-        </nav>
+        <?php include '../components/navbar.php'; ?>
     </header>
 
     <main class="layout-app">
@@ -56,7 +49,8 @@
     <footer>
 
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-F5o7SY9FGOqfEjJBPrSyAVDrKwMuYd+fF1uj6MEWYlVELNK8kGNt6T3ikVSzCrs" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script/main.js"></script>
 </body>
 
 </html>
