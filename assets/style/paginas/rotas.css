@@ -1,0 +1,91 @@
+.rotas-barra {
+    width: 100%;
+}
+
+.rotas-input {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+.rota {
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    min-height: 48px;
+    padding: 7px 20px 7px 8px;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.rota-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    background-color: #081824;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.rota-dados {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.rota-nome {
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.rota-descricao {
+    font-size: 9px;
+    color: #555;
+}
+
+.rota-acoes {
+    display: flex;
+    gap: 15px;
+}
+
+.rota-acoes a {
+    color: #081824;
+    font-size: 9px;
+    text-decoration: underline;
+}
+
+.mensagem-cadastro {
+    background-color: #8b949b;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    border-radius: 4px;
+    padding: 7px;
+}
+
+.botao-cadastrar {
+    background-color: #081824;
+    color: white;
+}
+
+.botao-cadastrar:hover,
+.botao-cadastrar:focus,
+.botao-cadastrar:active {
+    background-color: #23313b;
+    color: white;
+}
+
+@media (max-width: 700px) {
+    .rota {
+        padding-right: 12px;
+    }
+
+    .rota-acoes {
+        gap: 8px;
+    }
+}
