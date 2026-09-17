@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-cadastro">
         <div class="modal-content conteudo-modal">
 
             <div class="modal-header">

@@ -49,6 +49,48 @@ hr {
     background-color: #081824;
 }
 
+.pagina-barra {
+    width: 100%;
+}
+
+.pagina-input {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+.alerta-campos-trem {
+    background-color: #8a8a8a;
+    color: white;
+    border-radius: 4px;
+    padding: 7px 10px;
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+}
+
+.modal-dialog-cadastro {
+    max-width: 900px;
+    width: calc(100% - 80px);
+}
+
+.botao-cadastrar {
+    background-color: #081824;
+    color: white;
+}
+
+.botao-cadastrar:hover {
+    background-color: #23313b;
+    color: white;
+}
+
+.conteudo-modal {
+    padding: 0 80px 80px;
+}
+
+.conteudo-modal .botao-cadastrar {
+    margin-top: 20px;
+}
+
 .alerta-erro {
     background-color: #8a8a8a;
     color: #ffffff;
@@ -173,4 +215,14 @@ hr {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
+}
+
+@media (max-width: 700px) {
+    .modal-dialog-cadastro {
+        width: calc(100% - 20px);
+    }
+
+    .conteudo-modal {
+        padding: 0 20px 20px;
+    }
 }

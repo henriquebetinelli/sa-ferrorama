@@ -7,8 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/style/global.css">
-    <link rel="stylesheet" href="../assets/style/paginas/colaboradores.css">
-    <title>Colaboradores - Click Rails</title>
+    <title>Trens - Click Rails</title>
 </head>
 
 <body>
@@ -31,32 +30,31 @@
     <main class="layout-app">
 
         <?php 
-        $paginaAtual = 'colaboradores';
+        $paginaAtual = 'trens';
         include '../components/sidbar.php';
         ?>
 
         <section class="conteudo-app">
 
             <div class="cabecalho-app">
-                <h1>Central de Colaboradores</h1>
-                <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
+                <h1>Central de Trens</h1>
+                <p>Gerencie todos os trens cadastrados no sistema.</p>
             </div>
 
             <div class="mb-4">
-                <label class="mb-2">Pesquisar colaborador</label>
+                <label class="mb-2">Pesquisar trem</label>
 
                 <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1"
-                        placeholder="ex. João Pedro">
+                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Expresso Litoral">
 
                     <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
-                        Adicionar colaborador
+                        Adicionar trem
                     </button>
                 </div>
             </div>
 
             <div class="card-secao">
-                <h3 class="titulo-secao mb-4">Colaboradores</h3>
+                <h3 class="titulo-secao mb-4">Trens</h3>
 
                 <div id="listaColaboradores">
 
@@ -64,21 +62,29 @@
                     <thead class="cabecario-tabela">
                         <tr>
                             <th>ID</th>
-                            <th>Colaborador</th>
-                            <th>Cargo</th>
-                            <th>Contato</th>
+                            <th>Trem</th>
+                            <th>Modelo</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>1</th>
-                            <td>João Pedro</td>
-                            <td>Administrador</td>
-                            <td>joaopedro@gmail.com</td>
+                            <td>Expresso Litoral</td>
+                            <td>Trens de Carga</td>
+                            <td>Parado</td>
                             <td class="acoes-tabela">
                                 <button 
-                                    onclick="abrirEdicao(1, 'João Pedro', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')" 
+                                    onclick="iniciarRota('expresso litoral')" 
+                                    class="btn-acao-tabela"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-title="Iniciar Rota">
+                                    <i class="bi bi-truck-front-fill"></i>
+                                </button>
+
+                                <button 
+                                    onclick="abrirEdicao(1, 'Expresso Litoral', 'Trens de Carga')" 
                                     class="btn-acao-tabela"
                                     data-bs-toggle="tooltip"
                                     data-bs-title="Editar">
@@ -86,7 +92,7 @@
                                 </button>
 
                                 <button 
-                                    onclick="abrirExclusao('João Pedro')" 
+                                    onclick="abrirExclusao('Expresso Litoral')" 
                                     class="btn-acao-tabela"
                                     data-bs-toggle="tooltip"
                                     data-bs-title="Excluir">
@@ -98,7 +104,7 @@
                 </table>
                 
                 <p id="mensagemVazia" class="mensagem-vazia" style="display: none;">
-                    Nenhum colaborador cadastrado no momento!
+                    Nenhum trem cadastrado no momento!
                 </p>
 
             </div>
@@ -110,56 +116,12 @@
     <footer>
     </footer>
 
-    <?php require_once __DIR__ . '/../components/modals/modalUsuario.php'; ?>
-    
-<!-- modal exclusão -->
-<div class="modal fade" id="modalExcluir" tabindex="-1">
+    <?php require_once __DIR__ . '/../components/modals/modalTrem.php'; ?>
+    <?php require_once __DIR__ . '/../components/modals/modalExcluirTrem.php'; ?>
+    <?php require_once __DIR__ . '/../components/modals/modalIniciarRota.php'; ?>
 
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h1 class="modal-title fs-5">
-                    Excluir Colaborador
-                </h1>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-
-            </div>
-
-            <div class="modal-body">
-
-                <p>
-                    Tem certeza que deseja excluir o colaborador
-                    <strong id="nomeExcluir"></strong>?
-                </p>
-
-                <div class="d-flex gap-2">
-
-                    <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-
-                    <button type="button" class="btn botao-cadastrar w-50" id="botaoExcluir">
-                        Excluir
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../script/main.js"></script>
-<script src="../script/colaborador.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script/main.js"></script>
+    <script src="../script/trens.js"></script>
 </body>
-
 </html>

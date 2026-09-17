@@ -1,13 +1,3 @@
-.colaboradores-barra {
-width: 100%;    
-}
-
-.colaboradores-input {
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-}
-
 .colaborador {
     display: flex;
     align-items: center;
@@ -72,21 +62,6 @@ width: 100%;
     padding: 7px;
 }
 
-.modal-dialog {
-    max-width: 900px;
-    width: calc(100% - 80px);
-}
-
-.botao-cadastrar {
-    background-color: #081824;
-    color: white;
-}
-
-.botao-cadastrar:hover {
-    background-color: #23313b;
-    color: white;
-}
-
 @media (max-width: 700px) {
 
 .colaborador-cargo {
@@ -101,16 +76,4 @@ width: 100%;
     gap: 8px;
 }
 
-.modal-dialog {
-    width: calc(100% - 20px);
-}
-
-.conteudo-modal {
-    padding: 0px 20px 20px 20px;
-}
-
-}
-
-.conteudo-modal {
-    padding: 0px 80px 80px 80px;
 }
