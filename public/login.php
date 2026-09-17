@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../infra/conexao.php';
 
 if (isset($_SESSION['usuario_id'])) {
-    header('Location: tela-home.html');
+    header('Location: home.php');
     exit();
 }
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_nome'] = $usuario['nome_usuario'];
                 $_SESSION['usuario_email'] = $usuario['email'];
 
-                header('Location: tela-home.html');
+                header('Location: home.php');
                 exit();
             }
         }

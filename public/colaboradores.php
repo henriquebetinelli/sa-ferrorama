@@ -30,36 +30,10 @@
 
     <main class="layout-app">
 
-        <section class="sidebar-app">
-            <div class="nav-sidebar">
-
-                <a href="tela-home.html" class="link-sidebar">
-                    <i class="bi bi-house-door"></i>
-                    <span>Início</span>
-                </a>
-
-                <a href="#" class="link-sidebar">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboards</span>
-                </a>
-
-                <a href="tela-colaboradores.html" class="link-sidebar ativo">
-                    <i class="bi bi-person"></i>
-                    <span>Colaboradores</span>
-                </a>
-
-                <a href="tela-sensores.html" class="link-sidebar">
-                    <i class="bi bi-bar-chart-line"></i>
-                    <span>Sensores</span>
-                </a>
-
-                <a href="#" class="link-sidebar">
-                    <i class="bi bi-inbox"></i>
-                    <span>Registros</span>
-                </a>
-
-            </div>
-        </section>
+        <?php 
+        $paginaAtual = 'colaboradores';
+        include '../components/sidbar.php';
+        ?>
 
         <section class="conteudo-app">
 
@@ -108,7 +82,7 @@
                                     class="btn-acao-tabela"
                                     data-bs-toggle="tooltip"
                                     data-bs-title="Editar">
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="bi bi-pencil-fill"></i>
                                 </button>
 
                                 <button 
@@ -116,7 +90,7 @@
                                     class="btn-acao-tabela"
                                     data-bs-toggle="tooltip"
                                     data-bs-title="Excluir">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash-fill"></i>
                                 </button>
                             </td>
                         </tr>
