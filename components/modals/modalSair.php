@@ -10,16 +10,15 @@
             <div class="modal-body">
                 <p>Tem certeza que deseja sair da sua conta?</p>
 
-                <div class="d-flex gap-2">
+                <form action="../controllers/logout.php" method="POST" class="d-flex gap-2">
                     <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
                         Cancelar
                     </button>
-                    <button type="button" class="btn botao-cadastrar w-50" id="botaoSair">
+                    <button type="submit" class="btn botao-cadastrar w-50">
                         Sair
                     </button>
-                </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>

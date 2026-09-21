@@ -4,12 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
         new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    const botaoSairConfirm = document.getElementById('botaoSair');
-    if (botaoSairConfirm) {
-        botaoSairConfirm.addEventListener('click', function () {
-            window.location.href = '/public/login.php';
-        });
-    }
 });
 
 function abrirModalSair() {

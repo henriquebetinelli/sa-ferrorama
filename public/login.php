@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($email === '' || $senha === '') {
         $erro = 'Preencha o e-mail e a senha.';
     } else {
-        $sql = 'SELECT id_usuario, nome_usuario, email, senha FROM usuario WHERE email = ? LIMIT 1';
+        $sql = 'SELECT id_usuario, nome_usuario, email, senha, cargo FROM usuario WHERE email = ? LIMIT 1';
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_id'] = $usuario['id_usuario'];
                 $_SESSION['usuario_nome'] = $usuario['nome_usuario'];
                 $_SESSION['usuario_email'] = $usuario['email'];
+                $_SESSION['usuario_cargo'] = $usuario['cargo'];
 
                 header('Location: home.php');
                 exit();

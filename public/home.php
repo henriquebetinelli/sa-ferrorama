@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,7 +32,7 @@
 
         <section class="conteudo-app">
             <div class="cabecalho-app">
-                <h1>Bem Vindo <span id="nomeUsuario">{{Nome}}</span>!</h1>
+                <h1>Bem Vindo <?= htmlspecialchars($_SESSION['usuario_nome']) ?>!</h1>
                 <p>Gerencie e acompanhe tudo sobre o Ferrorama.</p>
             </div>
 
