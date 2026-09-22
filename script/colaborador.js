@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formularioCadastro = document.getElementById('formularioCadastro');
     const botaoExcluir = document.getElementById('botaoExcluir');
     const botaoSalvarColaborador = document.getElementById('botaoSalvarColaborador');
+    const alertaCamposColaborador = document.getElementById('alertaCamposColaborador');
 
     const tituloPadrao = 'Cadastrar Colaborador';
 
@@ -20,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function esconderAlerta() {
+        alertaCamposColaborador.hidden = true;
+    }
+
     function abrirModalCadastro() {
         if (!modalCadastro) return;
 
@@ -27,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
             formularioCadastro.reset();
         }
 
+        esconderAlerta();
+        formularioCadastro.action = '../controllers/usuario/salvarUsuario.php';
+        document.getElementById('idUsuario').value = '';
         definirTituloModal(tituloPadrao);
         definirTextoBotao('Cadastrar');
 
@@ -42,64 +50,44 @@ document.addEventListener('DOMContentLoaded', function () {
         formularioCadastro.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            const tituloAtual = document.querySelector('#modalCadastroLabel')?.textContent || '';
-            const modo = tituloAtual.includes('Editar') ? 'edicao' : 'cadastro';
+            const idUsuario = document.getElementById('idUsuario').value;
+            const campos = formularioCadastro.querySelectorAll('input:not([type="hidden"])');
+            const algumCampoVazio = Array.from(campos).some(function (campo) {
+                if (idUsuario !== '' && campo.id === 'senha') {
+                    return false;
+                }
+                return campo.value.trim() === '';
+            });
 
-            if (modo === 'cadastro') {
-                alert('Colaborador cadastrado!');
-            } else {
-                alert('Colaborador atualizado!');
+            if (algumCampoVazio) {
+                alertaCamposColaborador.hidden = false;
+                return;
             }
 
-            const modal = bootstrap.Modal.getInstance(modalCadastro);
-            if (modal) {
-                modal.hide();
-            }
-
-            formularioCadastro.reset();
-            definirTituloModal(tituloPadrao);
-            definirTextoBotao('Cadastrar');
+            esconderAlerta();
+            bootstrap.Modal.getOrCreateInstance(modalCadastro).hide();
+            formularioCadastro.submit();
         });
     }
 
     if (botaoExcluir) {
         botaoExcluir.addEventListener('click', function () {
-            alert('Colaborador excluído.');
-
-            const modalExcluir = document.getElementById('modalExcluir');
-            const modal = bootstrap.Modal.getInstance(modalExcluir);
-            if (modal) {
-                modal.hide();
-            }
+            const idUsuario = document.getElementById('idUsuarioExcluir').value;
+            const formularioExclusao = document.createElement('form');
+            const campoIdUsuario = document.createElement('input');
+            formularioExclusao.method = 'POST';
+            formularioExclusao.action = '../controllers/usuario/excluirUsuario.php';
+            campoIdUsuario.name = 'id_usuario';
+            campoIdUsuario.value = idUsuario;
+            formularioExclusao.appendChild(campoIdUsuario);
+            document.body.appendChild(formularioExclusao);
+            formularioExclusao.submit();
         });
     }
 
-    const inputPesquisa = document.getElementById('inputPesquisa');
-    const mensagemVazia = document.getElementById('mensagemVazia');
-
-    if (inputPesquisa && mensagemVazia) {
-        inputPesquisa.addEventListener('keyup', function () {
-            const pesquisa = inputPesquisa.value.toLowerCase();
-            const colaboradores = document.querySelectorAll('.colaborador');
-            let encontrados = 0;
-
-            colaboradores.forEach(function (colaborador) {
-                const nome = colaborador.querySelector('.colaborador-nome')?.textContent.toLowerCase() || '';
-
-                if (nome.includes(pesquisa)) {
-                    colaborador.style.display = 'flex';
-                    encontrados++;
-                } else {
-                    colaborador.style.display = 'none';
-                }
-            });
-
-            mensagemVazia.style.display = encontrados === 0 ? 'block' : 'none';
-        });
-    }
 });
 
-window.abrirEdicao = function (idColaborador, nome, cpf, data, genero, telefone, email, cargo, cep) {
+window.abrirEdicao = async function (idColaborador) {
     const modalCadastro = document.getElementById('modalCadastro');
     const formularioCadastro = document.getElementById('formularioCadastro');
 
@@ -107,48 +95,58 @@ window.abrirEdicao = function (idColaborador, nome, cpf, data, genero, telefone,
         return;
     }
 
-    formularioCadastro.reset();
+    try {
+        const resposta = await fetch(`../controllers/usuario/buscarUsuario.php?id=${encodeURIComponent(idColaborador)}`);
+        const colaborador = await resposta.json();
 
-    const campos = {
-        nome: nome,
-        cpf: cpf,
-        dataNascimento: data,
-        genero: genero,
-        telefone: telefone,
-        email: email,
-        cargo: cargo,
-        cep: cep
-    };
-
-    Object.entries(campos).forEach(function ([campo, valor]) {
-        const input = document.getElementById(campo);
-        if (input) {
-            input.value = valor;
+        if (!resposta.ok) {
+            throw new Error(colaborador.erro || 'Não foi possível carregar o colaborador.');
         }
-    });
 
-    const tituloElemento = document.querySelector('#modalCadastroLabel');
-    if (tituloElemento) {
-        tituloElemento.textContent = `Editar Colaborador ${idColaborador}`;
+        formularioCadastro.reset();
+        document.getElementById('alertaCamposColaborador').hidden = true;
+        document.getElementById('idUsuario').value = colaborador.id_usuario;
+        formularioCadastro.action = '../controllers/usuario/atualizarUsuario.php';
+
+        const campos = {
+            nome: colaborador.nome_usuario,
+            cpf: colaborador.cpf,
+            dataNascimento: colaborador.data_nascimento,
+            genero: colaborador.genero,
+            telefone: colaborador.telefone,
+            email: colaborador.email,
+            cargo: colaborador.cargo,
+            cep: colaborador.cep
+        };
+
+        Object.entries(campos).forEach(function ([campo, valor]) {
+            const input = document.getElementById(campo);
+            if (input) {
+                input.value = valor ?? '';
+            }
+        });
+
+        const tituloElemento = document.querySelector('#modalCadastroLabel');
+        if (tituloElemento) {
+            tituloElemento.textContent = `Editar Colaborador ${colaborador.id_usuario}`;
+        }
+
+        const botaoSalvarColaborador = document.getElementById('botaoSalvarColaborador');
+        if (botaoSalvarColaborador) {
+            botaoSalvarColaborador.textContent = 'Editar';
+        }
+
+        const modal = bootstrap.Modal.getOrCreateInstance(modalCadastro);
+        modal.show();
+    } catch (erro) {
+        alert(erro.message || 'Não foi possível carregar o colaborador.');
     }
 
-    if (botaoSalvarColaborador) {
-        botaoSalvarColaborador.textContent = 'Editar';
-    }
-
-    const modal = bootstrap.Modal.getOrCreateInstance(modalCadastro);
-    modal.show();
 };
 
-window.abrirExclusao = function (nome) {
-    const nomeExcluir = document.getElementById('nomeExcluir');
-    if (nomeExcluir) {
-        nomeExcluir.textContent = nome;
-    }
+window.abrirExclusao = function (idUsuario) {
+    document.getElementById('idUsuarioExcluir').value = idUsuario;
 
     const modalExcluir = document.getElementById('modalExcluir');
-    if (modalExcluir) {
-        const modal = bootstrap.Modal.getOrCreateInstance(modalExcluir);
-        modal.show();
-    }
+    bootstrap.Modal.getOrCreateInstance(modalExcluir).show();
 };

@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once __DIR__ . '/../infra/conexao.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$erroColaborador = $_SESSION['erro_colaborador'] ?? '';
+unset($_SESSION['erro_colaborador']);
+?>
+<?php
+$consultaColaboradores = $conexao->query(
+    'SELECT id_usuario, nome_usuario, cargo, email
+     FROM usuario
+     ORDER BY nome_usuario ASC'
+);
+
+if ($consultaColaboradores === false) {
+    http_response_code(500);
+    die('Não foi possível carregar os colaboradores.');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -28,6 +53,11 @@
             <div class="cabecalho-app">
                 <h1>Central de Colaboradores</h1>
                 <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
+                <?php if ($erroColaborador !== ''): ?>
+                    <div class="alerta-erro">
+                        <?= htmlspecialchars($erroColaborador, ENT_QUOTES, 'UTF-8') ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4">
@@ -59,29 +89,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>João Pedro</td>
-                            <td>Administrador</td>
-                            <td>joaopedro@gmail.com</td>
-                            <td class="acoes-tabela">
-                                <button 
-                                    onclick="abrirEdicao(1, 'João Pedro', '456.789.123-00', '20/10/1998', 'Feminino', '(47) 77777-7777', 'maria@email.com', 'Técnico', '89200-000')" 
-                                    class="btn-acao-tabela"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-title="Editar">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </button>
+                        <?php while ($colaborador = $consultaColaboradores->fetch_assoc()): ?>
+                            <tr>
+                                <th><?= htmlspecialchars((string) $colaborador['id_usuario'], ENT_QUOTES, 'UTF-8') ?></th>
+                                <td><?= htmlspecialchars((string) $colaborador['nome_usuario'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars((string) $colaborador['cargo'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars((string) $colaborador['email'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td class="acoes-tabela">
+                                    <button
+                                        onclick="abrirEdicao(<?= htmlspecialchars((string) $colaborador['id_usuario'], ENT_QUOTES, 'UTF-8') ?>)"
+                                        class="btn-acao-tabela"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-title="Editar">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
 
-                                <button 
-                                    onclick="abrirExclusao('João Pedro')" 
-                                    class="btn-acao-tabela"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-title="Excluir">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </td>
-                        </tr>
+                                    <button
+                                        onclick="abrirExclusao(<?= htmlspecialchars((string) $colaborador['id_usuario'], ENT_QUOTES, 'UTF-8') ?>)"
+                                        class="btn-acao-tabela"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-title="Excluir">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
                 
@@ -118,10 +150,10 @@
             </div>
 
             <div class="modal-body">
+                <input type="hidden" id="idUsuarioExcluir">
 
                 <p>
-                    Tem certeza que deseja excluir o colaborador
-                    <strong id="nomeExcluir"></strong>?
+                    Tem certeza que deseja excluir este colaborador?
                 </p>
 
                 <div class="d-flex gap-2">
