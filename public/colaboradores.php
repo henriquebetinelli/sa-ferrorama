@@ -132,49 +132,7 @@ if ($consultaColaboradores === false) {
 
     <?php require_once __DIR__ . '/../components/modals/modalUsuario.php'; ?>
     
-<!-- modal exclusão -->
-<div class="modal fade" id="modalExcluir" tabindex="-1">
-
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h1 class="modal-title fs-5">
-                    Excluir Colaborador
-                </h1>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-
-            </div>
-
-            <div class="modal-body">
-                <input type="hidden" id="idUsuarioExcluir">
-
-                <p>
-                    Tem certeza que deseja excluir este colaborador?
-                </p>
-
-                <div class="d-flex gap-2">
-
-                    <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-
-                    <button type="button" class="btn botao-cadastrar w-50" id="botaoExcluir">
-                        Excluir
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+    <?php require_once __DIR__ . '/../components/modals/modalExcluirColaborador.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../script/main.js"></script>
