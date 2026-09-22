@@ -7,10 +7,9 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-$erroColaborador = $_SESSION['erro_colaborador'] ?? '';
-unset($_SESSION['erro_colaborador']);
-?>
-<?php
+ $erroColaborador = $_SESSION['erro_colaborador'] ?? '';
+ unset($_SESSION['erro_colaborador']);
+
 $consultaColaboradores = $conexao->query(
     'SELECT id_usuario, nome_usuario, cargo, email
      FROM usuario
@@ -53,11 +52,7 @@ if ($consultaColaboradores === false) {
             <div class="cabecalho-app">
                 <h1>Central de Colaboradores</h1>
                 <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
-                <?php if ($erroColaborador !== ''): ?>
-                    <div class="alerta-erro">
-                        <?= htmlspecialchars($erroColaborador, ENT_QUOTES, 'UTF-8') ?>
-                    </div>
-                <?php endif; ?>
+                <?php // Mensagens de erro de servidor agora são mostradas na modal de cadastro ?>
             </div>
 
             <div class="mb-4">

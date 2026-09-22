@@ -9,6 +9,8 @@
             </div>
 
             <div class="modal-body">
+                <div id="alertaErroServidor" class="alerta-erro" role="alert" aria-live="polite" hidden></div>
+
                 <form id="formularioCadastro" method="POST" action="../controllers/usuario/salvarUsuario.php">
                     <input type="hidden" id="idUsuario" name="id_usuario">
 

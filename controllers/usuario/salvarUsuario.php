@@ -13,6 +13,7 @@ function informarErro(string $mensagem): void
     voltarParaColaboradores();
 }
 
+
 if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     voltarParaColaboradores();
 }
@@ -53,8 +54,12 @@ $consulta->bind_param(
     $cep
 );
 
-if (!$consulta->execute()) {
-    if ($consulta->errno === 1062) {
+try {
+    $consulta->execute();
+} catch (mysqli_sql_exception $e) {
+    if ((int) $e->getCode() === 1062) {
+        $consulta->close();
+        $conexao->close();
         informarErro('O CPF ou e-mail informado já está cadastrado.');
     }
 
