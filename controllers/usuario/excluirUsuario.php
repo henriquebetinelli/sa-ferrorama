@@ -1,14 +1,9 @@
 <?php
 session_start();
 
-function voltarParaColaboradores(): void
-{
+if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../../public/colaboradores.php');
     exit;
-}
-
-if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    voltarParaColaboradores();
 }
 
 $idUsuario = (int) ($_POST['id_usuario'] ?? 0);
@@ -21,4 +16,6 @@ $exclusao->execute();
 
 $exclusao->close();
 $conexao->close();
-voltarParaColaboradores();
+
+header('Location: ../../public/colaboradores.php');
+exit;
