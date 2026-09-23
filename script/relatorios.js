@@ -48,8 +48,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		const modalExcluirRelatorio = document.getElementById('modalExcluirRelatorio');
 		const tituloEl = document.getElementById('tituloExcluirRelatorio');
 		const botaoExcluirRelatorio = document.getElementById('botaoExcluirRelatorio');
+		const idInput = document.getElementById('idRelatorioExcluir');
 
 		if (!modalExcluirRelatorio) return;
 		if (tituloEl) tituloEl.textContent = titulo || '';
+		if (idInput) idInput.value = id || '';
+
+		if (botaoExcluirRelatorio) {
+			botaoExcluirRelatorio.addEventListener('click', function () {
+				const formularioExclusao = document.createElement('form');
+				const campoIdRelatorio = document.createElement('input');
+				formularioExclusao.method = 'POST';
+				formularioExclusao.action = '../controllers/relatorio/excluirRelatorio.php';
+				campoIdRelatorio.name = 'id_relatorio';
+				campoIdRelatorio.value = id;
+				formularioExclusao.appendChild(campoIdRelatorio);
+				document.body.appendChild(formularioExclusao);
+				formularioExclusao.submit();
+			});
+		}
+
 		bootstrap.Modal.getOrCreateInstance(modalExcluirRelatorio).show();
 	};

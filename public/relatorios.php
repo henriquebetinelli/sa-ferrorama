@@ -1,3 +1,46 @@
+<?php
+session_start();
+require_once __DIR__ . '/../infra/conexao.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$q = trim((string) ($_GET['q'] ?? ''));
+
+$sql = 'SELECT r.id_relatorio, r.titulo, u.nome_usuario AS responsavel,
+               DATE_FORMAT(r.gerado_em, "%d/%m/%y") AS gerado_em, r.tipo
+        FROM relatorio r
+        JOIN usuario u ON r.id_usuario = u.id_usuario
+        LEFT JOIN trem t ON r.id_trem = t.id_trem';
+
+if ($q !== '') {
+    $sql .= ' WHERE r.titulo LIKE ?';
+
+    $stmt = $conexao->prepare($sql . ' ORDER BY r.gerado_em DESC');
+
+    if ($stmt === false) {
+        http_response_code(500);
+        die('Erro ao preparar consulta.');
+    }
+
+    $like = '%' . $q . '%';
+    $stmt->bind_param('s', $like);
+    $stmt->execute();
+
+    $consultaRelatorios = $stmt->get_result();
+    $stmt->close();
+} else {
+    $consultaRelatorios = $conexao->query($sql . ' ORDER BY r.gerado_em DESC');
+}
+
+if ($consultaRelatorios === false) {
+    http_response_code(500);
+    die('Não foi possível carregar os relatórios.');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,7 +74,7 @@
                 <label class="mb-2">Pesquisar relatório</label>
 
                 <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Operação 1">
+                    <input type="text" id="inputPesquisa" name="q" value="<?= htmlspecialchars($q ?? '', ENT_QUOTES, 'UTF-8') ?>" class="pagina-input flex-grow-1" placeholder="ex. Operação 1">
 
                     <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
                         Adicionar Relatórios
@@ -56,30 +99,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Operação 1</td>
-                            <td>João Pedro</td>
-                            <td>17/09/26</td>
-                            <td>Operacional</td>
-                            <td class="acoes-tabela">
-                                <button 
-                                    onclick="iniciarRota('expresso litoral')" 
-                                    class="btn-acao-tabela"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-title="Visualizar Relatórios">
-                                    <i class="bi bi-eye-fill"></i>
-                                </button>
+                        <?php if ($consultaRelatorios->num_rows === 0): ?>
+                            <tr>
+                                <td colspan="6">Nenhum relatório cadastrado no momento.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php while ($rel = $consultaRelatorios->fetch_assoc()): ?>
+                                <?php $tituloEsc = htmlspecialchars((string) $rel['titulo'], ENT_QUOTES, 'UTF-8'); ?>
+                                <tr>
+                                    <th><?= htmlspecialchars((string) $rel['id_relatorio'], ENT_QUOTES, 'UTF-8') ?></th>
+                                    <td><?= $tituloEsc ?></td>
+                                    <td><?= htmlspecialchars((string) $rel['responsavel'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) $rel['gerado_em'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) $rel['tipo'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td class="acoes-tabela">
+                                        <button
+                                            onclick="iniciarRota('expresso litoral')"
+                                            class="btn-acao-tabela"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-title="Visualizar Relatórios">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </button>
 
-                                <button 
-                                    onclick="abrirExclusaoRelatorio(1, 'Operação 1')" 
-                                    class="btn-acao-tabela"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-title="Excluir">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </td>
-                        </tr>
+                                        <?php if (mb_strtolower(trim($_SESSION['usuario_cargo'] ?? '')) === mb_strtolower('Administrador')): ?>
+                                            <button
+                                                onclick="abrirExclusaoRelatorio(<?= (int) $rel['id_relatorio'] ?>, '<?= addslashes($tituloEsc) ?>')"
+                                                class="btn-acao-tabela"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Excluir">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 

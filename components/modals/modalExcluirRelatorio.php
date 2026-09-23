@@ -8,6 +8,7 @@
             </div>
 
             <div class="modal-body">
+                <input type="hidden" id="idRelatorioExcluir">
                 <p>Tem certeza que deseja excluir o relatório <strong id="tituloExcluirRelatorio"></strong>?</p>
 
                 <div class="d-flex gap-2">
