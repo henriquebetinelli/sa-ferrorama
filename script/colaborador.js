@@ -6,37 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const botaoSalvarColaborador = document.getElementById('botaoSalvarColaborador');
     const alertaCamposColaborador = document.getElementById('alertaCamposColaborador');
 
-    const tituloPadrao = 'Cadastrar Colaborador';
-
-    function definirTituloModal(titulo) {
-        const tituloElemento = document.querySelector('#modalCadastroLabel');
-        if (tituloElemento) {
-            tituloElemento.textContent = titulo;
-        }
-    }
-
-    function definirTextoBotao(texto) {
-        if (botaoSalvarColaborador) {
-            botaoSalvarColaborador.textContent = texto;
-        }
-    }
-
-    function esconderAlerta() {
-        alertaCamposColaborador.hidden = true;
-    }
-
     function abrirModalCadastro() {
-        if (!modalCadastro) return;
-
-        if (formularioCadastro) {
-            formularioCadastro.reset();
-        }
-
-        esconderAlerta();
-        formularioCadastro.action = '../controllers/usuario/salvarUsuario.php';
+        formularioCadastro.reset();
         document.getElementById('idUsuario').value = '';
-        definirTituloModal(tituloPadrao);
-        definirTextoBotao('Cadastrar');
+        formularioCadastro.action = '../controllers/usuario/salvarUsuario.php';
+
+        document.getElementById('modalCadastroLabel').textContent = 'Cadastrar Colaborador';
+        botaoSalvarColaborador.textContent = 'Cadastrar';
+        alertaCamposColaborador.hidden = true;
 
         const modal = bootstrap.Modal.getOrCreateInstance(modalCadastro);
         modal.show();
@@ -64,18 +41,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            esconderAlerta();
-            bootstrap.Modal.getOrCreateInstance(modalCadastro).hide();
+            alertaCamposColaborador.hidden = true;
             formularioCadastro.submit();
         });
     }
 
     if (botaoExcluir) {
+
         botaoExcluir.addEventListener('click', function () {
             const idUsuario = document.getElementById('idUsuarioExcluir').value;
             const formularioExclusao = document.createElement('form');
             const campoIdUsuario = document.createElement('input');
             formularioExclusao.method = 'POST';
+
             formularioExclusao.action = '../controllers/usuario/excluirUsuario.php';
             campoIdUsuario.name = 'id_usuario';
             campoIdUsuario.value = idUsuario;
@@ -84,69 +62,30 @@ document.addEventListener('DOMContentLoaded', function () {
             formularioExclusao.submit();
         });
     }
-
 });
 
-window.abrirEdicao = async function (idColaborador) {
-    const modalCadastro = document.getElementById('modalCadastro');
-    const formularioCadastro = document.getElementById('formularioCadastro');
 
-    if (!modalCadastro || !formularioCadastro) {
-        return;
-    }
+function abrirEdicao(colaborador) {
+    document.getElementById('idUsuario').value = colaborador.id;
+    document.getElementById('nome').value = colaborador.nome;
+    document.getElementById('cpf').value = colaborador.cpf;
+    document.getElementById('dataNascimento').value = colaborador.dataNascimento;
+    document.getElementById('genero').value = colaborador.genero;
+    document.getElementById('telefone').value = colaborador.telefone;
+    document.getElementById('email').value = colaborador.email;
+    document.getElementById('cargo').value = colaborador.cargo;
+    document.getElementById('cep').value = colaborador.cep;
+    document.getElementById('senha').value = '';
+    document.getElementById('modalCadastroLabel').textContent = 'Editar Colaborador';
+    document.getElementById('botaoSalvarColaborador').textContent = 'Editar';
+    document.getElementById('formularioCadastro').action = '../controllers/usuario/atualizarUsuario.php';
+    document.getElementById('alertaCamposColaborador').hidden = true;
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCadastro'));
+    modal.show();
+}
 
-    try {
-        const resposta = await fetch(`../controllers/usuario/buscarUsuario.php?id=${encodeURIComponent(idColaborador)}`);
-        const colaborador = await resposta.json();
-
-        if (!resposta.ok) {
-            throw new Error(colaborador.erro || 'Não foi possível carregar o colaborador.');
-        }
-
-        formularioCadastro.reset();
-        document.getElementById('alertaCamposColaborador').hidden = true;
-        document.getElementById('idUsuario').value = colaborador.id_usuario;
-        formularioCadastro.action = '../controllers/usuario/atualizarUsuario.php';
-
-        const campos = {
-            nome: colaborador.nome_usuario,
-            cpf: colaborador.cpf,
-            dataNascimento: colaborador.data_nascimento,
-            genero: colaborador.genero,
-            telefone: colaborador.telefone,
-            email: colaborador.email,
-            cargo: colaborador.cargo,
-            cep: colaborador.cep
-        };
-
-        Object.entries(campos).forEach(function ([campo, valor]) {
-            const input = document.getElementById(campo);
-            if (input) {
-                input.value = valor ?? '';
-            }
-        });
-
-        const tituloElemento = document.querySelector('#modalCadastroLabel');
-        if (tituloElemento) {
-            tituloElemento.textContent = `Editar Colaborador ${colaborador.id_usuario}`;
-        }
-
-        const botaoSalvarColaborador = document.getElementById('botaoSalvarColaborador');
-        if (botaoSalvarColaborador) {
-            botaoSalvarColaborador.textContent = 'Editar';
-        }
-
-        const modal = bootstrap.Modal.getOrCreateInstance(modalCadastro);
-        modal.show();
-    } catch (erro) {
-        alert(erro.message || 'Não foi possível carregar o colaborador.');
-    }
-
-};
-
-window.abrirExclusao = function (idUsuario) {
+function abrirExclusao(idUsuario) {
     document.getElementById('idUsuarioExcluir').value = idUsuario;
-
     const modalExcluir = document.getElementById('modalExcluir');
     bootstrap.Modal.getOrCreateInstance(modalExcluir).show();
-};
+}

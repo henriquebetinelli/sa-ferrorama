@@ -1,22 +1,12 @@
 <?php
 session_start();
 
-function voltarParaColaboradores(): void
-{
+if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../../public/colaboradores.php');
     exit;
 }
 
-function informarErro(string $mensagem): void
-{
-    $_SESSION['erro_colaborador'] = $mensagem;
-    voltarParaColaboradores();
-}
-
-
-if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    voltarParaColaboradores();
-}
+require_once __DIR__ . '/../../infra/conexao.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $cpf = trim($_POST['cpf'] ?? '');
@@ -28,46 +18,31 @@ $senha = $_POST['senha'] ?? '';
 $cargo = trim($_POST['cargo'] ?? '');
 $cep = trim($_POST['cep'] ?? '');
 
-require_once __DIR__ . '/../../infra/conexao.php';
+$senha = password_hash($senha, PASSWORD_DEFAULT);
 
-$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-$consulta = $conexao->prepare(
-    'INSERT INTO usuario
-        (nome_usuario, cpf, data_nascimento, genero, telefone, email, senha, cargo, cep)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-);
+$sql = "INSERT INTO usuario
+    (nome_usuario, cpf, data_nascimento, genero, telefone, email, senha, cargo, cep)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-if ($consulta === false) {
-    informarErro('Não foi possível preparar o cadastro.');
-}
+$stmt = mysqli_prepare($conexao, $sql);
 
-$consulta->bind_param(
-    'sssssssss',
+mysqli_stmt_bind_param(
+    $stmt,
+    "sssssssss",
     $nome,
     $cpf,
     $dataNascimento,
     $genero,
     $telefone,
     $email,
-    $senhaHash,
+    $senha,
     $cargo,
     $cep
 );
 
-try {
-    $consulta->execute();
-} catch (mysqli_sql_exception $e) {
-    if ((int) $e->getCode() === 1062) {
-        $consulta->close();
-        $conexao->close();
-        informarErro('O CPF ou e-mail informado já está cadastrado.');
-    }
-
-    $consulta->close();
-    $conexao->close();
-    informarErro('Não foi possível cadastrar o colaborador.');
-}
-
-$consulta->close();
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
 $conexao->close();
-voltarParaColaboradores();
+
+header('Location: ../../public/colaboradores.php');
+exit;
