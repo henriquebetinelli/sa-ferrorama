@@ -1,20 +1,14 @@
 # ClickRails
 
-Sistema web voltado ao gerenciamento e monitoramento de informações ferroviárias, como usuários e sensores.
-
 <img width="2880" alt="Imagem de fundo do ClickRails" src="assets/img/reutilizaveis/banner_README.png">
 
 --- 
 
-## Objetivo do projeto
+## Sobre o projeto
 
-Criar uma plataforma para facilitar o gerenciamento de informações ferroviárias, permitindo o controle de usuários e sensores.
+O ClickRails foi desenvolvido como um projeto acadêmico com o objetivo de aplicar conhecimentos de desenvolvimento web, banco de dados, organização de sistemas e gerenciamento de informações.
 
----
-
-## Contexto
-
-O ClickRails busca centralizar informações de uma operação ferroviária, facilitando o acompanhamento dos sensores e a identificação de possíveis problemas.
+O sistema simula uma plataforma utilizada para o gerenciamento de uma operação ferroviária, permitindo o acompanhamento de sensores, colaboradores e registros relacionados ao funcionamento da operação
 
 ---
 
@@ -22,18 +16,18 @@ O ClickRails busca centralizar informações de uma operação ferroviária, fac
 
 - **Autenticação de usuários**<br>
   Login e controle de acesso ao sistema.
-- **Gerenciamento de usuários**<br>
+- **Colaboradores**<br>
   Cadastro e gerenciamento dos usuários.
 - **Gerenciamento de administradores**<br>
-  Controle de usuários com permissões administrativas.
-- **Cadastro de sensores** <br>
-  Cadastro dos sensores utilizados no monitoramento.
-- **Visualização de sensores**<br>
-  Consulta das informações e estados dos sensores.
-- **Monitoramento de status**<br>
-  Identificação de sensores operacionais, com erro ou em manutenção.
+  Controle de usuários com permissões administrativas (Cadastrar, Editar e Deletar).
+- **Sensores** <br>
+  Cadastro, gerenciamento e visualização dos sensores.
+- **Trens**<br>
+  Cadastro, gerenciamento e visualização dos trens.
+- **Rotas**<br>
+  Cadastro, gerenciamento e visualização das rotas.
 - **Relatórios**<br>
-  Consulta e geração de informações relacionadas aos sensores.
+  Consulta e geração de informações.
 
 ---
   
@@ -44,6 +38,14 @@ O ClickRails busca centralizar informações de uma operação ferroviária, fac
 - PHP
 - MySQL
 - XAMPP
+
+---
+
+## Banco de dados
+
+O sistema utiliza MySQL para armazenamento dos dados. Para utilizar o banco, importe o arquivo no MySQL através do phpMyAdmin.
+
+**O arquivo do banco de dados está localizado em: `database/db.sql`**
 
 ---
 
