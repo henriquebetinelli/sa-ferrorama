@@ -1,4 +1,4 @@
-# ClickRails
+# ⤷ ClickRails
 
 <img width="2880" alt="Imagem de fundo do ClickRails" src="assets/img/reutilizaveis/banner_README.png">
 
@@ -50,22 +50,33 @@ O sistema utiliza MySQL para armazenamento dos dados. Para utilizar o banco, imp
 ---
 
 ## Estrutura do repositório
-ClickRails/ <br>
-├── assets/ㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Imagens e recursos visuais<br>
-├── doc/ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Documentação do projeto<br>
-│   ├── desing/<br>
-│   ├── pesquisa-XAMPP.md <br>
-│   ├── pesquisa-crud.md <br>
-│   ├── pesquisa-scrum.md <br>
-│   ├── regra-de-negocio.md <br>
-│   └── requisitos-de-sistema.md <br>
-├── public/ㅤㅤㅤㅤㅤㅤㅤㅤㅤ# Interfaces do sistema <br>
-│   ├── tela-cadastro-sensor.html <br>
-│   ├── tela-home.html <br>
-│   ├── tela-login.html <br>
-│   └── tela-sensores.html <br>
-├── index.htmlㅤㅤㅤㅤㅤㅤㅤㅤ# Página inicial <br>
-└── README.mdㅤㅤㅤㅤㅤㅤㅤ# Documentação do projeto <br>
+sa-ferrorama/ <br>
+├── assets/ <br>
+│ ㅤ└── imagens e recursos do sistema <br>
+│ <br>
+├── components/ <br>
+│ ㅤ└── componentes reutilizáveis <br>
+│ <br>
+├── controllers/ <br>
+│ ㅤ└── arquivos responsáveis pelas operações do sistema <br>
+│ <br>
+├── database/ <br>
+│ ㅤ└── db.sql <br>
+│ <br>
+├── doc/ <br>
+│ ㅤ└── documentação do projeto <br>
+│ <br>
+├── infra/ <br>
+│ ㅤ└── arquivos relacionados à infraestrutura <br>
+│ <br>
+├── public/ <br>
+│ ㅤ└── arquivos e páginas públicas <br>
+│ <br>
+├── script/ <br>
+│ ㅤ└── scripts JavaScript <br>
+│<br>
+├── index.php <br>
+└── README.md
 
 ---
 
