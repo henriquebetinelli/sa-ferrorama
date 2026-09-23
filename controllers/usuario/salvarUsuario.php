@@ -8,15 +8,15 @@ if (!isset($_SESSION['usuario_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once __DIR__ . '/../../infra/conexao.php';
 
-$nome = $_POST['nome'];
-$cpf = $_POST['cpf'];
-$dataNascimento = $_POST['data_nascimento'];
-$genero = $_POST['genero'];
-$telefone = $_POST['telefone'];
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-$cargo = $_POST['cargo'];
-$cep = $_POST['cep'];
+$nome = trim($_POST['nome'] ?? '');
+$cpf = trim($_POST['cpf'] ?? '');
+$dataNascimento = trim($_POST['data_nascimento'] ?? '');
+$genero = trim($_POST['genero'] ?? '');
+$telefone = trim($_POST['telefone'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$senha = $_POST['senha'] ?? '';
+$cargo = trim($_POST['cargo'] ?? '');
+$cep = trim($_POST['cep'] ?? '');
 
 $senha = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -41,7 +41,6 @@ mysqli_stmt_bind_param(
 );
 
 mysqli_stmt_execute($stmt);
-
 mysqli_stmt_close($stmt);
 $conexao->close();
 

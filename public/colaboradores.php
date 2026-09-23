@@ -53,7 +53,6 @@ if ($consultaColaboradores === false) {
             <div class="cabecalho-app">
                 <h1>Central de Colaboradores</h1>
                 <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
-                <?php // Mensagens de erro de servidor agora são mostradas na modal de cadastro ?>
             </div>
 
             <div class="mb-4">
@@ -138,7 +137,6 @@ if ($consultaColaboradores === false) {
     </footer>
 
     <?php require_once __DIR__ . '/../components/modals/modalUsuario.php'; ?>
-    
     <?php require_once __DIR__ . '/../components/modals/modalExcluirColaborador.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
