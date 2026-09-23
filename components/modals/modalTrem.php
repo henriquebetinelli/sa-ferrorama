@@ -6,13 +6,17 @@
                 <h2 id="modalCadastroTremLabel" class="modal-title fs-4 fw-bold">Cadastrar trem</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            
+
             <div class="modal-body">
-                <form id="formularioCadastroTrem">
+                <form id="formularioCadastroTrem" method="POST" action="../controllers/trens/salvarTrem.php">
+
+                    <input type="hidden" name="id_trem" id="idTrem">
+
                     <div class="mb-3">
                         <div id="alertaCamposTrem" class="alerta-campos-trem" role="alert" aria-live="polite" hidden>
                             Preencha todos os campos.
                         </div>
+
                         <label for="nomeTrem" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nomeTrem" name="nome">
                     </div>
@@ -22,11 +26,15 @@
                         <input type="text" class="form-control" id="modeloTrem" name="modelo">
                     </div>
 
+                    <input type="hidden" name="status" value="ativo">
+
                     <button type="submit" class="btn botao-cadastrar w-100" id="botaoSalvarTrem">
                         Cadastrar
                     </button>
+
                 </form>
             </div>
+
         </div>
     </div>
 </div>

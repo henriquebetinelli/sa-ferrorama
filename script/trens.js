@@ -1,135 +1,92 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const modalCadastroTrem = document.getElementById('modalCadastroTrem');
-	const modalExcluirTrem = document.getElementById('modalExcluirTrem');
-	const modalIniciarRota = document.getElementById('modalIniciarRota');
-
-	const botaoCadastrar = document.getElementById('botaoCadastrar');
+    const botaoCadastrar = document.getElementById('botaoCadastrar');
+    const modalCadastroTrem = document.getElementById('modalCadastroTrem');
+    const formularioCadastroTrem = document.getElementById('formularioCadastroTrem');
+    const tituloModal = document.getElementById('modalCadastroTremLabel');
     const botaoSalvarTrem = document.getElementById('botaoSalvarTrem');
-	const botaoExcluirTrem = document.getElementById('botaoExcluirTrem');
+    const inputPesquisa = document.getElementById('inputPesquisa');
+    const tabelaTrens = document.querySelector('#listaTrens tbody');
 
-	const formularioIniciarRota = document.getElementById('formularioIniciarRota');
-	const formularioCadastroTrem = document.getElementById('formularioCadastroTrem');
+    if (botaoCadastrar) {
+        botaoCadastrar.addEventListener('click', function () {
+            formularioCadastroTrem.reset();
 
-	const tremRota = document.getElementById('tremRota');
-	const rotaTrem = document.getElementById('rotaTrem');
-    
-	const tituloModal = document.getElementById('modalCadastroTremLabel');
+            document.getElementById('idTrem').value = '';
+            document.getElementById('alertaCamposTrem').hidden = true;
 
-	const alertaCamposTrem = document.getElementById('alertaCamposTrem');
-    const alertaCamposRota = document.getElementById('alertaCamposRota');
+            tituloModal.textContent = 'Cadastrar trem';
+            botaoSalvarTrem.textContent = 'Cadastrar';
 
-	const nomeTrem = document.getElementById('nomeTrem');
-	const modeloTrem = document.getElementById('modeloTrem');
+            formularioCadastroTrem.action = '../controllers/trens/salvarTrem.php';
 
-	function esconderAlerta() {
-		alertaCamposTrem.hidden = true;
-	}
+            bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
+        });
+    }
 
-	function abrirModalCadastro() {
-		formularioCadastroTrem.reset();
-		esconderAlerta();
-		tituloModal.textContent = 'Cadastrar trem';
-		botaoSalvarTrem.textContent = 'Cadastrar';
+    if (inputPesquisa && tabelaTrens) {
+        inputPesquisa.addEventListener('input', function () {
+            const pesquisa = inputPesquisa.value.toLowerCase();
+            const linhas = tabelaTrens.querySelectorAll('tr');
 
-		bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
-	}
+            linhas.forEach(function (linha) {
+                const texto = linha.textContent.toLowerCase();
 
-	if (botaoCadastrar) {
-		botaoCadastrar.addEventListener('click', abrirModalCadastro);
-	}
+                linha.style.display = texto.includes(pesquisa) ? '' : 'none';
+            });
+        });
+    }
 
-	if (formularioCadastroTrem) {
-		formularioCadastroTrem.addEventListener('submit', function (event) {
-			event.preventDefault();
+    if (formularioCadastroTrem) {
+        formularioCadastroTrem.addEventListener('submit', function (event) {
+            const nome = document.getElementById('nomeTrem').value.trim();
+            const modelo = document.getElementById('modeloTrem').value.trim();
+            const alerta = document.getElementById('alertaCamposTrem');
 
-			const nome = nomeTrem.value.trim();
-			const modelo = modeloTrem.value.trim();
-
-			if (!nome || !modelo) {
-				alertaCamposTrem.hidden = false;
-				return;
-			}
-
-			esconderAlerta();
-			bootstrap.Modal.getInstance(modalCadastroTrem).hide();
-		});
-	}
-
-	if (botaoExcluirTrem) {
-		botaoExcluirTrem.addEventListener('click', function () {
-			bootstrap.Modal.getInstance(modalExcluirTrem).hide();
-		});
-	}
-
-	if (formularioIniciarRota) {
-		formularioIniciarRota.addEventListener('submit', function (event) {
-			event.preventDefault();
-
-			if (!tremRota.value || !rotaTrem.value) {
-				alertaCamposRota.hidden = false;
-				return;
-			}
-
-			alertaCamposRota.hidden = true;
-			bootstrap.Modal.getInstance(modalIniciarRota).hide();
-		});
-	}
-
-	[nomeTrem, modeloTrem].forEach(function (campo) {
-		campo.addEventListener('input', esconderAlerta);
-	});
-
-	[tremRota, rotaTrem].forEach(function (campo) {
-		campo.addEventListener('change', function () {
-			alertaCamposRota.hidden = true;
-		});
-	});
+            if (nome === '' || modelo === '') {
+                event.preventDefault();
+                alerta.hidden = false;
+            } else {
+                alerta.hidden = true;
+            }
+        });
+    }
 });
 
-window.iniciarRota = function (tremSelecionado) {
-	const modalIniciarRota = document.getElementById('modalIniciarRota');
-	const formularioIniciarRota = document.getElementById('formularioIniciarRota');
-	const tremRota = document.getElementById('tremRota');
-	const alertaCamposRota = document.getElementById('alertaCamposRota');
+function abrirEdicao(trem) {
+    const modalCadastroTrem = document.getElementById('modalCadastroTrem');
+    const formularioCadastroTrem = document.getElementById('formularioCadastroTrem');
 
-	if (!modalIniciarRota || !formularioIniciarRota) {
-		return;
-	}
+    document.getElementById('idTrem').value = trem.id;
+    document.getElementById('nomeTrem').value = trem.nome;
+    document.getElementById('modeloTrem').value = trem.modelo;
 
-	formularioIniciarRota.reset();
-	alertaCamposRota.hidden = true;
-	tremRota.value = tremSelecionado || '';
-	bootstrap.Modal.getOrCreateInstance(modalIniciarRota).show();
-};
+    document.getElementById('modalCadastroTremLabel').textContent = 'Editar trem';
+    document.getElementById('botaoSalvarTrem').textContent = 'Salvar alterações';
 
-window.abrirEdicao = function (idTrem, nome, modelo) {
-	const modalCadastroTrem = document.getElementById('modalCadastroTrem');
-	const formularioCadastroTrem = document.getElementById('formularioCadastroTrem');
-	const tituloModal = document.getElementById('modalCadastroTremLabel');
-	const botaoSalvarTrem = document.getElementById('botaoSalvarTrem');
+    formularioCadastroTrem.action = '../controllers/trens/atualizarTrem.php';
 
-	if (!modalCadastroTrem || !formularioCadastroTrem) {
-		return;
-	}
+    bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
+}
 
-	formularioCadastroTrem.reset();
-	document.getElementById('alertaCamposTrem').hidden = true;
-	document.getElementById('nomeTrem').value = nome;
-	document.getElementById('modeloTrem').value = modelo;
-	tituloModal.textContent = `Editar trem ${idTrem}`;
-	botaoSalvarTrem.textContent = 'Editar';
+function abrirExclusao(idTrem, nomeTrem) {
+    document.getElementById('idTremExclusao').value = idTrem;
+    document.getElementById('nomeExcluirTrem').textContent = nomeTrem;
 
-	bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
-};
+    const modalExcluirTrem = document.getElementById('modalExcluirTrem');
 
-window.abrirExclusao = function (nome) {
-	const nomeExcluirTrem = document.getElementById('nomeExcluirTrem');
-	const modalExcluirTrem = document.getElementById('modalExcluirTrem');
+    bootstrap.Modal.getOrCreateInstance(modalExcluirTrem).show();
+}
 
-	if (!nomeExcluirTrem || !modalExcluirTrem) {
-		return;
-	}
 
-	nomeExcluirTrem.textContent = nome;
-	bootstrap.Modal.getOrCreateInstance(modalExcluirTrem).show();
-};
+function iniciarRota(idTrem) {
+    const modalIniciarRota = document.getElementById('modalIniciarRota');
+    const tremRota = document.getElementById('tremRota');
+
+    if (!modalIniciarRota || !tremRota) {
+        return;
+    }
+
+    tremRota.value = idTrem;
+
+    bootstrap.Modal.getOrCreateInstance(modalIniciarRota).show();
+}

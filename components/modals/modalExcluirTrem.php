@@ -9,18 +9,20 @@
 
             <div class="modal-body">
                 <p>Tem certeza que deseja excluir o trem <strong id="nomeExcluirTrem"></strong>?</p>
+                <form method="POST" action="../controllers/trens/excluirTrem.php">
+                    <input type="hidden" name="id_trem" id="idTremExclusao">
 
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn botao-branco w-50" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
 
-                    <button type="button" class="btn botao-cadastrar w-50" id="botaoExcluirTrem">
-                        Excluir
-                    </button>
-                </div>
+                        <button type="submit" class="btn botao-cadastrar w-50" id="botaoExcluirTrem">
+                            Excluir
+                        </button>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>
