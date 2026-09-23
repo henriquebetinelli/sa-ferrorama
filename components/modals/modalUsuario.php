@@ -38,7 +38,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="genero" class="form-label">Gênero</label>
-                            <input type="text" class="form-control" id="genero" name="genero">
+                            <select class="form-select" id="genero" name="genero">
+                                <option value=""></option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outro">Outro</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -62,7 +67,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="cargo" class="form-label">Cargo</label>
-                            <input type="text" class="form-control" id="cargo" name="cargo">
+                            <select class="form-select" id="cargo" name="cargo">
+                                <option value=""></option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Operador">Operador</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Supervisor">Supervisor</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">

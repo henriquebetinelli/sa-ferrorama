@@ -11,10 +11,12 @@
             <span>Monitoramento</span>
         </a>
 
-        <a href="colaboradores.php" class="link-sidebar <?= $paginaAtual == 'colaboradores' ? 'ativo' : '' ?>">
-            <i class="bi bi-person-fill"></i>
-            <span>Colaboradores</span>
-        </a>
+        <?php if ($_SESSION['usuario_cargo'] === 'Administrador'): ?>
+            <a href="colaboradores.php" class="link-sidebar <?= $paginaAtual == 'colaboradores' ? 'ativo' : '' ?>">
+                <i class="bi bi-person-fill"></i>
+                <span>Colaboradores</span>
+            </a>
+        <?php endif; ?>
 
         <a href="sensores.php" class="link-sidebar <?= $paginaAtual == 'sensores' ? 'ativo' : '' ?>">
             <i class="bi bi-broadcast"></i>

@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../infra/conexao.php';
 
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_cargo'] !== 'Administrador') {
     header("Location: login.php");
     exit();
 }
@@ -53,6 +53,11 @@ if ($consultaColaboradores === false) {
             <div class="cabecalho-app">
                 <h1>Central de Colaboradores</h1>
                 <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
+                <?php if ($erroColaborador): ?>
+                    <div class="alerta-erro" role="alert">
+                        <?= htmlspecialchars($erroColaborador) ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4">

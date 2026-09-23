@@ -26,16 +26,26 @@ document.addEventListener('DOMContentLoaded', function () {
     if (formularioCadastro) {
         formularioCadastro.addEventListener('submit', function (event) {
             event.preventDefault();
-
             const idUsuario = document.getElementById('idUsuario').value;
-            const campos = formularioCadastro.querySelectorAll('input:not([type="hidden"])');
-            const algumCampoVazio = Array.from(campos).some(function (campo) {
-                if (idUsuario !== '' && campo.id === 'senha') {
-                    return false;
-                }
-                return campo.value.trim() === '';
+            const camposObrigatorios = [
+                'nome',
+                'cpf',
+                'dataNascimento',
+                'genero',
+                'telefone',
+                'email',
+                'cargo',
+                'cep'
+            ];
+
+            let algumCampoVazio = camposObrigatorios.some(function (id) {
+                return document.getElementById(id).value.trim() === '';
             });
 
+            if (idUsuario === '' && document.getElementById('senha').value.trim() === '') {
+                algumCampoVazio = true;
+            }
+            
             if (algumCampoVazio) {
                 alertaCamposColaborador.hidden = false;
                 return;
