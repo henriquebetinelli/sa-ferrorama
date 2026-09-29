@@ -6,18 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const botaoSalvarTrem = document.getElementById('botaoSalvarTrem');
     const inputPesquisa = document.getElementById('inputPesquisa');
     const tabelaTrens = document.querySelector('#listaTrens tbody');
+    const acaoTrem = document.getElementById('acaoTrem');
 
     if (botaoCadastrar) {
         botaoCadastrar.addEventListener('click', function () {
             formularioCadastroTrem.reset();
-
+        
             document.getElementById('idTrem').value = '';
+            acaoTrem.value = 'cadastrar';
             document.getElementById('alertaCamposTrem').hidden = true;
-
             tituloModal.textContent = 'Cadastrar trem';
             botaoSalvarTrem.textContent = 'Cadastrar';
-
-            formularioCadastroTrem.action = '../controllers/trens/salvarTrem.php';
 
             bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
         });
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-
+    
     if (formularioCadastroTrem) {
         formularioCadastroTrem.addEventListener('submit', function (event) {
             const nome = document.getElementById('nomeTrem').value.trim();
@@ -60,10 +59,9 @@ function abrirEdicao(trem) {
     document.getElementById('nomeTrem').value = trem.nome;
     document.getElementById('modeloTrem').value = trem.modelo;
 
+    document.getElementById('acaoTrem').value = 'editar';
     document.getElementById('modalCadastroTremLabel').textContent = 'Editar trem';
     document.getElementById('botaoSalvarTrem').textContent = 'Salvar alterações';
-
-    formularioCadastroTrem.action = '../controllers/trens/atualizarTrem.php';
 
     bootstrap.Modal.getOrCreateInstance(modalCadastroTrem).show();
 }
@@ -76,7 +74,6 @@ function abrirExclusao(idTrem, nomeTrem) {
 
     bootstrap.Modal.getOrCreateInstance(modalExcluirTrem).show();
 }
-
 
 function iniciarRota(idTrem) {
     const modalIniciarRota = document.getElementById('modalIniciarRota');

@@ -221,7 +221,7 @@ hr {
 .mensagem-vazia {
     color: #888;
     text-align: center;
-    margin-top: 48px;
+    margin: 48px;
 }
 .cabecario-tabela th {
     background-color: #e5e5e5 !important;

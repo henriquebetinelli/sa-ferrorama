@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../infra/conexao.php';
+include_once __DIR__ . '/../infra/conexao.php';
+require_once __DIR__ . '/../controllers/trens.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
@@ -9,13 +10,10 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 
-$consultaTrens = $conexao->query(
-    'SELECT id_trem, nome, modelo, status
-     FROM trem
-     ORDER BY nome ASC'
-);
+$listaTrens = listarTrens($conexao);
+$temTrensCadastrados = temTrensCadastrados($conexao);
 
-if ($consultaTrens === false) {
+if ($listaTrens === false) {
     http_response_code(500);
     die('Não foi possível carregar os trens.');
 }
@@ -76,7 +74,7 @@ if ($consultaTrens === false) {
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Trens</h3>
 
-                <div id="listaTrens">
+                <div id="listaTrens" style="display: <?php echo $temTrensCadastrados ? 'block' : 'none'; ?>;">
                     <table class="table">
                         <thead class="cabecario-tabela">
                             <tr>
@@ -88,8 +86,7 @@ if ($consultaTrens === false) {
                             </tr>
                         </thead>
                         <tbody>
-
-                            <?php while ($trem = $consultaTrens->fetch_assoc()): ?>
+                            <?php while ($trem = $listaTrens->fetch_assoc()): ?>
                                 <tr>
                                     <th><?= htmlspecialchars((string) $trem['id_trem'], ENT_QUOTES, 'UTF-8') ?></th>
                                     <td><?= htmlspecialchars((string) $trem['nome'], ENT_QUOTES, 'UTF-8') ?></td>
@@ -137,13 +134,8 @@ if ($consultaTrens === false) {
                             <?php endwhile; ?>
                         </tbody>
                     </table>
-                    <p
-                        id="mensagemVazia"
-                        class="mensagem-vazia"
-                        style="display: none;">
-                        Nenhum trem cadastrado no momento!
-                    </p>
                 </div>
+                <p class="mensagem-vazia" style="display: <?php echo !$temTrensCadastrados ? 'block' : 'none'; ?>;">Nenhum trem cadastrado no momento!</p>
             </div>
         </section>
     </main>

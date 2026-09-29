@@ -9,7 +9,8 @@
 
             <div class="modal-body">
                 <p>Tem certeza que deseja excluir o trem <strong id="nomeExcluirTrem"></strong>?</p>
-                <form method="POST" action="../controllers/trens/excluirTrem.php">
+                <form method="POST" action="../controllers/trens.php">
+                    <input type="hidden" name="acao" value="excluir">
                     <input type="hidden" name="id_trem" id="idTremExclusao">
 
                     <div class="d-flex gap-2">

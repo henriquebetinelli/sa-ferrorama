@@ -8,8 +8,8 @@
             </div>
 
             <div class="modal-body">
-                <form id="formularioCadastroTrem" method="POST" action="../controllers/trens/salvarTrem.php">
-
+                <form id="formularioCadastroTrem" method="POST" action="../controllers/trens.php">
+                    <input type="hidden" name="acao" id="acaoTrem" value="cadastrar">
                     <input type="hidden" name="id_trem" id="idTrem">
 
                     <div class="mb-3">
@@ -31,7 +31,6 @@
                     <button type="submit" class="btn botao-cadastrar w-100" id="botaoSalvarTrem">
                         Cadastrar
                     </button>
-
                 </form>
             </div>
 
