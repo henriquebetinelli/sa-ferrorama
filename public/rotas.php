@@ -1,3 +1,14 @@
+<?php
+session_start();
+require_once __DIR__ . '/../infra/conexao.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
+$ehAdministrador = mb_strtolower(trim($_SESSION['usuario_cargo'] ?? '')) === mb_strtolower('Administrador');
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,7 +45,9 @@
                 <label class="mb-2">Pesquisar Rota</label>
                 <div class="rotas-barra d-flex gap-2">
                     <input type="text" id="inputPesquisa" class="rotas-input flex-grow-1" placeholder="ex. Rota Principal">
-                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">Adicionar Rota</button>
+                    <?php if ($ehAdministrador): ?>
+                        <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">Adicionar Rota</button>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -47,7 +60,9 @@
                                 <th>ID</th>
                                 <th>Rota</th>
                                 <th>Descrição</th>
-                                <th>Ações</th>
+                                <?php if ($ehAdministrador): ?>
+                                    <th>Ações</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
 
@@ -56,23 +71,25 @@
                                 <td>1</td>
                                 <td>Litoral</td>
                                 <td>Começa em Joinville e segue pelas praias e cidades da região norte e central do estado.</td>
-                                <td class="acoes-tabela">
-                                    <button
-                                        onclick="abrirEdicao(1, 'Litoral', 'ROT-001', 'começa em Joinville e segue pelas praias e cidades da região norte e central do estado')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
+                                <?php if ($ehAdministrador): ?>
+                                    <td class="acoes-tabela">
+                                        <button
+                                            onclick="abrirEdicao(1, 'Litoral', 'ROT-001', 'começa em Joinville e segue pelas praias e cidades da região norte e central do estado')"
+                                            class="btn-acao-tabela"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-title="Editar">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </button>
 
-                                    <button
-                                        onclick="abrirExclusao('Litoral')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Excluir">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </td>
+                                        <button
+                                            onclick="abrirExclusao('Litoral')"
+                                            class="btn-acao-tabela"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-title="Excluir">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
 
                         </tbody>
