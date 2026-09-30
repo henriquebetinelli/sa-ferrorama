@@ -1,173 +1,129 @@
+<?php
+session_start();
+include_once __DIR__ . '/../infra/conexao.php';
+require_once __DIR__ . '/../controllers/sensores.php';
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
+
+$listaSensores = listarSensores($conexao);
+$temSensoresCadastrados = temSensoresCadastrados($conexao);
+
+if ($listaSensores === false) {
+    http_response_code(500);
+    die('Não foi possível carregar os sensores.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/style/global.css">
     <link rel="stylesheet" href="../assets/style/paginas/sensores.css">
-
     <title>Sensores - Click Rails</title>
 </head>
-
 <body>
-
     <header>
         <?php include '../components/navbar.php'; ?>
     </header>
-
     <main class="layout-app">
-
        <?php 
         $paginaAtual = 'sensores';
         include '../components/sidbar.php';
         ?>
 
         <section class="conteudo-app">
-
             <div class="cabecalho-app">
                 <h1>Central de Sensores</h1>
-
-                <p>
-                    Gerencie todos os sensores cadastrados no sistema.
-                </p>
+                <p>Gerencie todos os sensores cadastrados no sistema.</p>
             </div>
 
             <div class="mb-4">
-
-                <label class="mb-2">
-                    Pesquisar sensor
-                </label>
-
+                <label class="mb-2">Pesquisar sensor</label>
                 <div class="sensores-barra d-flex gap-2">
+                    <input type="text" id="inputPesquisa" class="sensores-input flex-grow-1" placeholder="ex. Acelerômetro">
 
-                    <input type="text"
-                        id="inputPesquisa"
-                        class="sensores-input flex-grow-1"
-                        placeholder="ex. Acelerômetro">
-
-                    <button type="button"
-                        class="btn botao-azul-escuro"
-                        id="botaoCadastrar">
-
-                        Adicionar sensor
-
-                    </button>
-
+                    <?php if ($ehAdministrador): ?>
+                        <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
+                            Adicionar sensor
+                        </button>
+                    <?php endif; ?>
                 </div>
-
             </div>
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Sensores</h3>
-
-                <div id="listaSensores">
-
+                <div id="listaSensores" style="display: <?php echo $temSensoresCadastrados ? 'block' : 'none'; ?>;">
                     <table class="table">
                         <thead class="cabecario-tabela">
                             <tr>
+                                <th>ID</th>
                                 <th>Sensor</th>
-                                <th>Código</th>
                                 <th>Tipo</th>
+                                <th>Localização</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            <tr>
-                                <td>
-                                    Acelerômetro
-                                </td>
-                                <td>ACC-001</td>
-                                <td>Movimento</td>
-                                <td class="acoes-tabela">
-                                    <button
-                                        onclick="abrirEdicao(1, 'Acelerômetro', 'ACC-001', 'Movimento')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
+                            <?php while ($sensor = $listaSensores->fetch_assoc()): ?>
+                                <tr>
+                                    <th><?= htmlspecialchars( (string) $sensor['id_sensor'], ENT_QUOTES, 'UTF-8') ?></th>
+                                    <td><?= htmlspecialchars( (string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars( (string) $sensor['tipo_dado'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars( (string) $sensor['localizacao'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td class="acoes-tabela">
+                                        <?php if ($ehAdministrador): ?>
+                                            <button
+                                                type="button"
+                                                class="btn-acao-tabela"
+                                                onclick='abrirEdicao(
+                                                    <?= json_encode([
+                                                        "id" => $sensor["id_sensor"],
+                                                        "nome" => $sensor["nome"],
+                                                        "localizacao" => $sensor["localizacao"],
+                                                        "tipo_dado" => $sensor["tipo_dado"],
+                                                        "descricao" => $sensor["descricao"],
+                                                        "id_trem" => $sensor["id_trem"]
+                                                    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
+                                                )'
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Editar">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </button>
 
-                                    <button
-                                        onclick="abrirExclusao('Acelerômetro')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Excluir">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    Sensor de Temperatura
-                                </td>
-                                <td>TMP-002</td>
-                                <td>Temperatura</td>
-                                <td class="acoes-tabela">
-                                    <button
-                                        onclick="abrirEdicao(2, 'Sensor de Temperatura', 'TMP-002', 'Temperatura')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
-
-                                    <button
-                                        onclick="abrirExclusao('Sensor de Temperatura')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Excluir">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    Sensor de Vibração
-                                </td>
-                                <td>VIB-003</td>
-                                <td>Vibração</td>
-                                <td class="acoes-tabela">
-                                    <button
-                                        onclick="abrirEdicao(3, 'Sensor de Vibração', 'VIB-003', 'Vibração')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
-
-                                    <button
-                                        onclick="abrirExclusao('Sensor de Vibração')"
-                                        class="btn-acao-tabela"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Excluir">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                            <button
+                                                type="button"
+                                                class="btn-acao-tabela"
+                                                onclick='abrirExclusao(
+                                                    <?= htmlspecialchars((string) $sensor["id_sensor"], ENT_QUOTES, "UTF-8") ?>,
+                                                    <?= json_encode($sensor["nome"], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
+                                                )'
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Excluir">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
-
-                    <p id="mensagemVazia" class="mensagem-vazia" style="display: none;">
-                        Nenhum sensor cadastrado no momento!
-                    </p>
                 </div>
+                <p class="mensagem-vazia" style="display: <?php echo !$temSensoresCadastrados ? 'block' : 'none'; ?>;">Nenhum sensor cadastrado no momento!</p>
             </div>
         </section>
     </main>
-
     <footer>
     </footer>
-
 
     <?php require_once __DIR__ . '/../components/modals/modalSensor.php'; ?>
     <?php require_once __DIR__ . '/../components/modals/modalExcluirSensor.php'; ?>
@@ -175,7 +131,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/main.js"></script>
     <script src="../script/sensores.js"></script>
-
 </body>
-
 </html>
