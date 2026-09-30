@@ -82,6 +82,38 @@ document.addEventListener('DOMContentLoaded', function () {
             formulario.submit();
         });
     }
+
+    const inputPesquisa = document.getElementById('inputPesquisa');
+
+    if (inputPesquisa) {
+        inputPesquisa.addEventListener('input', function () {
+            const termo = this.value.trim().toLowerCase();
+            const tabela = document.querySelector('#listaRotas table');
+            if (!tabela) return;
+            const linhas = tabela.querySelectorAll('tbody tr');
+            let encontrou = false;
+
+            linhas.forEach(function (linha) {
+                const colNome = linha.cells[1];
+                if (!colNome) return;
+                const texto = colNome.textContent.trim().toLowerCase();
+                if (texto.indexOf(termo) !== -1) {
+                    linha.style.display = '';
+                    encontrou = true;
+                } else {
+                    linha.style.display = 'none';
+                }
+            });
+            const mensagemVazia = document.getElementById('mensagemVazia');
+            if (mensagemVazia) {
+                if (termo !== '' && !encontrou) {
+                    mensagemVazia.style.display = '';
+                } else {
+                    mensagemVazia.style.display = 'none';
+                }
+            }
+        });
+    }
 });
 
 
