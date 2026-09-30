@@ -1,155 +1,125 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const modalCadastro = document.getElementById('modalCadastro');
-    const modalExcluir = document.getElementById('modalExcluir');
 
     const botaoCadastrar = document.getElementById('botaoCadastrar');
-    const botaoExcluir = document.getElementById('botaoExcluir');
-    const botaoSalvarRota = document.getElementById('botaoSalvarRota');
-    const alertaCamposRota = document.getElementById('alertaCamposRota');
-
-    const formularioCadastro = document.getElementById('formularioCadastro');
-    const nomeRota = document.getElementById('nomeRota');
-    const codigoRota = document.getElementById('codigoRota');
-    const descricaoRota = document.getElementById('descricaoRota');
-    const tituloPadrao = 'Cadastrar Rota';
-
-    function esconderAlerta() {
-        if (alertaCamposRota) {
-            alertaCamposRota.hidden = true;
-        }
-    }
-
-    function definirTituloModal(titulo) {
-        const tituloElemento = document.querySelector('#modalCadastroLabel');
-        if (tituloElemento) {
-            tituloElemento.textContent = titulo;
-        }
-    }
-
-    function definirTextoBotao(texto) {
-        if (botaoSalvarRota) {
-            botaoSalvarRota.textContent = texto;
-        }
-    }
-
-    function abrirModalCadastro() {
-        if (!modalCadastro) return;
-
-        if (formularioCadastro) {
-            formularioCadastro.reset();
-        }
-
-        esconderAlerta();
-        definirTituloModal(tituloPadrao);
-        definirTextoBotao('Cadastrar');
-        bootstrap.Modal.getOrCreateInstance(modalCadastro).show();
-    }
+    const formularioRota = document.getElementById('formularioRota');
+    const botaoExcluirRota = document.getElementById('botaoExcluirRota');
 
     if (botaoCadastrar) {
-        botaoCadastrar.addEventListener('click', abrirModalCadastro);
+
+        botaoCadastrar.addEventListener('click', function () {
+
+            formularioRota.reset();
+
+            document.getElementById('acaoRota').value = 'cadastrar';
+            document.getElementById('idRota').value = '';
+
+            document.getElementById('modalCadastroRotaLabel').textContent =
+                'Cadastrar Rota';
+
+            document.getElementById('botaoSalvarRota').textContent =
+                'Cadastrar';
+
+            document.getElementById('alertaCamposRota').hidden = true;
+
+            const modal = bootstrap.Modal.getOrCreateInstance(
+                document.getElementById('modalCadastroRota')
+            );
+
+            modal.show();
+        });
     }
 
-    if (formularioCadastro) {
-        formularioCadastro.addEventListener('submit', function (event) {
-            event.preventDefault();
+    if (formularioRota) {
 
-            const nome = nomeRota.value.trim();
-            const codigo = codigoRota.value.trim();
-            const descricao = descricaoRota.value.trim();
+        formularioRota.addEventListener('submit', function (event) {
 
-            if (!nome || !codigo || !descricao) {
-                if (alertaCamposRota) {
-                    alertaCamposRota.hidden = false;
-                }
+            const nome = document
+                .getElementById('nomeRota')
+                .value
+                .trim();
+
+            if (nome === '') {
+
+                event.preventDefault();
+
+                document.getElementById('alertaCamposRota').hidden = false;
+
                 return;
             }
 
-            esconderAlerta();
-            const modal = bootstrap.Modal.getInstance(modalCadastro);
-            if (modal) {
-                modal.hide();
-            }
-
-            formularioCadastro.reset();
-            definirTituloModal(tituloPadrao);
-            definirTextoBotao('Cadastrar');
+            document.getElementById('alertaCamposRota').hidden = true;
         });
     }
 
-    if (botaoExcluir) {
-        botaoExcluir.addEventListener('click', function () {
-            const modal = bootstrap.Modal.getInstance(modalExcluir);
-            if (modal) {
-                modal.hide();
-            }
-        });
-    }
+    if (botaoExcluirRota) {
 
-    [nomeRota, codigoRota, descricaoRota].forEach(function (campo) {
-        if (campo) {
-            campo.addEventListener('input', esconderAlerta);
-        }
-    });
+        botaoExcluirRota.addEventListener('click', function () {
 
-    const inputPesquisa = document.getElementById('inputPesquisa');
-    const mensagemVazia = document.getElementById('mensagemVazia');
+            const idRota = document.getElementById('idRotaExcluir').value;
 
-    if (inputPesquisa && mensagemVazia) {
-        inputPesquisa.addEventListener('keyup', function () {
-            const pesquisa = inputPesquisa.value.toLowerCase();
-            const rotas = document.querySelectorAll('#listaRotas tbody tr');
-            let encontrados = 0;
+            const formulario = document.createElement('form');
 
-            rotas.forEach(function (rota) {
-                const nome = rota.cells[1]?.textContent.trim().toLowerCase() || '';
+            formulario.method = 'POST';
+            formulario.action = '../controllers/rotas.php';
 
-                if (nome.includes(pesquisa)) {
-                    rota.style.display = 'table-row';
-                    encontrados++;
-                } else {
-                    rota.style.display = 'none';
-                }
-            });
+            const campoAcao = document.createElement('input');
 
-            mensagemVazia.style.display = encontrados === 0 ? 'block' : 'none';
+            campoAcao.type = 'hidden';
+            campoAcao.name = 'acao';
+            campoAcao.value = 'excluir';
+
+            const campoId = document.createElement('input');
+
+            campoId.type = 'hidden';
+            campoId.name = 'id_rota';
+            campoId.value = idRota;
+
+            formulario.appendChild(campoAcao);
+            formulario.appendChild(campoId);
+
+            document.body.appendChild(formulario);
+
+            formulario.submit();
         });
     }
 });
 
-window.abrirEdicao = function (idRota, nome, codigo, descricao) {
-    const modalCadastro = document.getElementById('modalCadastro');
-    const formularioCadastro = document.getElementById('formularioCadastro');
 
-    if (!modalCadastro || !formularioCadastro) {
-        return;
-    }
+function abrirEdicaoRota(id, nome, descricao) {
 
-    formularioCadastro.reset();
+    document.getElementById('idRota').value = id;
+
     document.getElementById('nomeRota').value = nome;
-    document.getElementById('codigoRota').value = codigo;
+
     document.getElementById('descricaoRota').value = descricao;
 
-    const tituloElemento = document.querySelector('#modalCadastroLabel');
-    if (tituloElemento) {
-        tituloElemento.textContent = `Editar Rota ${idRota}`;
-    }
+    document.getElementById('acaoRota').value = 'editar';
 
-    const botaoSalvarRota = document.getElementById('botaoSalvarRota');
-    if (botaoSalvarRota) {
-        botaoSalvarRota.textContent = 'Editar';
-    }
+    document.getElementById('modalCadastroRotaLabel').textContent =
+        'Editar Rota';
 
-    bootstrap.Modal.getOrCreateInstance(modalCadastro).show();
-};
+    document.getElementById('botaoSalvarRota').textContent =
+        'Salvar alterações';
 
-window.abrirExclusao = function (nome) {
-    const nomeExcluir = document.getElementById('nomeExcluir');
-    const modalExcluir = document.getElementById('modalExcluir');
+    document.getElementById('alertaCamposRota').hidden = true;
 
-    if (!nomeExcluir || !modalExcluir) {
-        return;
-    }
+    const modal = bootstrap.Modal.getOrCreateInstance(
+        document.getElementById('modalCadastroRota')
+    );
 
-    nomeExcluir.textContent = nome;
-    bootstrap.Modal.getOrCreateInstance(modalExcluir).show();
-};
+    modal.show();
+}
+
+
+function abrirExclusaoRota(id, nome) {
+
+    document.getElementById('idRotaExcluir').value = id;
+
+    document.getElementById('nomeRotaExcluir').textContent = nome;
+
+    const modal = bootstrap.Modal.getOrCreateInstance(
+        document.getElementById('modalExcluirRota')
+    );
+
+    modal.show();
+}
