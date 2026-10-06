@@ -6,7 +6,7 @@
 
             <div class="modal-header">
 
-                <h1 class="modal-title fs-5">
+                <h1 class="modal-title fs-5 fw-bold">
                     Excluir Colaborador
                 </h1>
 
@@ -18,7 +18,7 @@
                 <input type="hidden" id="idUsuarioExcluir">
 
                 <p>
-                    Tem certeza que deseja excluir este colaborador?
+                    Tem certeza que deseja excluir o colaborador <strong id="nomeColaboradorExcluir"></strong>?
                 </p>
 
                 <div class="d-flex gap-2">

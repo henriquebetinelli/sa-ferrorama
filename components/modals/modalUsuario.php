@@ -11,7 +11,8 @@
             <div class="modal-body">
                 <div id="alertaErroServidor" class="alerta-erro" role="alert" aria-live="polite" hidden></div>
 
-                <form id="formularioCadastro" method="POST" action="../controllers/usuario/salvarUsuario.php">
+                <form id="formularioCadastro" method="POST" action="../controllers/colaboradores.php">
+                    <input type="hidden" id="acaoColaborador" name="acao" value="cadastrar">
                     <input type="hidden" id="idUsuario" name="id_usuario">
 
                     <div class="mb-3">
