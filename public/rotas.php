@@ -146,17 +146,12 @@ $consultaRotas = listarRotas($conexao);
                                 <th>Rota</th>
 
                                 <th>Descrição</th>
-<<<<<<< HEAD
-                                <th>Ações</th>
-=======
 
                                 <?php if ($ehAdministrador): ?>
 
                                     <th>Ações</th>
 
                                 <?php endif; ?>
-
->>>>>>> b0328834feb61a72140cf8a64413758127e4190c
                             </tr>
 
                         </thead>
