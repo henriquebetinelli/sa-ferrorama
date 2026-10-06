@@ -60,9 +60,7 @@ $ehAdministrador = mb_strtolower(trim($_SESSION['usuario_cargo'] ?? '')) === mb_
                                 <th>ID</th>
                                 <th>Rota</th>
                                 <th>Descrição</th>
-                                <?php if ($ehAdministrador): ?>
-                                    <th>Ações</th>
-                                <?php endif; ?>
+                                <th>Ações</th>
                             </tr>
                         </thead>
 
