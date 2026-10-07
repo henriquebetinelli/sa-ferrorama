@@ -1,10 +1,14 @@
 <?php
 session_start();
+require_once __DIR__ . '/../infra/conexao.php';
+require_once __DIR__ . '/../controllers/colaboradores.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$totalColaboradores = contarColaboradores($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -37,21 +41,63 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
 
             <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <div class="card-secao">
-
+                <div class="col-md-4">
+                    <div class="card-secao-home">
+                        <h3 class="titulo-secao">Sensores</h3>
+                        <a href="sensores.php" class="ver-tudo">
+                            Ver tudo
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                        <p class="mensagem-vazia">Nenhum sensor cadastrado no momento!</p>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card-secao">
-
+                <div class="col-md-4">
+                    <div class="card-secao-home">
+                        <h3 class="titulo-secao">Colaboradores</h3>
+                        <a href="colaboradores.php" class="ver-tudo">
+                            Ver tudo
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                        <div class="mt-4">
+                            <h1 class="fw-bold"><?= htmlspecialchars((string) $totalColaboradores) ?></h1>
+                            <p>Colaboradores cadastrados</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-secao-home">
+                        <h3 class="titulo-secao">Alertas</h3>
+                        <a href="monitoramento.php" class="ver-tudo">
+                            Ver tudo
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                        <p class="mensagem-vazia">Nenhum alerta registrado no momento!</p>
                     </div>
                 </div>
             </div>
 
-            <div class="card-secao">
-                <h3 class="titulo-secao">Sensores</h3>
-                <p class="mensagem-vazia">Nenhum sensor cadastrado no momento!</p>
+            <div class="row g-3 mb-3">
+                <div class="col-md-8">
+                    <div class="card-secao-home">
+                        <h3 class="titulo-secao">Relatórios</h3>
+                        <a href="relatorios.php" class="ver-tudo">
+                            Ver tudo
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                        <p class="mensagem-vazia">Nenhum relatório disponível no momento!</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-secao-home">
+                        <h3 class="titulo-secao">Operações</h3>
+                        <a href="monitoramento.php" class="ver-tudo">
+                            Ver tudo
+                            <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                        <p class="mensagem-vazia">Nenhuma operação cadastrada no momento!</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

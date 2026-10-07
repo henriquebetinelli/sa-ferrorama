@@ -214,12 +214,48 @@ hr {
     margin-top: 4px;
 }
  
+.row.g-3.mb-3 > .col-md-4,
+.row.g-3.mb-3 > .col-md-8 {
+    display: flex;
+}
+
 .card-secao {
     background-color: #ffffff;
     border-radius: 18px;
     padding: 24px 28px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     min-height: 200px;
+    position: relative;
+}
+
+.card-secao-home {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.ver-tudo {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #081824;
+    text-decoration: none;
+}
+
+.ver-tudo:hover,
+.ver-tudo:focus,
+.ver-tudo:active,
+.ver-tudo:visited {
+    color: #081824;
+    text-decoration: none;
 }
 
 .titulo-secao {

@@ -10,6 +10,18 @@ function listarColaboradores($conexao){
     return $conexao->query($sql);
 }
 
+function contarColaboradores($conexao){
+    $sql = "SELECT COUNT(*) AS total FROM usuario";
+    $resultado = $conexao->query($sql);
+
+    if (!$resultado) {
+        return 0;
+    }
+
+    $dados = $resultado->fetch_assoc();
+    return (int) ($dados['total'] ?? 0);
+}
+
 function cadastrarColaborador($conexao, $nome, $cpf, $dataNascimento, $genero, $telefone, $email, $senha, $cargo, $cep) {
     $senha = password_hash($senha, PASSWORD_DEFAULT);
 
