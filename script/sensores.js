@@ -77,3 +77,30 @@ function abrirExclusao(idSensor, nomeSensor) {
     const modalExcluirSensor = document.getElementById('modalExcluirSensor');
     bootstrap.Modal.getOrCreateInstance(modalExcluirSensor).show();
 }
+
+const tipoSensor = document.getElementById('tipoSensor');
+const campoLimite = document.getElementById('campoLimite');
+const campoLocalizacao = document.getElementById('campoLocalizacao');
+const unidadeSensor = document.getElementById('unidadeSensor');
+
+tipoSensor.addEventListener('change', function () {
+    if (this.value === 'velocidade') {
+        tituloLimite.textContent = 'Limite máximo';
+    }
+
+    if (this.value === 'temperatura') {
+        tituloLimite.textContent = 'Limite máximo';
+    }
+
+    if (this.value === 'vibração') {
+        tituloLimite.textContent = 'Limite máximo';
+    }
+
+    if (this.value === 'proximidade') {
+        tituloLimite.textContent = 'Distância mínima';
+    }
+
+    if (this.value === 'localização') {
+        tituloLimite.textContent = 'Posição na rota';
+    }
+});

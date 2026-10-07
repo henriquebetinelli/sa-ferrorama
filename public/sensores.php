@@ -45,6 +45,12 @@ if ($listaSensores === false) {
             <div class="cabecalho-app">
                 <h1>Central de Sensores</h1>
                 <p>Gerencie todos os sensores cadastrados no sistema.</p>
+
+                <?php if ($ehAdministrador): ?>
+                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
+                        Adicionar sensor
+                    </button>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4">
@@ -52,11 +58,9 @@ if ($listaSensores === false) {
                 <div class="sensores-barra d-flex gap-2">
                     <input type="text" id="inputPesquisa" class="sensores-input flex-grow-1" placeholder="ex. Acelerômetro">
 
-                    <?php if ($ehAdministrador): ?>
-                        <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
-                            Adicionar sensor
-                        </button>
-                    <?php endif; ?>
+                    <button type="button" class="btn botao-branco">
+                        Buscar
+                    </button>
                 </div>
             </div>
 

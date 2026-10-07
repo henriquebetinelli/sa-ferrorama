@@ -29,7 +29,31 @@ $trens = listarTrens($conexao);
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="tipoSensor" class="form-label">Tipo</label>
-                            <input type="text" class="form-control" id="tipoSensor" name="tipo_dado">
+                            <select class="form-control"  id="tipoSensor" name="tipoSensor">
+                                <option value=""></option>
+                                <option value="velocidade">Velocidade</option>
+                                <option value="temperatura">Temperatura</option>
+                                <option value="localização">Localização</option>
+                                <option value="vibração">Vibração</option>
+                                <option value="proximidade">Proximidade</option>
+                                <option value="freio">Freio</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label  id="tituloLimite" for="limiteSensor" class="form-label">Limite máximo</label>
+                            <input type="number" id="limiteSensor" name="limiteSensor" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="localizacaoSensor" class="form-label">Anexado</label>
+                            <select class="form-control" id="localizacaoSensor" name="localizacao">
+                                <option value=""></option>
+                                <option value="cabinas">Trem</option>
+                                <option value="vagao">Rota</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -41,11 +65,6 @@ $trens = listarTrens($conexao);
                                 <?php endwhile; endif; ?>
                             </select>
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="localizacaoSensor" class="form-label">Localização</label>
-                        <input class="form-control" id="localizacaoSensor" name="localizacao">
                     </div>
 
                     <div class="col-md-12 mb-3">
