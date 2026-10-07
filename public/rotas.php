@@ -81,6 +81,19 @@ $consultaRotas = listarRotas($conexao);
                     Gerencie todas as rotas cadastradas no sistema.
                 </p>
 
+                <?php if ($ehAdministrador): ?>
+
+                    <button
+                        type="button"
+                        class="btn botao-azul-escuro botao-cabecalho"
+                        id="botaoCadastrar">
+
+                        Adicionar Rota
+
+                    </button>
+
+                <?php endif; ?>
+
             </div>
 
 
@@ -106,20 +119,6 @@ $consultaRotas = listarRotas($conexao);
                         id="inputPesquisa"
                         class="rotas-input flex-grow-1"
                         placeholder="ex. Rota Principal">
-
-
-                    <?php if ($ehAdministrador): ?>
-
-                        <button
-                            type="button"
-                            class="btn botao-azul-escuro"
-                            id="botaoCadastrar">
-
-                            Adicionar Rota
-
-                        </button>
-
-                    <?php endif; ?>
 
                 </div>
 
