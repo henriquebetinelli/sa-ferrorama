@@ -1,3 +1,23 @@
+.cabecalho-app {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.cabecalho-app h1 {
+    margin: 0;
+}
+
+.cabecalho-app p {
+    margin: 0;
+}
+
+.botao-cabecalho {
+    margin-top: 4px;
+}
+
 .rotas-barra {
     width: 100%;
 }

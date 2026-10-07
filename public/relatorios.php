@@ -68,6 +68,10 @@ if ($consultaRelatorios === false) {
             <div class="cabecalho-app">
                 <h1>Central de Relatórios</h1>
                 <p>Gerencie e gere relatórios sobre as operações do Ferrorama.</p>
+
+                <button type="button" class="btn botao-azul-escuro botao-cabecalho" id="botaoCadastrar">
+                    Adicionar Relatórios
+                </button>
             </div>
 
             <div class="mb-4">
@@ -75,10 +79,6 @@ if ($consultaRelatorios === false) {
 
                 <div class="pagina-barra d-flex gap-2">
                     <input type="text" id="inputPesquisa" name="q" value="<?= htmlspecialchars($q ?? '', ENT_QUOTES, 'UTF-8') ?>" class="pagina-input flex-grow-1" placeholder="ex. Operação 1">
-
-                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
-                        Adicionar Relatórios
-                    </button>
                 </div>
             </div>
 
