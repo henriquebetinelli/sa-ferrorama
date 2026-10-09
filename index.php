@@ -15,9 +15,9 @@
         <nav class="nav d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <img src="assets/img/logo/logo_clara.png" alt="Logo Click Rails" class="logo-navbar">
-                <p><strong>Click Rails</strong></p>
+                <p class="mt-3 ms-2"><strong>Click Rails</strong></p>
             </div>
-            <button class="btn botao-cinza" onclick="window.location.href='public/login.php'">Entrar</button>
+            <a href="public/login.php" class="btn botao-navbar fw-bold">Entrar</a>
         </nav>
 
         <section class="section-contexto">

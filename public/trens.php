@@ -11,7 +11,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 
 $listaTrens = listarTrens($conexao);
-$temTrensCadastrados = temTrensCadastrados($conexao);
 
 if ($listaTrens === false) {
     http_response_code(500);
@@ -48,33 +47,33 @@ if ($listaTrens === false) {
             <div class="cabecalho-app">
                 <h1>Central de Trens</h1>
                 <p>Gerencie todos os trens cadastrados no sistema.</p>
+                <?php if ($ehAdministrador): ?>
+                    <button type="button" class="btn botao-azul-escuro mt-3 mb-4 px-3" id="botaoCadastrar">
+                        <i class="bi bi-plus-lg"></i>
+                        Adicionar trem
+                    </button>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4">
                 <label class="mb-2">Pesquisar trem</label>
 
                 <div class="pagina-barra d-flex gap-2">
-                    <input
-                        type="text"
-                        id="inputPesquisa"
-                        class="pagina-input flex-grow-1"
-                        placeholder="ex. Expresso Litoral">
+                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Expresso Litoral">
 
-                    <?php if ($ehAdministrador): ?>
-                        <button
-                            type="button"
-                            class="btn botao-azul-escuro"
-                            id="botaoCadastrar">
-                            Adicionar trem
-                        </button>
-                    <?php endif; ?>
+                    <button type="button" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
                 </div>
             </div>
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Trens</h3>
 
-                <div id="listaTrens" style="display: <?php echo $temTrensCadastrados ? 'block' : 'none'; ?>;">
+                <?php if (!temTrensCadastrados($conexao)): ?>
+                   <p class="mensagem-vazia" >Nenhum trem cadastrado no momento!</p>
+                <?php else: ?>
                     <table class="table">
                         <thead class="cabecario-tabela">
                             <tr>
@@ -134,14 +133,10 @@ if ($listaTrens === false) {
                             <?php endwhile; ?>
                         </tbody>
                     </table>
-                </div>
-                <p class="mensagem-vazia" style="display: <?php echo !$temTrensCadastrados ? 'block' : 'none'; ?>;">Nenhum trem cadastrado no momento!</p>
+                <?php endif; ?>
             </div>
         </section>
     </main>
-
-    <footer>
-    </footer>
 
     <?php if ($ehAdministrador): ?>
         <?php require_once __DIR__ . '/../components/modals/modalTrem.php'; ?>

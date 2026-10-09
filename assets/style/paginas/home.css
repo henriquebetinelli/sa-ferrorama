@@ -1,0 +1,49 @@
+.card-secao-home {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.ver-tudo {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #081824;
+    text-decoration: none;
+}
+
+.ver-tudo:hover,
+.ver-tudo:focus,
+.ver-tudo:active,
+.ver-tudo:visited {
+    color: #081824;
+    text-decoration: none;
+}
+
+.icone-home { 
+    font-size: 40px;
+}
+
+.icone-home-borda {
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background-color: #081824;
+    border-radius: 15px;
+}
+
+.progresso-da-barra {
+    background-color: #a3a3a3;
+}

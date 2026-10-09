@@ -53,17 +53,21 @@ if ($consultaColaboradores === false) {
                         <?= htmlspecialchars($erroColaborador) ?>
                     </div>
                 <?php endif; ?>
+                <button type="button" class="btn botao-azul-escuro mt-3 mb-4 px-3" id="botaoCadastrar">
+                    <i class="bi bi-plus-lg"></i>
+                    Adicionar colaborador
+                </button>
             </div>
 
             <div class="mb-4">
                 <label class="mb-2">Pesquisar colaborador</label>
 
                 <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1"
-                        placeholder="ex. João Pedro">
+                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. João Pedro">
 
-                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
-                        Adicionar colaborador
+                    <button type="button" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
+                        Buscar
                     </button>
                 </div>
             </div>
@@ -133,9 +137,6 @@ if ($consultaColaboradores === false) {
         </section>
 
     </main>
-
-    <footer>
-    </footer>
 
     <?php require_once __DIR__ . '/../components/modals/modalUsuario.php'; ?>
     <?php require_once __DIR__ . '/../components/modals/modalExcluirColaborador.php'; ?>

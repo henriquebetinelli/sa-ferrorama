@@ -11,7 +11,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 
 $listaSensores = listarSensores($conexao);
-$temSensoresCadastrados = temSensoresCadastrados($conexao);
 
 if ($listaSensores === false) {
     http_response_code(500);
@@ -47,7 +46,8 @@ if ($listaSensores === false) {
                 <p>Gerencie todos os sensores cadastrados no sistema.</p>
 
                 <?php if ($ehAdministrador): ?>
-                    <button type="button" class="btn botao-azul-escuro" id="botaoCadastrar">
+                    <button type="button" class="btn botao-azul-escuro mt-3 mb-4 px-3" id="botaoCadastrar">
+                        <i class="bi bi-plus-lg"></i>
                         Adicionar sensor
                     </button>
                 <?php endif; ?>
@@ -56,9 +56,10 @@ if ($listaSensores === false) {
             <div class="mb-4">
                 <label class="mb-2">Pesquisar sensor</label>
                 <div class="sensores-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="sensores-input flex-grow-1" placeholder="ex. Acelerômetro">
+                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Acelerômetro">
 
-                    <button type="button" class="btn botao-branco">
+                    <button type="button" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
                         Buscar
                     </button>
                 </div>
@@ -66,7 +67,10 @@ if ($listaSensores === false) {
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Sensores</h3>
-                <div id="listaSensores" style="display: <?php echo $temSensoresCadastrados ? 'block' : 'none'; ?>;">
+
+                <?php if (!temSensoresCadastrados($conexao)): ?>
+                   <p class="mensagem-vazia" >Nenhum sensor cadastrado no momento!</p>
+                <?php else: ?>
                     <table class="table">
                         <thead class="cabecario-tabela">
                             <tr>
@@ -121,14 +125,11 @@ if ($listaSensores === false) {
                             <?php endwhile; ?>
                         </tbody>
                     </table>
-                </div>
-                <p class="mensagem-vazia" style="display: <?php echo !$temSensoresCadastrados ? 'block' : 'none'; ?>;">Nenhum sensor cadastrado no momento!</p>
+                <?php endif; ?>
             </div>
         </section>
     </main>
-    <footer>
-    </footer>
-
+    
     <?php require_once __DIR__ . '/../components/modals/modalSensor.php'; ?>
     <?php require_once __DIR__ . '/../components/modals/modalExcluirSensor.php'; ?>
 

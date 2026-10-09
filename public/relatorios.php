@@ -69,7 +69,8 @@ if ($consultaRelatorios === false) {
                 <h1>Central de Relatórios</h1>
                 <p>Gerencie e gere relatórios sobre as operações do Ferrorama.</p>
 
-                <button type="button" class="btn botao-azul-escuro botao-cabecalho" id="botaoCadastrar">
+                <button type="button" class="btn botao-azul-escuro mt-3 mb-4 px-3" id="botaoCadastrar">
+                    <i class="bi bi-plus-lg"></i>
                     Adicionar Relatórios
                 </button>
             </div>
@@ -79,31 +80,33 @@ if ($consultaRelatorios === false) {
 
                 <div class="pagina-barra d-flex gap-2">
                     <input type="text" id="inputPesquisa" name="q" value="<?= htmlspecialchars($q ?? '', ENT_QUOTES, 'UTF-8') ?>" class="pagina-input flex-grow-1" placeholder="ex. Operação 1">
+
+                    <button type="button" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
                 </div>
             </div>
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Relatórios</h3>
-
                 <div id="listaColaboradores">
-
-                <table class="table">
-                    <thead class="cabecario-tabela">
-                        <tr>
-                            <th>ID</th>
-                            <th>Relatório</th>
-                            <th>Responsável</th>
-                            <th>Período</th>
-                            <th>Tipo</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($consultaRelatorios->num_rows === 0): ?>
+                
+                <?php if ($consultaRelatorios->num_rows === 0): ?>
+                   <p class="mensagem-vazia" >Nenhum relatório cadastrado no momento!</p>
+                <?php else: ?>
+                    <table class="table">
+                        <thead class="cabecario-tabela">
                             <tr>
-                                <td colspan="6">Nenhum relatório cadastrado no momento.</td>
+                                <th>ID</th>
+                                <th>Relatório</th>
+                                <th>Responsável</th>
+                                <th>Período</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
                             </tr>
-                        <?php else: ?>
+                        </thead>
+                        <tbody>
                             <?php while ($rel = $consultaRelatorios->fetch_assoc()): ?>
                                 <?php $tituloEsc = htmlspecialchars((string) $rel['titulo'], ENT_QUOTES, 'UTF-8'); ?>
                                 <tr>
@@ -133,22 +136,13 @@ if ($consultaRelatorios === false) {
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-                
-                <p id="mensagemVazia" class="mensagem-vazia" style="display: none;">
-                    Nenhum trem cadastrado no momento!
-                </p>
-
+                        </tbody>
+                    </table>
+                <?php endif; ?>
             </div>
-
         </section>
 
     </main>
-
-    <footer>
-    </footer>
 
     <?php require_once __DIR__ . '/../components/modals/modalRelatorios.php'; ?>
     <?php require_once __DIR__ . '/../components/modals/modalExcluirRelatorio.php'; ?>

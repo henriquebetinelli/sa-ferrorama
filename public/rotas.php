@@ -17,6 +17,11 @@ $erroRota = $_SESSION['erro_rota'] ?? '';
 unset($_SESSION['erro_rota']);
 
 $consultaRotas = listarRotas($conexao);
+
+if ($consultaRotas === false) {
+    http_response_code(500);
+    die('Não foi possível carregar as rotas.');
+}
 ?>
 
 <!DOCTYPE html>
@@ -85,9 +90,10 @@ $consultaRotas = listarRotas($conexao);
 
                     <button
                         type="button"
-                        class="btn botao-azul-escuro botao-cabecalho"
+                        class="btn botao-azul-escuro mt-3 mb-4 px-3"
                         id="botaoCadastrar">
 
+                        <i class="bi bi-plus-lg"></i>
                         Adicionar Rota
 
                     </button>
@@ -109,7 +115,7 @@ $consultaRotas = listarRotas($conexao);
             <div class="mb-4">
 
                 <label class="mb-2">
-                    Pesquisar Rota
+                    Pesquisar rota
                 </label>
 
                 <div class="rotas-barra d-flex gap-2">
@@ -117,8 +123,13 @@ $consultaRotas = listarRotas($conexao);
                     <input
                         type="text"
                         id="inputPesquisa"
-                        class="rotas-input flex-grow-1"
+                        class="pagina-input flex-grow-1"
                         placeholder="ex. Rota Principal">
+
+                    <button type="button" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
 
                 </div>
 
@@ -134,128 +145,106 @@ $consultaRotas = listarRotas($conexao);
 
                 <div id="listaRotas">
 
-                    <table class="table">
+                    <?php if (!temRotasCadastradas($conexao)): ?>
+                        <p class="mensagem-vazia" >Nenhuma rota cadastrada no momento!</p>
+                    <?php else: ?>
+                        
+                        <table class="table">
 
-                        <thead class="cabecario-tabela">
-
-                            <tr>
-
-                                <th>ID</th>
-
-                                <th>Rota</th>
-
-                                <th>Descrição</th>
-
-                                <?php if ($ehAdministrador): ?>
-
-                                    <th>Ações</th>
-
-                                <?php endif; ?>
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            <?php if ($consultaRotas && $consultaRotas->num_rows > 0): ?>
-
-                                <?php while ($rota = $consultaRotas->fetch_assoc()): ?>
-
-                                    <tr>
-
-                                        <td>
-                                            <?= htmlspecialchars(
-                                                $rota['id_rota']
-                                            ) ?>
-                                        </td>
-
-
-                                        <td>
-                                            <?= htmlspecialchars(
-                                                $rota['nome']
-                                            ) ?>
-                                        </td>
-
-
-                                        <td>
-                                            <?= htmlspecialchars(
-                                                $rota['descricao'] ?? ''
-                                            ) ?>
-                                        </td>
-
-
-                                        <?php if ($ehAdministrador): ?>
-
-                                            <td class="acoes-tabela">
-
-                                                <button
-                                                    type="button"
-                                                    class="btn-acao-tabela"
-                                                    onclick='abrirEdicaoRota(
-                                                        <?= json_encode($rota['id_rota']) ?>,
-                                                        <?= json_encode($rota['nome']) ?>,
-                                                        <?= json_encode($rota['descricao'] ?? '') ?>
-                                                    )'
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-title="Editar">
-
-                                                    <i class="bi bi-pencil-fill"></i>
-
-                                                </button>
-
-
-                                                <button
-                                                    type="button"
-                                                    class="btn-acao-tabela"
-                                                    onclick='abrirExclusaoRota(
-                                                        <?= json_encode($rota['id_rota']) ?>,
-                                                        <?= json_encode($rota['nome']) ?>
-                                                    )'
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-title="Excluir">
-
-                                                    <i class="bi bi-trash-fill"></i>
-
-                                                </button>
-
-                                            </td>
-
-                                        <?php endif; ?>
-
-                                    </tr>
-
-                                <?php endwhile; ?>
-
-                            <?php else: ?>
+                            <thead class="cabecario-tabela">
 
                                 <tr>
 
-                                    <td
-                                        colspan="<?= $ehAdministrador ? '4' : '3' ?>"
-                                        class="text-center">
+                                    <th>ID</th>
 
-                                        Nenhuma rota cadastrada no momento!
+                                    <th>Rota</th>
 
-                                    </td>
+                                    <th>Descrição</th>
 
+                                    <?php if ($ehAdministrador): ?>
+
+                                        <th>Ações</th>
+
+                                    <?php endif; ?>
                                 </tr>
 
-                            <?php endif; ?>
-
-                        </tbody>
-
-                    </table>
+                            </thead>
 
 
-                    <p
-                        id="mensagemVazia"
-                        class="mensagem-vazia"
-                        style="display: none;">
+                            <tbody>
 
-                        Nenhuma rota cadastrada no momento!
+                                    <?php while ($rota = $consultaRotas->fetch_assoc()): ?>
 
-                    </p>
+                                        <tr>
+
+                                            <td>
+                                                <?= htmlspecialchars(
+                                                    $rota['id_rota']
+                                                ) ?>
+                                            </td>
+
+
+                                            <td>
+                                                <?= htmlspecialchars(
+                                                    $rota['nome']
+                                                ) ?>
+                                            </td>
+
+
+                                            <td>
+                                                <?= htmlspecialchars(
+                                                    $rota['descricao'] ?? ''
+                                                ) ?>
+                                            </td>
+
+
+                                            <?php if ($ehAdministrador): ?>
+
+                                                <td class="acoes-tabela">
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn-acao-tabela"
+                                                        onclick='abrirEdicaoRota(
+                                                            <?= json_encode($rota['id_rota']) ?>,
+                                                            <?= json_encode($rota['nome']) ?>,
+                                                            <?= json_encode($rota['descricao'] ?? '') ?>
+                                                        )'
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-title="Editar">
+
+                                                        <i class="bi bi-pencil-fill"></i>
+
+                                                    </button>
+
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn-acao-tabela"
+                                                        onclick='abrirExclusaoRota(
+                                                            <?= json_encode($rota['id_rota']) ?>,
+                                                            <?= json_encode($rota['nome']) ?>
+                                                        )'
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-title="Excluir">
+
+                                                        <i class="bi bi-trash-fill"></i>
+
+                                                    </button>
+
+                                                </td>
+
+                                            <?php endif; ?>
+
+                                        </tr>
+
+                                    <?php endwhile; ?>
+
+                            </tbody>
+
+                        </table>
+
+                    <?php endif; ?>
 
                 </div>
 
@@ -264,10 +253,6 @@ $consultaRotas = listarRotas($conexao);
         </section>
 
     </main>
-
-
-    <footer>
-    </footer>
 
 
     <?php require_once __DIR__ . '/../components/modals/modalRota.php'; ?>

@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #E3E3E3;
     margin: 0;
 }
@@ -221,41 +223,11 @@ hr {
 
 .card-secao {
     background-color: #ffffff;
-    border-radius: 18px;
+    border-radius: 14px;
     padding: 24px 28px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     min-height: 200px;
     position: relative;
-}
-
-.card-secao-home {
-    background-color: #ffffff;
-    border-radius: 18px;
-    padding: 24px 28px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    min-height: 200px;
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-
-.ver-tudo {
-    position: absolute;
-    top: 24px;
-    right: 28px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    color: #081824;
-    text-decoration: none;
-}
-
-.ver-tudo:hover,
-.ver-tudo:focus,
-.ver-tudo:active,
-.ver-tudo:visited {
-    color: #081824;
-    text-decoration: none;
 }
 
 .titulo-secao {
