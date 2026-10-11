@@ -14,6 +14,8 @@ nav {
     padding: 0 32px;
     background-color: #081824;
     color: #ffffff;
+    position: relative;
+    z-index: 101;
 }
 
 footer {
@@ -148,15 +150,21 @@ hr {
 }
  
 .sidebar-app {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 300px;
-    min-width: 220px;
+    height: 100%;
     background-color: #ffffff;
     padding: 24px 0;
     border-right: 1px solid #e0e0e0;
-    height: 800px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    z-index: 100;
 }
 
 .nav-sidebar {
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -190,7 +198,9 @@ hr {
 }
  
 .conteudo-app {
+    margin-left: 300px;
     flex: 1;
+    min-width: 0;
     padding: 40px 50px;
     background-color: #E3E3E3;
 }
@@ -227,6 +237,17 @@ hr {
     padding: 24px 28px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     min-height: 200px;
+    position: relative;
+}
+
+.card-compacto {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
     position: relative;
 }
 
@@ -298,4 +319,16 @@ hr {
 
 .modal.modal-top .modal-dialog {
     margin: 1.5rem auto 0;
+}
+
+.icone-com-borda {
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background-color: #081824;
+    border-radius: 15px;
 }

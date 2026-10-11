@@ -45,28 +45,28 @@ $totalColaboradores = contarColaboradores($conexao);
                 </button>
             </div>
 
-            <div class="row g-3 mb-3">
+            <div class="row g-4 mb-4">
                 <div class="col-md-2">
-                    <div class="card-secao-home d-flex flex-column align-items-center justify-content-center">
+                    <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
                         <i class="bi bi-people-fill icone-home"></i>
                         <h1><?= htmlspecialchars((string) $totalColaboradores) ?></h1>
                         <p>Colaboradores</p>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="card-secao-home d-flex flex-column align-items-center justify-content-center">
+                    <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
                         <i class="bi bi-broadcast icone-home"></i>
                         <h1>0</h1>
                         <p>Sensores</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-secao-home">
+                    <div class="card-compacto">
                         <h3 class="titulo-secao"></h3>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-secao-home">
+                    <div class="card-compacto">
                         <h3 class="titulo-secao">Alertas</h3>
                         <a href="monitoramento.php" class="ver-tudo">
                             Ver tudo
@@ -77,9 +77,9 @@ $totalColaboradores = contarColaboradores($conexao);
                 </div>
             </div>
 
-            <div class="row g-3 mb-3">
+            <div class="row g-4 mb-4">
                 <div class="col-md-8">
-                    <div class="card-secao-home">
+                    <div class="card-compacto">
                         <h3 class="titulo-secao">Relatórios</h3>
                         <a href="relatorios.php" class="ver-tudo">
                             Ver tudo
@@ -89,7 +89,7 @@ $totalColaboradores = contarColaboradores($conexao);
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-secao-home">
+                    <div class="card-compacto">
                         <h3 class="titulo-secao">Operações</h3>
                         <a href="monitoramento.php" class="ver-tudo">
                             Ver tudo
@@ -98,7 +98,7 @@ $totalColaboradores = contarColaboradores($conexao);
 
                         <div 
                             class="d-flex align-items-center gap-3 my-4">
-                            <i class="bi bi-truck-front-fill icone-home-borda"></i>
+                            <i class="bi bi-truck-front-fill icone-com-borda"></i>
                             <div class="flex-grow-1">
                                 <p>Operação Inicial</p>
                                 <div 
