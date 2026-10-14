@@ -19,10 +19,6 @@ if (!isset($_SESSION['usuario_id'])) {
     <title>Monitoramento - Click Rails</title>
 </head>
 <body>
-    <header>
-        <?php include '../components/navbar.php'; ?>
-    </header>
-
     <main class="layout-app">
 
         <?php

@@ -31,9 +31,6 @@ if ($listaSensores === false) {
     <title>Sensores - Click Rails</title>
 </head>
 <body>
-    <header>
-        <?php include '../components/navbar.php'; ?>
-    </header>
     <main class="layout-app">
        <?php 
         $paginaAtual = 'sensores';

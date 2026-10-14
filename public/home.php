@@ -25,10 +25,6 @@ $totalColaboradores = contarColaboradores($conexao);
 </head>
 
 <body>
-    <header>
-        <?php include '../components/navbar.php'; ?>
-    </header>
-
     <main class="layout-app">
         <?php 
         $paginaAtual = 'home';
