@@ -54,10 +54,6 @@ if ($consultaRelatorios === false) {
 </head>
 
 <body>
-    <header>
-        <?php include '../components/navbar.php'; ?>
-    </header>
-
     <main class="layout-app">
         <?php 
         $paginaAtual = 'relatorios';
