@@ -22,7 +22,14 @@ CREATE TABLE trem (
   nome VARCHAR(100) NOT NULL,
   modelo VARCHAR(100) NOT NULL,
   status VARCHAR(30) NOT NULL DEFAULT 'parado',
-  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id_operador INT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_trem_operador
+    FOREIGN KEY (id_operador)
+    REFERENCES usuario(id_usuario)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
 );
 
 CREATE TABLE rota (

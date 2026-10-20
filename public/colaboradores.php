@@ -45,7 +45,7 @@ if ($consultaColaboradores === false) {
                 <h1>Central de Colaboradores</h1>
                 <p>Gerencie todos os colaboradores cadastrados no sistema.</p>
                 <?php if ($erroColaborador): ?>
-                    <div class="alerta-erro" role="alert">
+                    <div class="alerta-erro w-100" role="alert">
                         <?= htmlspecialchars($erroColaborador) ?>
                     </div>
                 <?php endif; ?>

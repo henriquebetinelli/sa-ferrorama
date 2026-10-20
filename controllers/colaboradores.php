@@ -26,6 +26,15 @@ function buscarColaboradorPorId($conexao, $idUsuario) {
     return $colaborador;
 }
 
+function listarOperadores($conexao){
+    $sql = "SELECT id_usuario, nome_usuario
+        FROM usuario
+        WHERE cargo = 'Operador'
+        ORDER BY nome_usuario ASC";
+
+    return $conexao->query($sql);
+}
+
 function contarColaboradores($conexao){
     $sql = "SELECT COUNT(*) AS total FROM usuario";
     $resultado = $conexao->query($sql);

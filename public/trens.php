@@ -10,6 +10,9 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 
+$erroTrem = $_SESSION['erro_trem'] ?? '';
+unset($_SESSION['erro_trem']);
+
 $listaTrens = listarTrens($conexao);
 
 if ($listaTrens === false) {
@@ -43,6 +46,13 @@ if ($listaTrens === false) {
             <div class="cabecalho-app">
                 <h1>Central de Trens</h1>
                 <p>Gerencie todos os trens cadastrados no sistema.</p>
+
+                <?php if ($erroTrem): ?>
+                    <div class="alerta-erro w-100" role="alert">
+                        <?= htmlspecialchars($erroTrem) ?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($ehAdministrador): ?>
                     <button type="button" class="btn botao-azul-escuro mt-3 mb-4 px-3" id="botaoCadastrar">
                         <i class="bi bi-plus-lg"></i>
@@ -76,6 +86,7 @@ if ($listaTrens === false) {
                                 <th>ID</th>
                                 <th>Trem</th>
                                 <th>Modelo</th>
+                                <th>Operador</th>
                                 <th>Status</th>
                                 <th>Ações</th>
                             </tr>
@@ -86,6 +97,7 @@ if ($listaTrens === false) {
                                     <th><?= htmlspecialchars((string) $trem['id_trem'], ENT_QUOTES, 'UTF-8') ?></th>
                                     <td><?= htmlspecialchars((string) $trem['nome'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars((string) $trem['modelo'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) $trem['nome_usuario'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars((string) $trem['status'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td class="acoes-tabela">
                                         <button
@@ -105,6 +117,7 @@ if ($listaTrens === false) {
                                                     "id" => $trem["id_trem"],
                                                     "nome" => $trem["nome"],
                                                     "modelo" => $trem["modelo"],
+                                                    "id_operador" => $trem["id_operador"],
                                                     "status" => $trem["status"]
                                                 ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'
                                                 data-bs-toggle="tooltip"
