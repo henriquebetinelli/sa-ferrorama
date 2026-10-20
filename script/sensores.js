@@ -39,6 +39,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const tabelaSensores = document.querySelector('#listaSensores tbody');
     const acaoSensor = document.getElementById('acaoSensor');
     const localizacaoSensor = document.getElementById('localizacaoSensor');
+    const botoesEditar = document.querySelectorAll('[data-acao="editar"]');
+
+    botoesEditar.forEach(function (botao) {
+        botao.addEventListener('click', function () {
+            const sensor = {
+                id: this.dataset.id,
+                nome: this.dataset.nome || '',
+                localizacao: this.dataset.localizacao || '',
+                tipo_dado: this.dataset.tipoDado || '',
+                descricao: this.dataset.descricao || '',
+                id_trem: this.dataset.idTrem || '',
+                id_rota: this.dataset.idRota || ''
+            };
+
+            abrirEdicao(sensor);
+        });
+    });
 
     if (localizacaoSensor) {
         localizacaoSensor.addEventListener('change', atualizarTituloAnexado);
@@ -121,28 +138,31 @@ function abrirExclusao(idSensor, nomeSensor) {
 }
 
 const tipoSensor = document.getElementById('tipoSensor');
+const tituloLimite = document.getElementById('tituloLimite');
 const campoLimite = document.getElementById('campoLimite');
 const campoLocalizacao = document.getElementById('campoLocalizacao');
 const unidadeSensor = document.getElementById('unidadeSensor');
 
-tipoSensor.addEventListener('change', function () {
-    if (this.value === 'velocidade') {
-        tituloLimite.textContent = 'Limite máximo';
-    }
+if (tipoSensor && tituloLimite) {
+    tipoSensor.addEventListener('change', function () {
+        if (this.value === 'velocidade') {
+            tituloLimite.textContent = 'Limite máximo';
+        }
 
-    if (this.value === 'temperatura') {
-        tituloLimite.textContent = 'Limite máximo';
-    }
+        if (this.value === 'temperatura') {
+            tituloLimite.textContent = 'Limite máximo';
+        }
 
-    if (this.value === 'vibração') {
-        tituloLimite.textContent = 'Limite máximo';
-    }
+        if (this.value === 'vibração') {
+            tituloLimite.textContent = 'Limite máximo';
+        }
 
-    if (this.value === 'proximidade') {
-        tituloLimite.textContent = 'Distância mínima';
-    }
+        if (this.value === 'proximidade') {
+            tituloLimite.textContent = 'Distância mínima';
+        }
 
-    if (this.value === 'localização') {
-        tituloLimite.textContent = 'Posição na rota';
-    }
-});
+        if (this.value === 'localização') {
+            tituloLimite.textContent = 'Posição na rota';
+        }
+    });
+}
