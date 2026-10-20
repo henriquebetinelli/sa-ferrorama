@@ -96,6 +96,7 @@ if ($listaSensores === false) {
                                                 data-localizacao="<?= htmlspecialchars((string) ($sensor['localizacao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-tipo-dado="<?= htmlspecialchars((string) ($sensor['tipo_dado'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-descricao="<?= htmlspecialchars((string) ($sensor['descricao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-limite="<?= htmlspecialchars((string) ($sensor['limite'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-id-trem="<?= htmlspecialchars((string) ($sensor['id_trem'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-id-rota="<?= htmlspecialchars((string) ($sensor['id_rota'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-bs-toggle="tooltip"

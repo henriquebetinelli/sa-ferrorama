@@ -1,4 +1,24 @@
-function atualizarTituloAnexado() {
+function atualizarLabelLimite(tipo) {
+    const tituloLimite = document.getElementById('tituloLimite');
+
+    if (!tituloLimite) {
+        return;
+    }
+
+    if (tipo === 'proximidade') {
+        tituloLimite.textContent = 'Distância mínima';
+        return;
+    }
+
+    if (tipo === 'localização') {
+        tituloLimite.textContent = 'Posição na rota';
+        return;
+    }
+
+    tituloLimite.textContent = 'Limite máximo';
+}
+
+function atualizarTituloAnexado(valorSelecionadoPadrao) {
     const localizacaoSensor = document.getElementById('localizacaoSensor');
     const tituloAnexado = document.getElementById('tremSensorLabel');
     const selectAnexado = document.getElementById('tremSensor');
@@ -12,7 +32,7 @@ function atualizarTituloAnexado() {
     selectAnexado.name = ehRota ? 'id_rota' : 'id_trem';
 
     const opcoes = ehRota ? opcoesRotas : opcoesTrens;
-    const valorSelecionado = selectAnexado.value;
+    const valorAtual = valorSelecionadoPadrao || selectAnexado.value || '';
 
     selectAnexado.innerHTML = '<option value=""></option>' + opcoes
         .map(function (item) {
@@ -20,12 +40,12 @@ function atualizarTituloAnexado() {
         })
         .join('');
 
-    if (valorSelecionado) {
+    if (valorAtual) {
         const encontrado = opcoes.some(function (item) {
-            return String(item.id) === String(valorSelecionado);
+            return String(item.id) === String(valorAtual);
         });
 
-        selectAnexado.value = encontrado ? valorSelecionado : '';
+        selectAnexado.value = encontrado ? valorAtual : '';
     }
 }
 
@@ -49,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localizacao: this.dataset.localizacao || '',
                 tipo_dado: this.dataset.tipoDado || '',
                 descricao: this.dataset.descricao || '',
+                limite: this.dataset.limite || '',
                 id_trem: this.dataset.idTrem || '',
                 id_rota: this.dataset.idRota || ''
             };
@@ -58,8 +79,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (localizacaoSensor) {
-        localizacaoSensor.addEventListener('change', atualizarTituloAnexado);
+        localizacaoSensor.addEventListener('change', function () {
+            atualizarTituloAnexado();
+        });
         atualizarTituloAnexado();
+    }
+
+    if (tipoSensor && tituloLimite) {
+        tipoSensor.addEventListener('change', function () {
+            atualizarLabelLimite(this.value);
+        });
     }
 
     if (botaoCadastrar) {
@@ -113,15 +142,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function abrirEdicao(sensor) {
     const modalCadastroSensor = document.getElementById('modalCadastroSensor');
-    
+    const localizacaoSensor = document.getElementById('localizacaoSensor');
+    const tipoSensor = document.getElementById('tipoSensor');
+    const valorAnexo = sensor.localizacao === 'vagao' || sensor.localizacao === 'rota'
+        ? (sensor.id_rota || '')
+        : (sensor.id_trem || '');
+
     document.getElementById('idSensor').value = sensor.id;
-    document.getElementById('nomeSensor').value = sensor.nome;
-    document.getElementById('tipoSensor').value = sensor.tipo_dado;
-    document.getElementById('localizacaoSensor').value = sensor.localizacao;
-    document.getElementById('tremSensor').value = sensor.localizacao === 'vagao' || sensor.localizacao === 'rota' ? (sensor.id_rota || '') : (sensor.id_trem || '');
+    document.getElementById('nomeSensor').value = sensor.nome || '';
     document.getElementById('descricaoSensor').value = sensor.descricao || '';
+    document.getElementById('limiteSensor').value = sensor.limite || '';
     document.getElementById('acaoSensor').value = 'editar';
-    atualizarTituloAnexado();
+
+    if (tipoSensor) {
+        tipoSensor.value = sensor.tipo_dado || '';
+    }
+
+    if (localizacaoSensor) {
+        localizacaoSensor.value = sensor.localizacao || '';
+    }
+
+    atualizarLabelLimite(sensor.tipo_dado || '');
+    atualizarTituloAnexado(valorAnexo);
 
     document.getElementById('modalCadastroSensorLabel').textContent = 'Editar Sensor';
     document.getElementById('botaoSalvarSensor').textContent = 'Salvar alterações';
@@ -143,26 +185,3 @@ const campoLimite = document.getElementById('campoLimite');
 const campoLocalizacao = document.getElementById('campoLocalizacao');
 const unidadeSensor = document.getElementById('unidadeSensor');
 
-if (tipoSensor && tituloLimite) {
-    tipoSensor.addEventListener('change', function () {
-        if (this.value === 'velocidade') {
-            tituloLimite.textContent = 'Limite máximo';
-        }
-
-        if (this.value === 'temperatura') {
-            tituloLimite.textContent = 'Limite máximo';
-        }
-
-        if (this.value === 'vibração') {
-            tituloLimite.textContent = 'Limite máximo';
-        }
-
-        if (this.value === 'proximidade') {
-            tituloLimite.textContent = 'Distância mínima';
-        }
-
-        if (this.value === 'localização') {
-            tituloLimite.textContent = 'Posição na rota';
-        }
-    });
-}

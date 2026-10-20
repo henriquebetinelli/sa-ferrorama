@@ -38,6 +38,7 @@ CREATE TABLE sensor (
   localizacao VARCHAR(150),
   tipo_dado VARCHAR(50) NOT NULL,
   descricao TEXT,
+  limite DECIMAL(10,2) NULL,
   id_trem INT NULL,
   id_rota INT NULL,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
