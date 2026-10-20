@@ -79,6 +79,18 @@ function excluirSensor($conexao, $idSensor) {
     mysqli_stmt_close($stmt);
 }
 
+function contarSensores($conexao){
+    $sql = "SELECT COUNT(*) AS total FROM sensor";
+    $resultado = $conexao->query($sql);
+
+    if (!$resultado) {
+        return 0;
+    }
+
+    $dados = $resultado->fetch_assoc();
+    return (int) ($dados['total'] ?? 0);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $acao = $_POST['acao'] ?? '';
 
