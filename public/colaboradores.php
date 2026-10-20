@@ -94,17 +94,7 @@ if ($consultaColaboradores === false) {
                                     <button
                                         type="button"
                                         class="btn-acao-tabela"
-                                        onclick='abrirEdicao(<?= json_encode([
-                                            "id" => $colaborador["id_usuario"],
-                                            "nome" => $colaborador["nome_usuario"],
-                                            "cpf" => $colaborador["cpf"],
-                                            "dataNascimento" => $colaborador["data_nascimento"],
-                                            "genero" => $colaborador["genero"],
-                                            "telefone" => $colaborador["telefone"],
-                                            "email" => $colaborador["email"],
-                                            "cargo" => $colaborador["cargo"],
-                                            "cep" => $colaborador["cep"]
-                                        ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'
+                                        onclick='abrirEdicao(<?= json_encode(buscarColaboradorPorId($conexao, $colaborador["id_usuario"]), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP) ?>)'
                                         data-bs-toggle="tooltip"
                                         data-bs-title="Editar">
                                         <i class="bi bi-pencil-fill"></i>
