@@ -1,3 +1,34 @@
+function atualizarTituloAnexado() {
+    const localizacaoSensor = document.getElementById('localizacaoSensor');
+    const tituloAnexado = document.getElementById('tremSensorLabel');
+    const selectAnexado = document.getElementById('tremSensor');
+
+    if (!localizacaoSensor || !tituloAnexado || !selectAnexado) {
+        return;
+    }
+
+    const ehRota = ['vagao', 'rota'].includes(localizacaoSensor.value);
+    tituloAnexado.textContent = ehRota ? 'Rota' : 'Trem';
+    selectAnexado.name = ehRota ? 'id_rota' : 'id_trem';
+
+    const opcoes = ehRota ? opcoesRotas : opcoesTrens;
+    const valorSelecionado = selectAnexado.value;
+
+    selectAnexado.innerHTML = '<option value=""></option>' + opcoes
+        .map(function (item) {
+            return '<option value="' + item.id + '">' + item.nome + '</option>';
+        })
+        .join('');
+
+    if (valorSelecionado) {
+        const encontrado = opcoes.some(function (item) {
+            return String(item.id) === String(valorSelecionado);
+        });
+
+        selectAnexado.value = encontrado ? valorSelecionado : '';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const botaoCadastrar = document.getElementById('botaoCadastrar');
     const modalCadastroSensor = document.getElementById('modalCadastroSensor');
@@ -7,6 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputPesquisa = document.getElementById('inputPesquisa');
     const tabelaSensores = document.querySelector('#listaSensores tbody');
     const acaoSensor = document.getElementById('acaoSensor');
+    const localizacaoSensor = document.getElementById('localizacaoSensor');
+
+    if (localizacaoSensor) {
+        localizacaoSensor.addEventListener('change', atualizarTituloAnexado);
+        atualizarTituloAnexado();
+    }
 
     if (botaoCadastrar) {
         botaoCadastrar.addEventListener('click', function () {
@@ -17,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             tituloModal.textContent = 'Cadastrar sensor';
             botaoSalvarSensor.textContent = 'Cadastrar';
+            atualizarTituloAnexado();
             bootstrap.Modal.getOrCreateInstance(modalCadastroSensor).show();
         });
     }
@@ -42,7 +80,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const trem = document.getElementById('tremSensor').value;
                 const alerta = document.getElementById('alertaCamposSensor');
 
-                if (nome === '' || localizacao === '' || tipo === '' || trem === '') {
+                    const ehRota = ['vagao', 'rota'].includes(localizacao);
+                const anexoSelecionado = trem;
+
+                if (nome === '' || localizacao === '' || tipo === '' || anexoSelecionado === '') {
                     event.preventDefault();
                     alerta.hidden = false;
                     return;
@@ -59,10 +100,11 @@ function abrirEdicao(sensor) {
     document.getElementById('idSensor').value = sensor.id;
     document.getElementById('nomeSensor').value = sensor.nome;
     document.getElementById('tipoSensor').value = sensor.tipo_dado;
-    document.getElementById('tremSensor').value = sensor.id_trem;
     document.getElementById('localizacaoSensor').value = sensor.localizacao;
+    document.getElementById('tremSensor').value = sensor.localizacao === 'vagao' || sensor.localizacao === 'rota' ? (sensor.id_rota || '') : (sensor.id_trem || '');
     document.getElementById('descricaoSensor').value = sensor.descricao || '';
     document.getElementById('acaoSensor').value = 'editar';
+    atualizarTituloAnexado();
 
     document.getElementById('modalCadastroSensorLabel').textContent = 'Editar Sensor';
     document.getElementById('botaoSalvarSensor').textContent = 'Salvar alterações';

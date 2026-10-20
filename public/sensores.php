@@ -97,7 +97,8 @@ if ($listaSensores === false) {
                                                         "localizacao" => $sensor["localizacao"],
                                                         "tipo_dado" => $sensor["tipo_dado"],
                                                         "descricao" => $sensor["descricao"],
-                                                        "id_trem" => $sensor["id_trem"]
+                                                        "id_trem" => $sensor["id_trem"] ?? null,
+                                                        "id_rota" => $sensor["id_rota"] ?? null
                                                     ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
                                                 )'
                                                 data-bs-toggle="tooltip"
