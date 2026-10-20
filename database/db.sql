@@ -38,12 +38,19 @@ CREATE TABLE sensor (
   localizacao VARCHAR(150),
   tipo_dado VARCHAR(50) NOT NULL,
   descricao TEXT,
-  id_trem INT NOT NULL,
+  id_trem INT NULL,
+  id_rota INT NULL,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_sensor_trem
     FOREIGN KEY (id_trem)
     REFERENCES trem(id_trem)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+
+  CONSTRAINT fk_sensor_rota
+    FOREIGN KEY (id_rota)
+    REFERENCES rota(id_rota)
     ON DELETE RESTRICT
     ON UPDATE CASCADE
 );

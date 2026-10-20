@@ -1,6 +1,29 @@
 <?php
 require_once __DIR__ . '/../../controllers/trens.php';
+require_once __DIR__ . '/../../controllers/rotas.php';
+
 $trens = listarTrens($conexao);
+$rotas = listarRotas($conexao);
+
+$listaTrens = [];
+if ($trens) {
+    while ($trem = $trens->fetch_assoc()) {
+        $listaTrens[] = [
+            'id' => (string) $trem['id_trem'],
+            'nome' => (string) $trem['nome']
+        ];
+    }
+}
+
+$listaRotas = [];
+if ($rotas) {
+    while ($rota = $rotas->fetch_assoc()) {
+        $listaRotas[] = [
+            'id' => (string) $rota['id_rota'],
+            'nome' => (string) $rota['nome']
+        ];
+    }
+}
 ?>
 
 <div class="modal fade" id="modalCadastroSensor" tabindex="-1" aria-labelledby="modalCadastroSensorLabel" aria-hidden="true">
@@ -29,7 +52,7 @@ $trens = listarTrens($conexao);
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="tipoSensor" class="form-label">Tipo</label>
-                            <select class="form-control"  id="tipoSensor" name="tipoSensor">
+                            <select class="form-control" id="tipoSensor" name="tipo_dado">
                                 <option value=""></option>
                                 <option value="velocidade">Velocidade</option>
                                 <option value="temperatura">Temperatura</option>
@@ -57,12 +80,9 @@ $trens = listarTrens($conexao);
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="tremSensor" class="form-label">Trem</label>
+                            <label for="tremSensor" id="tremSensorLabel" class="form-label">Trem</label>
                             <select class="form-control" id="tremSensor" name="id_trem">
                                 <option value=""></option>
-                                <?php if ($trens): while ($trem = $trens->fetch_assoc()): ?>
-                                    <option value="<?php echo htmlspecialchars((string)$trem['id_trem'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars((string)$trem['nome'], ENT_QUOTES, 'UTF-8'); ?></option>
-                                <?php endwhile; endif; ?>
                             </select>
                         </div>
                     </div>
@@ -79,3 +99,8 @@ $trens = listarTrens($conexao);
         </div>
     </div>
 </div>
+
+<script>
+    const opcoesTrens = <?php echo json_encode($listaTrens, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); ?>;
+    const opcoesRotas = <?php echo json_encode($listaRotas, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); ?>;
+</script>
