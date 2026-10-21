@@ -117,38 +117,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function abrirEdicaoRota(id, nome, descricao) {
-
-    document.getElementById('idRota').value = id;
-
-    document.getElementById('nomeRota').value = nome;
-
-    document.getElementById('descricaoRota').value = descricao;
+function abrirEdicaoRota(rota) {
+    document.getElementById('idRota').value = rota.id_rota;
+    document.getElementById('nomeRota').value = rota.nome;
+    document.getElementById('descricaoRota').value = rota.descricao ?? '';
 
     document.getElementById('acaoRota').value = 'editar';
-
-    document.getElementById('modalCadastroRotaLabel').textContent =
-        'Editar Rota';
-
-    document.getElementById('botaoSalvarRota').textContent =
-        'Salvar alterações';
-
+    document.getElementById('modalCadastroRotaLabel').textContent = 'Editar Rota';
+    document.getElementById('botaoSalvarRota').textContent = 'Salvar alterações';
     document.getElementById('alertaCamposRota').hidden = true;
 
-    const modal = bootstrap.Modal.getOrCreateInstance(
+    bootstrap.Modal.getOrCreateInstance(
         document.getElementById('modalCadastroRota')
-    );
-
-    modal.show();
+    ).show();
 }
 
 
 function abrirExclusaoRota(id, nome) {
-
     document.getElementById('idRotaExcluir').value = id;
-
     document.getElementById('nomeRotaExcluir').textContent = nome;
-
     const modal = bootstrap.Modal.getOrCreateInstance(
         document.getElementById('modalExcluirRota')
     );
