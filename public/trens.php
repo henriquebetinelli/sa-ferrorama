@@ -110,20 +110,19 @@ if ($listaTrens === false) {
                                         </button>
 
                                         <?php if ($ehAdministrador): ?>
-                                            <button
-                                                type="button"
-                                                class="btn-acao-tabela"
-                                                onclick='abrirEdicao(<?= json_encode([
-                                                    "id" => $trem["id_trem"],
-                                                    "nome" => $trem["nome"],
-                                                    "modelo" => $trem["modelo"],
-                                                    "id_operador" => $trem["id_operador"],
-                                                    "status" => $trem["status"]
-                                                ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'
-                                                data-bs-toggle="tooltip"
-                                                data-bs-title="Editar">
-                                                <i class="bi bi-pencil-fill"></i>
-                                            </button>
+                                            
+                                        <button
+                                            type="button"
+                                            class="btn-acao-tabela"
+                                            onclick='abrirEdicao(<?= json_encode(
+                                                buscarTremPorId($conexao, $trem["id_trem"]),
+                                                JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+                                            ) ?>)'
+                                            data-bs-toggle="tooltip"
+                                            data-bs-title="Editar">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </button>
+
 
                                             <button
                                                 type="button"

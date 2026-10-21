@@ -12,6 +12,25 @@ function listarTrens($conexao) {
     return $conexao->query($sql);
 }
 
+
+function buscarTremPorId($conexao, $idTrem) {
+    $sql = "SELECT id_trem, nome, modelo, status, id_operador
+        FROM trem
+        WHERE id_trem = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idTrem);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    $trem = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($stmt);
+
+    return $trem;
+}
+
+
 function temTrensCadastrados($conexao) {
     return listarTrens($conexao)->num_rows > 0;
 }

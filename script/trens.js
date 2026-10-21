@@ -89,12 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function abrirEdicao(trem) {
     const modalCadastroTrem = document.getElementById('modalCadastroTrem');
-    const formularioCadastroTrem = document.getElementById('formularioCadastroTrem');
 
-    document.getElementById('idTrem').value = trem.id;
+    document.getElementById('idTrem').value = trem.id_trem;
     document.getElementById('nomeTrem').value = trem.nome;
     document.getElementById('modeloTrem').value = trem.modelo;
-    document.getElementById('operadorResponsavel').value = trem.id_operador;
+    document.getElementById('operadorResponsavel').value = trem.id_operador ?? '';
 
     document.getElementById('acaoTrem').value = 'editar';
     document.getElementById('modalCadastroTremLabel').textContent = 'Editar trem';
