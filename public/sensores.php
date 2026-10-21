@@ -74,7 +74,8 @@ if ($listaSensores === false) {
                                 <th>ID</th>
                                 <th>Sensor</th>
                                 <th>Tipo</th>
-                                <th>Localização</th>
+                                <th>Anexado</th>
+                                <th>Vinculado</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -84,7 +85,8 @@ if ($listaSensores === false) {
                                     <th><?= htmlspecialchars( (string) $sensor['id_sensor'], ENT_QUOTES, 'UTF-8') ?></th>
                                     <td><?= htmlspecialchars( (string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars( (string) $sensor['tipo_dado'], ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars( (string) $sensor['localizacao'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= (!empty($sensor['id_trem']) ? 'Trem' : 'Rota' ) ?></td>
+                                    <td><?= (!empty($sensor['id_trem']) ? htmlspecialchars( (string) ($sensor['nome_trem'] ?? ''), ENT_QUOTES, 'UTF-8') : htmlspecialchars( (string) ($sensor['nome_rota'] ?? ''), ENT_QUOTES, 'UTF-8') ) ?></td>
                                     <td class="acoes-tabela">
                                         <?php if ($ehAdministrador): ?>
                                             <button
