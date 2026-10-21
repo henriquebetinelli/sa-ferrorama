@@ -9,6 +9,24 @@ function listarRotas($conexao) {
     return $conexao->query($sql);
 }
 
+function buscarRotaPorId($conexao, $idRota) {
+    $sql = "SELECT id_rota, nome, descricao
+        FROM rota
+        WHERE id_rota = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idRota);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    $rota = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($stmt);
+
+    return $rota;
+}
+
+
 function temRotasCadastradas($conexao) {
     return listarRotas($conexao)->num_rows > 0;
 }
