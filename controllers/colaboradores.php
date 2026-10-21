@@ -10,6 +10,31 @@ function listarColaboradores($conexao){
     return $conexao->query($sql);
 }
 
+function buscarColaboradorPorId($conexao, $idUsuario) {
+    $sql = "SELECT id_usuario, nome_usuario, cpf, data_nascimento,
+            genero, telefone, email, cargo, cep
+        FROM usuario
+        WHERE id_usuario = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idUsuario);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $colaborador = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
+
+    return $colaborador;
+}
+
+function listarOperadores($conexao){
+    $sql = "SELECT id_usuario, nome_usuario
+        FROM usuario
+        WHERE cargo = 'Operador'
+        ORDER BY nome_usuario ASC";
+
+    return $conexao->query($sql);
+}
+
 function contarColaboradores($conexao){
     $sql = "SELECT COUNT(*) AS total FROM usuario";
     $resultado = $conexao->query($sql);

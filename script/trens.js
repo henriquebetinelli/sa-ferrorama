@@ -58,6 +58,7 @@ function abrirEdicao(trem) {
     document.getElementById('idTrem').value = trem.id;
     document.getElementById('nomeTrem').value = trem.nome;
     document.getElementById('modeloTrem').value = trem.modelo;
+    document.getElementById('operadorResponsavel').value = trem.id_operador;
 
     document.getElementById('acaoTrem').value = 'editar';
     document.getElementById('modalCadastroTremLabel').textContent = 'Editar trem';

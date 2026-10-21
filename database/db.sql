@@ -22,7 +22,14 @@ CREATE TABLE trem (
   nome VARCHAR(100) NOT NULL,
   modelo VARCHAR(100) NOT NULL,
   status VARCHAR(30) NOT NULL DEFAULT 'parado',
-  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id_operador INT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_trem_operador
+    FOREIGN KEY (id_operador)
+    REFERENCES usuario(id_usuario)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
 );
 
 CREATE TABLE rota (
@@ -38,12 +45,20 @@ CREATE TABLE sensor (
   localizacao VARCHAR(150),
   tipo_dado VARCHAR(50) NOT NULL,
   descricao TEXT,
-  id_trem INT NOT NULL,
+  limite DECIMAL(10,2) NULL,
+  id_trem INT NULL,
+  id_rota INT NULL,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_sensor_trem
     FOREIGN KEY (id_trem)
     REFERENCES trem(id_trem)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+
+  CONSTRAINT fk_sensor_rota
+    FOREIGN KEY (id_rota)
+    REFERENCES rota(id_rota)
     ON DELETE RESTRICT
     ON UPDATE CASCADE
 );

@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/../infra/conexao.php';
 require_once __DIR__ . '/../controllers/colaboradores.php';
+require_once __DIR__ . '/../controllers/sensores.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
@@ -9,6 +10,7 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 $totalColaboradores = contarColaboradores($conexao);
+$totalSensores = contarSensores($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +54,7 @@ $totalColaboradores = contarColaboradores($conexao);
                 <div class="col-md-2">
                     <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
                         <i class="bi bi-broadcast icone-home"></i>
-                        <h1>0</h1>
+                        <h1><?= htmlspecialchars((string) $totalSensores) ?></h1>
                         <p>Sensores</p>
                     </div>
                 </div>

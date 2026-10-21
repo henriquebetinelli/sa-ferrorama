@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../controllers/colaboradores.php';
+$operadores = listarOperadores($conexao);
+?>
+
 <div class="modal fade" id="modalCadastroTrem" tabindex="-1" aria-labelledby="modalCadastroTremLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-cadastro">
         <div class="modal-content conteudo-modal">
@@ -21,9 +26,21 @@
                         <input type="text" class="form-control" id="nomeTrem" name="nome">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="modeloTrem" class="form-label">Modelo</label>
-                        <input type="text" class="form-control" id="modeloTrem" name="modelo">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="modeloTrem" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="modeloTrem" name="modelo">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="responsavelTrem" class="form-label">Responsável</label>
+                            <select class="form-control" id="operadorResponsavel" name="id_operador">
+                                <option value=""></option>
+                                <?php if ($operadores): while ($operador = $operadores->fetch_assoc()): ?>
+                                    <option value="<?php echo htmlspecialchars((string)($operador['id_operador'] ?? $operador['id_usuario']), ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars((string)$operador['nome_usuario'], ENT_QUOTES, 'UTF-8'); ?></option>
+                                <?php endwhile; endif; ?>
+                            </select>
+                        </div>
                     </div>
 
                     <input type="hidden" name="status" value="ativo">

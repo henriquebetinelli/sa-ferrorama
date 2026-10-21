@@ -90,16 +90,15 @@ if ($listaSensores === false) {
                                             <button
                                                 type="button"
                                                 class="btn-acao-tabela"
-                                                onclick='abrirEdicao(
-                                                    <?= json_encode([
-                                                        "id" => $sensor["id_sensor"],
-                                                        "nome" => $sensor["nome"],
-                                                        "localizacao" => $sensor["localizacao"],
-                                                        "tipo_dado" => $sensor["tipo_dado"],
-                                                        "descricao" => $sensor["descricao"],
-                                                        "id_trem" => $sensor["id_trem"]
-                                                    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
-                                                )'
+                                                data-acao="editar"
+                                                data-id="<?= htmlspecialchars((string) $sensor['id_sensor'], ENT_QUOTES, 'UTF-8') ?>"
+                                                data-nome="<?= htmlspecialchars((string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?>"
+                                                data-localizacao="<?= htmlspecialchars((string) ($sensor['localizacao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-tipo-dado="<?= htmlspecialchars((string) ($sensor['tipo_dado'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-descricao="<?= htmlspecialchars((string) ($sensor['descricao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-limite="<?= htmlspecialchars((string) ($sensor['limite'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-id-trem="<?= htmlspecialchars((string) ($sensor['id_trem'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                data-id-rota="<?= htmlspecialchars((string) ($sensor['id_rota'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                                                 data-bs-toggle="tooltip"
                                                 data-bs-title="Editar">
                                                 <i class="bi bi-pencil-fill"></i>
