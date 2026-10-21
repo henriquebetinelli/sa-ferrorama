@@ -194,14 +194,14 @@ if ($consultaRotas === false) {
 
                                                 <td class="acoes-tabela">
 
+                                                    
                                                     <button
                                                         type="button"
                                                         class="btn-acao-tabela"
-                                                        onclick='abrirEdicaoRota(
-                                                            <?= json_encode($rota['id_rota']) ?>,
-                                                            <?= json_encode($rota['nome']) ?>,
-                                                            <?= json_encode($rota['descricao'] ?? '') ?>
-                                                        )'
+                                                        onclick='abrirEdicaoRota(<?= json_encode(
+                                                            buscarRotaPorId($conexao, $rota["id_rota"]),
+                                                            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+                                                        ) ?>)'
                                                         data-bs-toggle="tooltip"
                                                         data-bs-title="Editar">
 

@@ -14,6 +14,24 @@ function listarSensores($conexao) {
     return $conexao->query($sql);
 }
 
+function buscarSensorPorId($conexao, $idSensor) {
+    $sql = "SELECT id_sensor, nome, tipo_dado, localizacao,
+                   descricao, limite, id_trem, id_rota
+            FROM sensor
+            WHERE id_sensor = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idSensor);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    $sensor = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($stmt);
+
+    return $sensor;
+}
+
 function temSensoresCadastrados($conexao) {
     return listarSensores($conexao)->num_rows > 0;
 }

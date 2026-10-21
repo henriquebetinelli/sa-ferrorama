@@ -33,7 +33,12 @@ $operadores = listarOperadores($conexao);
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="responsavelTrem" class="form-label">Responsável</label>
+                            <label for="responsavelTrem" 
+                                class="form-label" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-title="O responsavel deve ser um colaborador com o cargo de operador">
+                                Responsável
+                            </label>
                             <select class="form-control" id="operadorResponsavel" name="id_operador">
                                 <option value=""></option>
                                 <?php if ($operadores): while ($operador = $operadores->fetch_assoc()): ?>

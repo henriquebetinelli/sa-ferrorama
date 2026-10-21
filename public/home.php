@@ -3,14 +3,18 @@ session_start();
 require_once __DIR__ . '/../infra/conexao.php';
 require_once __DIR__ . '/../controllers/colaboradores.php';
 require_once __DIR__ . '/../controllers/sensores.php';
+require_once __DIR__ . '/../controllers/trens.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
 
+$ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
+
 $totalColaboradores = contarColaboradores($conexao);
 $totalSensores = contarSensores($conexao);
+$totalTrens = contarTrens($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -44,13 +48,24 @@ $totalSensores = contarSensores($conexao);
             </div>
 
             <div class="row g-4 mb-4">
-                <div class="col-md-2">
-                    <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
-                        <i class="bi bi-people-fill icone-home"></i>
-                        <h1><?= htmlspecialchars((string) $totalColaboradores) ?></h1>
-                        <p>Colaboradores</p>
+                <?php if ($ehAdministrador): ?>
+                    <div class="col-md-2">
+                        <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
+                            <i class="bi bi-people-fill icone-home"></i>
+                            <h1><?= htmlspecialchars((string) $totalColaboradores) ?></h1>
+                            <p>Colaboradores</p>
+                        </div>
                     </div>
-                </div>
+                <?php else: ?>
+                    <div class="col-md-2">
+                        <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
+                            <i class="bi bi-truck-front-fill icone-home"></i>
+                            <h1><?= htmlspecialchars((string) $totalTrens) ?></h1>
+                            <p>Trens</p>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <div class="col-md-2">
                     <div class="card-compacto d-flex flex-column align-items-center justify-content-center">
                         <i class="bi bi-broadcast icone-home"></i>
@@ -58,11 +73,13 @@ $totalSensores = contarSensores($conexao);
                         <p>Sensores</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="card-compacto">
                         <h3 class="titulo-secao"></h3>
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <div class="card-compacto">
                         <h3 class="titulo-secao">Alertas</h3>
@@ -94,6 +111,7 @@ $totalSensores = contarSensores($conexao);
                             <i class="bi bi-arrow-right-short"></i>
                         </a>
 
+                        <!--
                         <div 
                             class="d-flex align-items-center gap-3 my-4">
                             <i class="bi bi-truck-front-fill icone-com-borda"></i>
@@ -111,8 +129,9 @@ $totalSensores = contarSensores($conexao);
                                 </div>
                             </div>
                         </div>
+                        -->
 
-                        <!-- <p class="mensagem-vazia">Nenhuma operação cadastrada no momento!</p> -->
+                        <p class="mensagem-vazia">Nenhuma operação cadastrada no momento!</p> 
                     </div>
                 </div>
             </div>
