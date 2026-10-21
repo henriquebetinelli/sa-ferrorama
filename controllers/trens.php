@@ -30,6 +30,17 @@ function buscarTremPorId($conexao, $idTrem) {
     return $trem;
 }
 
+function contarTrens($conexao){
+    $sql = "SELECT COUNT(*) AS total FROM trem";
+    $resultado = $conexao->query($sql);
+
+    if (!$resultado) {
+        return 0;
+    }
+
+    $dados = $resultado->fetch_assoc();
+    return (int) ($dados['total'] ?? 0);
+}
 
 function temTrensCadastrados($conexao) {
     return listarTrens($conexao)->num_rows > 0;
