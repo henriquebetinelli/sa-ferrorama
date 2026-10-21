@@ -7,38 +7,9 @@ if (isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-$erro = '';
+$erroLogin = $_SESSION['erro_login'] ?? '';
+unset($_SESSION['erro_login']);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $senha = $_POST['senha'] ?? '';
-
-    if ($email === '' || $senha === '') {
-        $erro = 'Preencha o e-mail e a senha.';
-    } else {
-        $sql = 'SELECT id_usuario, nome_usuario, email, senha, cargo FROM usuario WHERE email = ? LIMIT 1';
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-
-        if ($resultado && $resultado->num_rows === 1) {
-            $usuario = $resultado->fetch_assoc();
-
-            if (password_verify($senha, $usuario['senha'])) {
-                $_SESSION['usuario_id'] = $usuario['id_usuario'];
-                $_SESSION['usuario_nome'] = $usuario['nome_usuario'];
-                $_SESSION['usuario_email'] = $usuario['email'];
-                $_SESSION['usuario_cargo'] = $usuario['cargo'];
-
-                header('Location: home.php');
-                exit();
-            }
-        }
-
-        $erro = 'E-mail ou senha inválidos.';
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -65,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h2>Click Rails</h2>
                 </div>
 
-                <?php
-                    if (!empty($erro)) {
-                        echo '<div class="alerta-erro">' . $erro . '</div>';
-                    }
-                ?>
+                <?php if ($erroLogin): ?>
+                    <div class="alerta-erro w-100" role="alert">
+                        <?= htmlspecialchars($erroLogin) ?>
+                    </div>
+                <?php endif; ?>
 
                 <div class="mensagem-login">
                     <h1><strong>Bem-Vindo!</strong></h1>
@@ -77,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <hr>
 
-                <form method="POST" class="login-formulario">
+                <form action="../controllers/login.php" method="POST" class="login-formulario">
                     <div class="login-campo">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email">
