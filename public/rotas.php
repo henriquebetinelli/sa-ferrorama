@@ -78,6 +78,12 @@ if ($consultaRotas === false) {
                     Gerencie todas as rotas cadastradas no sistema.
                 </p>
 
+                <?php if ($erroRota !== ''): ?>
+                    <div class="alerta-erro w-100" role="alert">
+                        <?= htmlspecialchars($erroRota) ?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($ehAdministrador): ?>
 
                     <button
@@ -93,16 +99,6 @@ if ($consultaRotas === false) {
                 <?php endif; ?>
 
             </div>
-
-
-            <?php if ($erroRota !== ''): ?>
-
-                <div class="alert alert-danger">
-                    <?= htmlspecialchars($erroRota) ?>
-                </div>
-
-            <?php endif; ?>
-
 
             <div class="mb-4">
 

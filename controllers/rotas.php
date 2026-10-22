@@ -52,6 +52,22 @@ function atualizarRota($conexao, $idRota, $nome, $descricao) {
     mysqli_stmt_close($stmt);
 }
 
+function rotaTemSensores($conexao, $idRota) {
+    $sql = "SELECT id_sensor
+        FROM sensor
+        WHERE id_rota = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $idRota);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    $temSensores = $resultado->num_rows > 0;
+    mysqli_stmt_close($stmt);
+
+    return $temSensores;
+}
+
 function excluirRota($conexao, $idRota) {
     $sql = "DELETE FROM rota
         WHERE id_rota = ?";
@@ -85,9 +101,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($acao === 'excluir') {
         $idRota = $_POST['id_rota'] ?? 0;
+        session_start();
 
         if ($idRota > 0) {
-            excluirRota($conexao, $idRota);
+            if (rotaTemSensores($conexao, $idRota)) {
+                $_SESSION['erro_rota'] = 'Não é possível excluir esta rota, pois existem sensores vinculados a ela.';
+            } else {
+                excluirRota($conexao, $idRota);
+            }
         }
     }
 
