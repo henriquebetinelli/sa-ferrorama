@@ -74,8 +74,11 @@ if ($listaSensores === false) {
                                 <th>ID</th>
                                 <th>Sensor</th>
                                 <th>Tipo</th>
-                                <th>Localização</th>
-                                <th>Ações</th>
+                                <th>Anexado</th>
+                                <th>Vinculado</th>
+                                <?php if ($ehAdministrador): ?>
+                                    <th>Ações</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,21 +87,14 @@ if ($listaSensores === false) {
                                     <th><?= htmlspecialchars( (string) $sensor['id_sensor'], ENT_QUOTES, 'UTF-8') ?></th>
                                     <td><?= htmlspecialchars( (string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars( (string) $sensor['tipo_dado'], ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars( (string) $sensor['localizacao'], ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td class="acoes-tabela">
-                                        <?php if ($ehAdministrador): ?>
+                                    <td><?= (!empty($sensor['id_trem']) ? 'Trem' : 'Rota' ) ?></td>
+                                    <td><?= (!empty($sensor['id_trem']) ? htmlspecialchars( (string) ($sensor['nome_trem'] ?? ''), ENT_QUOTES, 'UTF-8') : htmlspecialchars( (string) ($sensor['nome_rota'] ?? ''), ENT_QUOTES, 'UTF-8') ) ?></td>
+                                    <?php if ($ehAdministrador): ?>
+                                        <td class="acoes-tabela">
                                             <button
                                                 type="button"
                                                 class="btn-acao-tabela"
-                                                data-acao="editar"
-                                                data-id="<?= htmlspecialchars((string) $sensor['id_sensor'], ENT_QUOTES, 'UTF-8') ?>"
-                                                data-nome="<?= htmlspecialchars((string) $sensor['nome'], ENT_QUOTES, 'UTF-8') ?>"
-                                                data-localizacao="<?= htmlspecialchars((string) ($sensor['localizacao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                                                data-tipo-dado="<?= htmlspecialchars((string) ($sensor['tipo_dado'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                                                data-descricao="<?= htmlspecialchars((string) ($sensor['descricao'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                                                data-limite="<?= htmlspecialchars((string) ($sensor['limite'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                                                data-id-trem="<?= htmlspecialchars((string) ($sensor['id_trem'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                                                data-id-rota="<?= htmlspecialchars((string) ($sensor['id_rota'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                                                onclick='abrirEdicao(<?= json_encode(buscarSensorPorId($conexao, $sensor["id_sensor"]), JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP) ?>)'
                                                 data-bs-toggle="tooltip"
                                                 data-bs-title="Editar">
                                                 <i class="bi bi-pencil-fill"></i>
@@ -115,8 +111,8 @@ if ($listaSensores === false) {
                                                 data-bs-title="Excluir">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
-                                        <?php endif; ?>
-                                    </td>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

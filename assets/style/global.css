@@ -146,6 +146,30 @@ hr {
     padding: 0 80px 80px;
 }
 
+.container-inicio-previsto-rota {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.label-inicio-previsto-rota {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.valor-inicio-previsto-rota {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
 .conteudo-modal .botao-cadastrar {
     margin-top: 20px;
 }

@@ -78,6 +78,12 @@ if ($consultaRotas === false) {
                     Gerencie todas as rotas cadastradas no sistema.
                 </p>
 
+                <?php if ($erroRota !== ''): ?>
+                    <div class="alerta-erro w-100" role="alert">
+                        <?= htmlspecialchars($erroRota) ?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($ehAdministrador): ?>
 
                     <button
@@ -93,16 +99,6 @@ if ($consultaRotas === false) {
                 <?php endif; ?>
 
             </div>
-
-
-            <?php if ($erroRota !== ''): ?>
-
-                <div class="alert alert-danger">
-                    <?= htmlspecialchars($erroRota) ?>
-                </div>
-
-            <?php endif; ?>
-
 
             <div class="mb-4">
 
@@ -194,14 +190,14 @@ if ($consultaRotas === false) {
 
                                                 <td class="acoes-tabela">
 
+                                                    
                                                     <button
                                                         type="button"
                                                         class="btn-acao-tabela"
-                                                        onclick='abrirEdicaoRota(
-                                                            <?= json_encode($rota['id_rota']) ?>,
-                                                            <?= json_encode($rota['nome']) ?>,
-                                                            <?= json_encode($rota['descricao'] ?? '') ?>
-                                                        )'
+                                                        onclick='abrirEdicaoRota(<?= json_encode(
+                                                            buscarRotaPorId($conexao, $rota["id_rota"]),
+                                                            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+                                                        ) ?>)'
                                                         data-bs-toggle="tooltip"
                                                         data-bs-title="Editar">
 

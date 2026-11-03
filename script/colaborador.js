@@ -79,10 +79,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function abrirEdicao(colaborador) {
-    document.getElementById('idUsuario').value = colaborador.id;
-    document.getElementById('nome').value = colaborador.nome;
+    if (!colaborador) {
+        alert('Não foi possível carregar os dados do colaborador.');
+        return;
+    }
+
+    document.getElementById('idUsuario').value = colaborador.id_usuario;
+    document.getElementById('nome').value = colaborador.nome_usuario;
     document.getElementById('cpf').value = colaborador.cpf;
-    document.getElementById('dataNascimento').value = colaborador.dataNascimento;
+    document.getElementById('dataNascimento').value = colaborador.data_nascimento;
     document.getElementById('genero').value = colaborador.genero;
     document.getElementById('telefone').value = colaborador.telefone;
     document.getElementById('email').value = colaborador.email;
@@ -94,7 +99,11 @@ function abrirEdicao(colaborador) {
     document.getElementById('modalCadastroLabel').textContent = 'Editar Colaborador';
     document.getElementById('botaoSalvarColaborador').textContent = 'Salvar alterações';
     document.getElementById('alertaCamposColaborador').hidden = true;
-    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCadastro'));
+
+    const modal = bootstrap.Modal.getOrCreateInstance(
+        document.getElementById('modalCadastro')
+    );
+
     modal.show();
 }
 

@@ -141,17 +141,23 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function abrirEdicao(sensor) {
+    if (!sensor) {
+        alert('Não foi possível carregar os dados do sensor.');
+        return;
+    }
+
     const modalCadastroSensor = document.getElementById('modalCadastroSensor');
     const localizacaoSensor = document.getElementById('localizacaoSensor');
     const tipoSensor = document.getElementById('tipoSensor');
+
     const valorAnexo = sensor.localizacao === 'vagao' || sensor.localizacao === 'rota'
         ? (sensor.id_rota || '')
         : (sensor.id_trem || '');
 
-    document.getElementById('idSensor').value = sensor.id;
+    document.getElementById('idSensor').value = sensor.id_sensor;
     document.getElementById('nomeSensor').value = sensor.nome || '';
     document.getElementById('descricaoSensor').value = sensor.descricao || '';
-    document.getElementById('limiteSensor').value = sensor.limite || '';
+    document.getElementById('limiteSensor').value = sensor.limite ?? '';
     document.getElementById('acaoSensor').value = 'editar';
 
     if (tipoSensor) {
