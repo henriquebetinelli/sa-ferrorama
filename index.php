@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/style/global.css">
     <link rel="stylesheet" href="assets/style/paginas/index.css">
     <title>Click Rails</title>
@@ -28,44 +29,49 @@
             </div>
         </section>
     </header>
-    <main class="w-75 mx-auto">
-        <section class="d-flex justify-content-center">
-            <button class="w-100 btn botao-azul-escuro m-4" onclick="window.location.href='public/login.php'">Acompanhar agora</button>
-        </section>
-
-        <section class="section-explore container-fluid">
-            <div class="justify-content-center">
-                <h2 class="section-title">Explore o sistema</h2>
-                <div class="d-flex gap-3 justify-content-center flex-wrap">
-                    <div class="feature-card">
-                        <img src="assets/img/reutilizaveis/trem_velocidade.jpg" class="card-img-top" alt="Velocidade" />
-                        <div class="card-body">
-                            <h5 class="card-title">Velocidade</h5>
-                            <p class="card-text">Monitore a velocidade dos trens em tempo real.</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-card">
-                        <img src="assets/img/reutilizaveis/trem_localizacao.jpg" class="card-img-top" alt="Localização"/>
-                        <div class="card-body">
-                            <h5 class="card-title">Localização</h5>
-                            <p class="card-text">Rastreie a posição exata de cada composição na linha.</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-card">
-                        <img src="assets/img/reutilizaveis/trem_controlhe.jpg" class="card-img-top" alt="Consumo de Energia"/>
-                        <div class="card-body">
-                            <h5 class="card-title">Consumo de Energia</h5>
-                            <p class="card-text">Acompanhe o consumo energético e otimize operações.</p>
-                        </div>
-                    </div>
-                </div>
+    <main class="landing-white">
+        <section class="landing-info">
+            <div class="landing-copy">
+                <div class="linha-preta"></div>
+                <h2>Tecnologia a serviço da <strong>operação ferroviária.</strong></h2>
+                <p>
+                    Uma plataforma completa para monitorar, analisar<br>
+                    e acompanhar o desempenho dos trens.
+                </p>
+                <button class="btn botao-azul-escuro mt-4" onclick="window.location.href='public/login.php'">
+                    Acessar o sistema →
+                </button>
             </div>
         </section>
-    </main>
-    <footer>
 
-    </footer>
+        <section>
+            <div class="cards-grid">
+                <article class="feature-card">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <h3>Monitoramento</h3>
+                    <p>Acompanhamento<br>em tempo real.</p>
+                </article>
+
+                <article class="feature-card">
+                    <i class="bi bi-broadcast icone-home"></i>
+                    <h3>Sensores</h3>
+                    <p>Coleta de dados<br>operacionais.</p>
+                </article>
+
+                <article class="feature-card">
+                    <i class="bi bi-clipboard2"></i>
+                    <h3>Dados</h3>
+                    <p>Visualização<br>organizada.</p>
+                </article>
+            </div>
+        </section>
+
+        <div class="tags-row">
+            <span>EFICIÊNCIA</span>
+            <span>SEGURANÇA</span>
+            <span>CONTROLE</span>
+        </div>
+    </main>
+    
 </body>
 </html>
