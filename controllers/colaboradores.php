@@ -99,6 +99,26 @@ function atualizarColaborador($conexao, $idUsuario, $nome, $cpf, $dataNascimento
     mysqli_stmt_close($stmt);
 }
 
+function colaboradorTemVinculos($conexao, $idUsuario) {
+    $sql = "SELECT id_trem AS id_vinculo
+        FROM trem
+        WHERE id_operador = ?
+        UNION ALL
+        SELECT id_relatorio AS id_vinculo
+        FROM relatorio
+        WHERE id_usuario = ?
+        LIMIT 1";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $idUsuario, $idUsuario);
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+    $temVinculos = $resultado->num_rows > 0;
+    mysqli_stmt_close($stmt);
+
+    return $temVinculos;
+}
 
 function excluirColaborador($conexao, $idUsuario)
 {
@@ -156,7 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($idUsuario == $_SESSION['usuario_id']) {
             $_SESSION['erro_colaborador'] = 'Você não pode excluir a sua própria conta.';
         } elseif ($idUsuario > 0) {
-            excluirColaborador($conexao, $idUsuario);
+            if (colaboradorTemVinculos($conexao, $idUsuario)) {
+                $_SESSION['erro_colaborador'] = 'Não é possível excluir este colaborador, pois existem trens ou relatórios vinculados a ele.';
+            } else {
+                excluirColaborador($conexao, $idUsuario);
+            }
         }
     }
 

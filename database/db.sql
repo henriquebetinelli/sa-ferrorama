@@ -28,8 +28,8 @@ CREATE TABLE trem (
   CONSTRAINT fk_trem_operador
     FOREIGN KEY (id_operador)
     REFERENCES usuario(id_usuario)
-    ON UPDATE CASCADE
-    ON DELETE SET NULL
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
 );
 
 CREATE TABLE rota (
