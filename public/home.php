@@ -4,6 +4,7 @@ require_once __DIR__ . '/../infra/conexao.php';
 require_once __DIR__ . '/../controllers/colaboradores.php';
 require_once __DIR__ . '/../controllers/sensores.php';
 require_once __DIR__ . '/../controllers/trens.php';
+require_once __DIR__ . '/../controllers/clima.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
@@ -76,7 +77,28 @@ $totalTrens = contarTrens($conexao);
 
                 <div class="col-md-4">
                     <div class="card-compacto">
-                        <h3 class="titulo-secao"></h3>
+                        <div class="card-clima-header">
+                            <h3 class="titulo-secao">Clima</h3>
+                            <select id="select-cidade-clima" class="form-select select-clima" aria-label="Selecione a cidade">
+                                <?php foreach (listarCidadesClima() as $cidade => $woeid): ?>
+                                    <option value="<?= htmlspecialchars($cidade, ENT_QUOTES, 'UTF-8') ?>"
+                                        <?= $cidade === 'Joinville' ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($cidade) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-4 my-2">
+                            <i class="bi icone-home" id="icone-clima"></i>
+                            <div>
+                                <h4 class="fw-bold" id="temperatura-clima"></h4>
+                                <h4 id="descricao-clima"></h4>
+                            </div>
+                        </div>
+
+                        <p id="erro-clima" role="alert" hidden></p>
+                        <p class="clima-status" id="status-clima" aria-live="polite">Carregando clima...</p>
                     </div>
                 </div>
                 
@@ -140,6 +162,7 @@ $totalTrens = contarTrens($conexao);
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/main.js"></script>
+    <script src="../script/clima.js"></script>
 </body>
 
 </html>
