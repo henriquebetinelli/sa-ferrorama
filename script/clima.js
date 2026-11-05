@@ -31,25 +31,24 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarIcone(dados.clima || '');
     }
 
-    function atualizarIcone(descricao) {
-        const clima = descricao.toLowerCase();
+    function atualizarIcone(clima) {
+        const descricao = clima.toLowerCase();
+        let icone = 'bi-cloud-fill';
 
-        let icone = 'bi-cloud-sun-fill';
-
-        if (clima.includes('chuva') || clima.includes('garoa')) {
-            icone = 'bi-cloud-rain-fill';
-        } 
-        else if (clima.includes('tempestade') || clima.includes('trovoada')) {
+        if (descricao.includes('tempestade')) {
             icone = 'bi-cloud-lightning-rain-fill';
-        } 
-        else if (clima.includes('nublado')) {
-            icone = 'bi-clouds-fill';
-        } 
-        else if (clima.includes('limpo') || clima.includes('sol')) {
-            icone = 'bi-sun-fill';
-        } 
-        else if (clima.includes('neblina') || clima.includes('nevoeiro')) {
+        } else if (descricao.includes('chuva') || descricao.includes('garoa') || descricao.includes('granizo')) {
+            icone = 'bi-cloud-rain-fill';
+        } else if (descricao.includes('neve')) {
+            icone = 'bi-snow';
+        } else if ( descricao.includes('neblina') || descricao.includes('nevoeiro')) {
             icone = 'bi-cloud-fog-fill';
+        } else if (descricao.includes('nublado')) {
+            icone = 'bi-clouds-fill';
+        } else if (descricao.includes('parcialmente') || descricao.includes('predominantemente limpo')) {
+            icone = 'bi-cloud-sun-fill';
+        } else if (descricao.includes('limpo')) {
+            icone = 'bi-sun-fill';
         }
 
         iconeClimaEl.className = `bi ${icone} icone-home`;
@@ -62,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ocultarErro();
         temperaturaEl.textContent = '';
         descricaoClimaEl.textContent = '';
+        iconeClimaEl.className = '';
 
         try {
             const resposta = await fetch(`../controllers/clima.php?cidade=${encodeURIComponent(cidadeSelecionada)}`, {
