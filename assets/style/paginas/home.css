@@ -21,6 +21,24 @@
     font-size: 40px;
 }
 
+.card-clima-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.select-clima {
+    width: 180px;
+    border: 1px solid #d9dde2;
+    border-radius: 8px;
+    color: #081824;
+    background-color: #ffffff;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    min-width: 150px;
+}
+
 .progresso-da-barra {
     background-color: #a3a3a3;
 }
