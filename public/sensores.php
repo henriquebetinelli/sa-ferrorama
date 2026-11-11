@@ -10,7 +10,9 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 
-$listaSensores = listarSensores($conexao);
+$pesquisa = trim($_GET['pesquisa'] ?? '');
+
+$listaSensores = listarSensores($conexao, $pesquisa);
 
 if ($listaSensores === false) {
     http_response_code(500);
@@ -52,14 +54,21 @@ if ($listaSensores === false) {
 
             <div class="mb-4">
                 <label class="mb-2">Pesquisar sensor</label>
-                <div class="sensores-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Acelerômetro">
 
-                    <button type="button" class="btn botao-azul-escuro px-3">
+                <form method="GET" class="sensores-barra d-flex gap-2">
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        class="pagina-input flex-grow-1"
+                        placeholder="Ex. Acelerômetro"
+                        value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>"
+                    >
+
+                    <button type="submit" class="btn botao-azul-escuro px-3">
                         <i class="bi bi-search"></i>
                         Buscar
                     </button>
-                </div>
+                </form>
             </div>
 
             <div class="card-secao">

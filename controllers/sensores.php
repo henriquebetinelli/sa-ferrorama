@@ -3,15 +3,37 @@
 require_once __DIR__ . '/../infra/conexao.php';
 
 
-function listarSensores($conexao) {
+function listarSensores($conexao, $pesquisa = '') {
     $sql = "SELECT s.id_sensor, s.nome, s.tipo_dado, s.descricao, s.limite,
             s.id_trem, s.id_rota, t.nome AS nome_trem, r.nome AS nome_rota
         FROM sensor s
         LEFT JOIN trem t ON t.id_trem = s.id_trem
         LEFT JOIN rota r ON r.id_rota = s.id_rota
+        WHERE s.nome LIKE ?
+            OR s.tipo_dado LIKE ?
+            OR s.localizacao LIKE ?
+            OR s.descricao LIKE ?
+            OR t.nome LIKE ?
+            OR r.nome LIKE ?
         ORDER BY s.nome ASC";
 
-    return $conexao->query($sql);
+    $pesquisa = "%{$pesquisa}%";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssssss",
+        $pesquisa,
+        $pesquisa,
+        $pesquisa,
+        $pesquisa,
+        $pesquisa,
+        $pesquisa
+    );
+
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
 }
 
 function buscarSensorPorId($conexao, $idSensor) {
