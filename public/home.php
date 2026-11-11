@@ -89,7 +89,7 @@ $totalTrens = contarTrens($conexao);
                             </select>
                         </div>
 
-                        <div class="d-flex align-items-center gap-4 my-2">
+                        <div class="d-flex align-items-center gap-4 m-3">
                             <i class="bi icone-home" id="icone-clima"></i>
                             <div>
                                 <h4 class="fw-bold" id="temperatura-clima"></h4>

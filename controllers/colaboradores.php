@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__ . '/../infra/conexao.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 function listarColaboradores($conexao){
     $sql = "SELECT id_usuario, nome_usuario, cpf, data_nascimento,
             genero, telefone, email, cargo, cep
@@ -45,6 +49,19 @@ function contarColaboradores($conexao){
 
     $dados = $resultado->fetch_assoc();
     return (int) ($dados['total'] ?? 0);
+}
+
+function cpfJaCadastrado($conexao, $cpf) {
+    $sql = "SELECT id_usuario FROM usuario WHERE cpf = ?";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $cpf);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $existe = $resultado->num_rows > 0;
+    mysqli_stmt_close($stmt);
+
+    return $existe;
 }
 
 function cadastrarColaborador($conexao, $nome, $cpf, $dataNascimento, $genero, $telefone, $email, $senha, $cargo, $cep) {
@@ -147,7 +164,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cep = trim($_POST['cep'] ?? '');
 
         if ($nome !== '' && $cpf !== '' && $dataNascimento !== '' && $genero !== '' && $telefone !== '' && $email !== '' && $senha !== '' && $cargo !== '' && $cep !== '') {
-            cadastrarColaborador($conexao, $nome, $cpf, $dataNascimento, $genero, $telefone, $email, $senha, $cargo, $cep);
+            if (cpfJaCadastrado($conexao, $cpf)) {
+                $_SESSION['erro_colaborador'] = 'Não foi possivel cadastrar o colaborador. Este CPF já está cadastrado no sistema.';
+            } else {
+                cadastrarColaborador($conexao, $nome, $cpf, $dataNascimento, $genero, $telefone, $email, $senha, $cargo, $cep);
+            }
         }
     }
 
