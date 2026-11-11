@@ -71,17 +71,23 @@ if ($consultaRelatorios === false) {
                 </button>
             </div>
 
-            <div class="mb-4">
+                <div class="mb-4">
                 <label class="mb-2">Pesquisar relatório</label>
 
-                <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" name="q" value="<?= htmlspecialchars($q ?? '', ENT_QUOTES, 'UTF-8') ?>" class="pagina-input flex-grow-1" placeholder="ex. Operação 1">
+                <form method="GET" class="pagina-barra d-flex gap-2">
+                    <input
+                        type="text"
+                        id="inputPesquisa"
+                        name="q"
+                        value="<?= htmlspecialchars($q, ENT_QUOTES, 'UTF-8') ?>"
+                        class="pagina-input flex-grow-1"
+                        placeholder="Ex. Operação 1">
 
-                    <button type="button" class="btn botao-azul-escuro px-3">
+                    <button type="submit" class="btn botao-azul-escuro px-3">
                         <i class="bi bi-search"></i>
                         Buscar
                     </button>
-                </div>
+                </form>
             </div>
 
             <div class="card-secao">
