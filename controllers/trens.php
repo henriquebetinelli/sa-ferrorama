@@ -1,15 +1,33 @@
 <?php
 require_once __DIR__ . '/../infra/conexao.php';
 
-function listarTrens($conexao) {
+function listarTrens($conexao, $pesquisa = '') {
     $sql = "SELECT trem.id_trem, trem.nome, trem.modelo,
             trem.status, trem.id_operador, usuario.nome_usuario
         FROM trem
-        LEFT JOIN usuario 
+        LEFT JOIN usuario
             ON trem.id_operador = usuario.id_usuario
+        WHERE trem.nome LIKE ?
+            OR trem.modelo LIKE ?
+            OR trem.status LIKE ?
+            OR usuario.nome_usuario LIKE ?
         ORDER BY trem.nome ASC";
 
-    return $conexao->query($sql);
+    $pesquisa = "%{$pesquisa}%";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssss",
+        $pesquisa,
+        $pesquisa,
+        $pesquisa,
+        $pesquisa
+    );
+
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
 }
 
 

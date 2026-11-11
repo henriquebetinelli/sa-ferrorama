@@ -13,7 +13,9 @@ $ehAdministrador = $_SESSION['usuario_cargo'] === 'Administrador';
 $erroTrem = $_SESSION['erro_trem'] ?? '';
 unset($_SESSION['erro_trem']);
 
-$listaTrens = listarTrens($conexao);
+$pesquisa = trim($_GET['pesquisa'] ?? '');
+
+$listaTrens = listarTrens($conexao, $pesquisa);
 
 if ($listaTrens === false) {
     http_response_code(500);
@@ -64,14 +66,20 @@ if ($listaTrens === false) {
             <div class="mb-4">
                 <label class="mb-2">Pesquisar trem</label>
 
-                <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. Expresso Litoral">
+                <form method="GET" class="pagina-barra d-flex gap-2">
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        class="pagina-input flex-grow-1"
+                        placeholder="Ex. Expresso Litoral"
+                        value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>"
+                    >
 
-                    <button type="button" class="btn botao-azul-escuro px-3">
+                    <button type="submit" class="btn botao-azul-escuro px-3">
                         <i class="bi bi-search"></i>
                         Buscar
                     </button>
-                </div>
+                </form>
             </div>
 
             <div class="card-secao">

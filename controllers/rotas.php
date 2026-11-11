@@ -1,12 +1,20 @@
 <?php
 require_once __DIR__ . '/../infra/conexao.php';
 
-function listarRotas($conexao) {
-    $sql = 'SELECT id_rota, nome, descricao
+function listarRotas($conexao, $pesquisa = '') {
+    $sql = "SELECT id_rota, nome, descricao
         FROM rota
-        ORDER BY nome ASC';
+        WHERE nome LIKE ?
+            OR descricao LIKE ?
+        ORDER BY nome ASC";
 
-    return $conexao->query($sql);
+    $pesquisa = "%{$pesquisa}%";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $pesquisa, $pesquisa);
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
 }
 
 function buscarRotaPorId($conexao, $idRota) {
