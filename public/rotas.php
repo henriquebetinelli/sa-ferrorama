@@ -16,7 +16,9 @@ $ehAdministrador =
 $erroRota = $_SESSION['erro_rota'] ?? '';
 unset($_SESSION['erro_rota']);
 
-$consultaRotas = listarRotas($conexao);
+$pesquisa = trim($_GET['pesquisa'] ?? '');
+
+$consultaRotas = listarRotas($conexao, $pesquisa);
 
 if ($consultaRotas === false) {
     http_response_code(500);
@@ -100,26 +102,27 @@ if ($consultaRotas === false) {
 
             </div>
 
-            <div class="mb-4">
+                <div class="mb-4">
 
                 <label class="mb-2">
                     Pesquisar rota
                 </label>
 
-                <div class="rotas-barra d-flex gap-2">
+                <form method="GET" class="rotas-barra d-flex gap-2">
 
                     <input
                         type="text"
-                        id="inputPesquisa"
+                        name="pesquisa"
                         class="pagina-input flex-grow-1"
-                        placeholder="ex. Rota Principal">
+                        placeholder="Ex. Rota Principal"
+                        value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>">
 
-                    <button type="button" class="btn botao-azul-escuro px-3">
+                    <button type="submit" class="btn botao-azul-escuro px-3">
                         <i class="bi bi-search"></i>
                         Buscar
                     </button>
 
-                </div>
+                </form>
 
             </div>
 
