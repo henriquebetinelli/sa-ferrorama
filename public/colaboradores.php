@@ -11,7 +11,9 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_cargo'] !== 'Administr
 $erroColaborador = $_SESSION['erro_colaborador'] ?? '';
 unset($_SESSION['erro_colaborador']);
 
-$consultaColaboradores = listarColaboradores($conexao);
+$pesquisa = trim($_GET['pesquisa'] ?? '');
+
+$consultaColaboradores = listarColaboradores($conexao, $pesquisa);
 
 if ($consultaColaboradores === false) {
     http_response_code(500);
@@ -55,18 +57,24 @@ if ($consultaColaboradores === false) {
                 </button>
             </div>
 
-            <div class="mb-4">
-                <label class="mb-2">Pesquisar colaborador</label>
+                <div class="mb-4">
+        <label class="mb-2">Pesquisar colaborador</label>
 
-                <div class="pagina-barra d-flex gap-2">
-                    <input type="text" id="inputPesquisa" class="pagina-input flex-grow-1" placeholder="ex. João Pedro">
+        <form method="GET" class="pagina-barra d-flex gap-2">
+            <input
+                type="text"
+                name="pesquisa"
+                class="pagina-input flex-grow-1"
+                placeholder="Ex. João Pedro"
+                value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>"
+            >
 
-                    <button type="button" class="btn botao-azul-escuro px-3">
-                        <i class="bi bi-search"></i>
-                        Buscar
-                    </button>
-                </div>
-            </div>
+            <button type="submit" class="btn botao-azul-escuro px-3">
+                <i class="bi bi-search"></i>
+                Buscar
+            </button>
+        </form>
+    </div>
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Colaboradores</h3>

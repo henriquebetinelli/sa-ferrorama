@@ -5,13 +5,23 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function listarColaboradores($conexao){
+function listarColaboradores($conexao, $pesquisa = '') {
     $sql = "SELECT id_usuario, nome_usuario, cpf, data_nascimento,
             genero, telefone, email, cargo, cep
         FROM usuario
+        WHERE nome_usuario LIKE ?
+            OR cpf LIKE ?
+            OR email LIKE ?
+            OR cargo LIKE ?
         ORDER BY nome_usuario ASC";
 
-    return $conexao->query($sql);
+    $pesquisa = "%{$pesquisa}%";
+
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "ssss", $pesquisa, $pesquisa, $pesquisa, $pesquisa);
+    mysqli_stmt_execute($stmt);
+
+    return mysqli_stmt_get_result($stmt);
 }
 
 function buscarColaboradorPorId($conexao, $idUsuario) {
