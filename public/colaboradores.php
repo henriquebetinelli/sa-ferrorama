@@ -57,24 +57,24 @@ if ($consultaColaboradores === false) {
                 </button>
             </div>
 
-                <div class="mb-4">
-        <label class="mb-2">Pesquisar colaborador</label>
+            <div class="mb-4">
+                <label class="mb-2">Pesquisar colaborador</label>
 
-        <form method="GET" class="pagina-barra d-flex gap-2">
-            <input
-                type="text"
-                name="pesquisa"
-                class="pagina-input flex-grow-1"
-                placeholder="Ex. João Pedro"
-                value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>"
-            >
+                <form method="GET" class="pagina-barra d-flex gap-2">
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        class="pagina-input flex-grow-1"
+                        placeholder="Ex. João Pedro"
+                        value="<?= htmlspecialchars($pesquisa, ENT_QUOTES, 'UTF-8') ?>"
+                    >
 
-            <button type="submit" class="btn botao-azul-escuro px-3">
-                <i class="bi bi-search"></i>
-                Buscar
-            </button>
-        </form>
-    </div>
+                    <button type="submit" class="btn botao-azul-escuro px-3">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
+                </form>
+            </div>
 
             <div class="card-secao">
                 <h3 class="titulo-secao mb-4">Colaboradores</h3>
