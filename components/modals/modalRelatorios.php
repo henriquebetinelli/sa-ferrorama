@@ -17,12 +17,16 @@ $operacoes = $conexao->query("SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(conteudo
             </div>
 
             <div class="modal-body">
-                <form id="formularioCadastro" method="POST" action="../controllers/relatorio/salvarRelatorio.php">
+                <form id="formularioRelatorio" method="POST" action="../controllers/relatorio/salvarRelatorio.php">
+
+                    <div id="alertaCamposRelatorio" class="alerta-campos-trem mb-3" role="alert" aria-live="polite" hidden>
+                        Não é possível gerar relatório sem uma operação funcional.
+                    </div>
 
                     <div class="mb-3">
                         <label for="relatorio" class="form-label">Tipo de Relatório</label>
-                        <select class="form-control" id="relatorio" name="relatorio" required>
-                            <option value="">Selecione um tipo</option>
+                        <select class="form-control" id="relatorio" name="relatorio">
+                            <option value=""> </option>
                             <option value="Operacional">Operacional</option>
                             <option value="Sensores">Sensores</option>
                         </select>
@@ -31,8 +35,8 @@ $operacoes = $conexao->query("SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(conteudo
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="trem" class="form-label">Trem</label>
-                            <select class="form-control" id="trem" name="trem" required>
-                                <option value="">Selecione um trem</option>
+                            <select class="form-control" id="trem" name="trem">
+                                <option value=""> </option>
                                 <?php if ($trens && $trens->num_rows > 0): ?>
                                     <?php while ($tr = $trens->fetch_assoc()): ?>
                                         <option value="<?= (int) $tr['id_trem'] ?>"><?= htmlspecialchars((string) $tr['nome'], ENT_QUOTES, 'UTF-8') ?></option>
@@ -43,8 +47,8 @@ $operacoes = $conexao->query("SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(conteudo
 
                         <div class="col-md-6 mb-3">
                             <label for="usuario" class="form-label">Usuário responsável </label>
-                            <select class="form-control" id="usuario" name="usuario" required>
-                                <option value="">Selecione um usuário</option>
+                            <select class="form-control" id="usuario" name="usuario">
+                                <option value=""> </option>
                                 <?php if ($usuarios && $usuarios->num_rows > 0): ?>
                                     <?php while ($u = $usuarios->fetch_assoc()): ?>
                                         <option value="<?= (int) $u['id_usuario'] ?>"><?= htmlspecialchars((string) $u['nome_usuario'], ENT_QUOTES, 'UTF-8') ?></option>
@@ -56,8 +60,8 @@ $operacoes = $conexao->query("SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(conteudo
 
                      <div class="mb-3">
                         <label for="operacao" class="form-label">Operação</label>
-                        <select class="form-control" id="operacao" name="operacao" required>
-                            <option value="">Selecione uma operação</option>
+                        <select class="form-control" id="operacao" name="operacao">
+                            <option value=""> </option>
                             <?php if ($operacoes && $operacoes->num_rows > 0): ?>
                                 <?php while ($op = $operacoes->fetch_assoc()): ?>
                                     <?php if ($op['operacao'] !== null): ?>

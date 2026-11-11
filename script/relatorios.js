@@ -1,18 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
 	const modalRelatorios = document.getElementById('modalRelatorios');
+	const alertaCamposRelatorio = document.getElementById('alertaCamposRelatorio');
 
 	const botaoCadastrar = document.getElementById('botaoCadastrar');
-	const formularioCadastro = document.getElementById('formularioCadastro');
+	const formularioCadastro = document.getElementById('formularioRelatorio');
 	const relatorioInput = document.getElementById('relatorio');
 	const tremInput = document.getElementById('trem');
 	const usuarioInput = document.getElementById('usuario');
 	const operacaoInput = document.getElementById('operacao');
+
+	function mostrarAlertaRelatorio(mensagem) {
+		if (!alertaCamposRelatorio) return;
+		alertaCamposRelatorio.textContent = mensagem;
+		alertaCamposRelatorio.hidden = false;
+	}
 
 	function abrirModalCadastro() {
 		if (!modalRelatorios) return;
 
 		if (formularioCadastro) {
 			formularioCadastro.reset();
+		}
+
+		if (alertaCamposRelatorio) {
+			alertaCamposRelatorio.hidden = true;
 		}
 
 		bootstrap.Modal.getOrCreateInstance(modalRelatorios).show();
@@ -32,7 +43,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			const operacao = operacaoInput ? operacaoInput.value.trim() : '';
 
 			if (!relatorio || !trem || !usuario || !operacao) {
+				const mensagem = !operacao
+					? 'Não é possível gerar relatório sem uma operação funcional.'
+					: 'Preencha todos os campos.';
+				mostrarAlertaRelatorio(mensagem);
 				return;
+			}
+
+			if (alertaCamposRelatorio) {
+				alertaCamposRelatorio.hidden = true;
 			}
 
 			if (bootstrap.Modal.getInstance(modalRelatorios)) {
