@@ -32,14 +32,8 @@
     <main class="landing-white">
         <section class="landing-info">
             <div class="landing-copy">
-                <div class="linha-preta"></div>
-                <h2>Tecnologia a serviço da <strong>operação ferroviária.</strong></h2>
-                <p>
-                    Uma plataforma completa para monitorar, analisar<br>
-                    e acompanhar o desempenho dos trens.
-                </p>
                 <button class="btn botao-azul-escuro mt-4" onclick="window.location.href='public/login.php'">
-                    Acessar o sistema →
+                    Acessar o sistema
                 </button>
             </div>
         </section>
@@ -66,11 +60,6 @@
             </div>
         </section>
 
-        <div class="tags-row">
-            <span>EFICIÊNCIA</span>
-            <span>SEGURANÇA</span>
-            <span>CONTROLE</span>
-        </div>
     </main>
     
 </body>
