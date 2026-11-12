@@ -375,3 +375,14 @@ hr {
     background-color: #081824;
     border-radius: 15px;
 }
+
+.mensagem-vazia {
+    min-height: 20px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #6c757d;
+    padding: 20px;
+}
