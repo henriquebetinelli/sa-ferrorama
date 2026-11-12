@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -5,6 +6,39 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
+
+require_once __DIR__ . '/../infra/conexao.php';
+require_once __DIR__ . '/../controllers/operacoes.php';
+require_once __DIR__ . '/../controllers/trens.php';
+require_once __DIR__ . '/../controllers/rotas.php';
+
+$paginaAtual = 'monitoramento';
+
+// Iniciar uma nova operação
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['acao'] ?? '') === 'iniciar_operacao') {
+    $idTrem = (int) ($_POST['trem'] ?? 0);
+    $idRota = (int) ($_POST['rota'] ?? 0);
+
+    if ($idTrem > 0 && $idRota > 0) {
+        $idNovaOperacao = iniciarOperacao($conexao, $idTrem, $idRota);
+
+        if ($idNovaOperacao) {
+            header("Location: monitoramento.php?id_operacao=" . $idNovaOperacao);
+            exit();
+        }
+    }
+
+    header("Location: monitoramento.php");
+    exit();
+}
+
+$listaOperacoes = listarOperacoes($conexao);
+
+$idOperacaoSelecionada = (int) ($_GET['id_operacao'] ?? 0);
+
+$operacaoSelecionada = $idOperacaoSelecionada > 0
+    ? buscarOperacaoPorId($conexao, $idOperacaoSelecionada)
+    : null;
 ?>
 
 <!DOCTYPE html>
@@ -21,22 +55,21 @@ if (!isset($_SESSION['usuario_id'])) {
 <body>
     <main class="layout-app">
 
-        <?php
-        $paginaAtual = 'monitoramento';
-        include '../components/sidbar.php';
-        ?>
+        <?php include '../components/sidbar.php'; ?>
 
         <section class="conteudo-app">
             <div class="cabecalho-app">
                 <h1>Central de Monitoramento</h1>
                 <p>Acompanhe o desempenho do ferrorama.</p>
             </div>
-            <button type="button" class="btn botao-azul-escuro" id="botaoSelecionarOperacao">
+
+            <button type="button" class="btn botao-azul-escuro" data-bs-toggle="modal" data-bs-target="#modalSelecionarOperacao">
                 <i class="bi bi-folder me-1"></i>
                 Selecionar operação
             </button>
 
-            <button type="button" class="btn botao-branco ms-2" id="botaoIniciarOperacao">
+            <button type="button" class="btn botao-branco ms-2"
+                data-bs-toggle="modal" data-bs-target="#modalIniciarOperacao">
                 <i class="bi bi-plus-lg"></i>
                 Iniciar operação
             </button>
@@ -46,22 +79,40 @@ if (!isset($_SESSION['usuario_id'])) {
                     <div class="card-compacto">
                         <h3 class="titulo-secao mb-4">Status</h3>
 
-                        <p class="fs-5 mb-1">Em andamento</p>
-                        <div class="progress mb-4" role="progressbar" aria-label="Example 10px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 15px">
-                            <div class="progress-bar progresso-da-barra" style="width: 50%"></div>
-                        </div>
-
-                        <p>Início:</p>
+                        <?php if ($operacaoSelecionada): ?>
+                            <p class="fs-5 mb-1"><?= htmlspecialchars($operacaoSelecionada['status']) ?></p>
+                            <p>Início: <?= date('d/m/Y H:i', strtotime($operacaoSelecionada['inicio_em'])) ?></p>
+                        <?php else: ?>
+                            <div class="mensagem-vazia">
+                                Selecione uma operação para puxar os dados.
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="card-compacto">
                         <h3 class="titulo-secao">Dados da Operação</h3>
+
+                        <?php if ($operacaoSelecionada): ?>
+                            <p><strong>Trem:</strong> <?= htmlspecialchars($operacaoSelecionada['nome_trem']) ?></p>
+                            <p><strong>Rota:</strong> <?= htmlspecialchars($operacaoSelecionada['nome_rota']) ?></p>
+                            <p><strong>Operação:</strong> <?= $operacaoSelecionada['id_operacao'] ?></p>
+                        <?php else: ?>
+                            <div class="mensagem-vazia">
+                                Selecione uma operação para puxar os dados.
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="card-compacto">
                         <h3 class="titulo-secao">Velocidade</h3>
+
+                        <div class="mensagem-vazia">
+                            Selecione uma operação para puxar os dados.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,57 +120,39 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="row g-4 mb-4">
                 <div class="col-md-8">
                     <div class="card-compacto">
-                        <h3 class="titulo-secao mb-5">Localização</h3>
+                        <h3 class="titulo-secao mb-4">Localização</h3>
 
-                        <div class="card-localizacao d-flex align-items-center gap-3 my-4">
-                            <i class="bi bi-geo-alt-fill icone-com-borda"></i>
-                            <div class="flex-grow-1">
-                                <p class="fw-bold mb-0">Localização atual</p>
-                                <p class="mb-0">Trecho - Sensor </p>
-                            </div>
+                        <div class="mensagem-vazia">
+                            Selecione uma operação para puxar os dados.
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="card-compacto">
                         <h3 class="titulo-secao">Alertas</h3>
 
-                        <div class="d-flex align-items-center gap-3 my-4">
-                            <i class="bi bi-exclamation-triangle-fill icone-com-borda"></i>
-                            <div class="flex-grow-1">
-                                <p class="fw-bold mb-0">Excesso de velocidade!</p>
-                                <p class="mb-0">Trem a</p>
-                            </div>
+                        <div class="mensagem-vazia">
+                            Selecione uma operação para puxar os dados.
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card-secao">
-                <h3 class="titulo-secao mb-4">Ultimos registros</h3>
+                <h3 class="titulo-secao mb-4">Últimos registros</h3>
 
-                <table class="table">
-                    <thead class="cabecario-tabela">
-                        <tr>
-                            <th>ID</th>
-                            <th>Sensor</th>
-                            <th>Hora</th>
-                            <th>Tipo</th>
-                            <th>Valor</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+                <div class="mensagem-vazia">
+                    Selecione uma operação para puxar os dados.
+                </div>
             </div>
         </section>
     </main>
 
+    <?php require_once __DIR__ . '/../components/modals/modalSelecionarOperacao.php'; ?>
+    <?php require_once __DIR__ . '/../components/modals/modalIniciarOperacao.php'; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/main.js"></script>
-
-    <?php require_once __DIR__ . '/../components/modals/modalIniciarRota.php'; ?>
 </body>
 </html>
