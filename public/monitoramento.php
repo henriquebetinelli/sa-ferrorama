@@ -69,7 +69,7 @@ $operacaoSelecionada = $idOperacaoSelecionada > 0
             </button>
 
             <button type="button" class="btn botao-branco ms-2"
-                data-bs-toggle="modal" data-bs-target="#modalIniciarOperacao">
+                data-bs-toggle="modal" data-bs-target="#modalIniciarRota">
                 <i class="bi bi-plus-lg"></i>
                 Iniciar operação
             </button>
@@ -150,9 +150,10 @@ $operacaoSelecionada = $idOperacaoSelecionada > 0
     </main>
 
     <?php require_once __DIR__ . '/../components/modals/modalSelecionarOperacao.php'; ?>
-    <?php require_once __DIR__ . '/../components/modals/modalIniciarOperacao.php'; ?>
+    <?php require_once __DIR__ . '/../components/modals/modalIniciarRota.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script/main.js"></script>
+    <script src="../script/trens.js"></script>
 </body>
 </html>

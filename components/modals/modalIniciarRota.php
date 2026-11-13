@@ -20,7 +20,9 @@ $rotasDisponiveis = listarRotas($conexao);
             </div>
 
             <div class="modal-body">
-                <form id="formularioIniciarRota">
+                <form id="formularioIniciarRota" method="POST" action="monitoramento.php">
+                    <input type="hidden" name="acao" value="iniciar_operacao">
+
                     <div class="mb-3">
                         <div id="alertaCamposRota" class="alerta-campos-trem" role="alert" aria-live="polite" hidden>
                             Selecione um trem e uma rota antes de iniciar.

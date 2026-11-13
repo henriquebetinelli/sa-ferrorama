@@ -111,7 +111,7 @@ function abrirExclusao(idTrem, nomeTrem) {
     bootstrap.Modal.getOrCreateInstance(modalExcluirTrem).show();
 }
 
-function iniciarRota(idTrem) {
+function iniciarRota(idTrem = '') {
     const modalIniciarRota = document.getElementById('modalIniciarRota');
     const tremRota = document.getElementById('tremRota');
     const rotaTrem = document.getElementById('rotaTrem');
