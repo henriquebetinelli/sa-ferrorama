@@ -1,6 +1,3 @@
-
-Claro! Vou deixar a pesquisa mais direta, com explicações mais curtas, menos detalhes técnicos e exemplos simples, mantendo a mesma estrutura da pesquisa sobre PDO.
-
 # **GET e POST (Métodos HTTP no PHP)**
 
 ## **O que são GET e POST?**
